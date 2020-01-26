@@ -54,7 +54,7 @@ ROOT_URLCONF = 'segmentoj.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR+'/webui'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
