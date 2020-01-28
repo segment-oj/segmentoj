@@ -20,4 +20,5 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.welcome),
+    path('problems/', views.problemlist),
 ]

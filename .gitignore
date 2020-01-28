@@ -51,9 +51,3 @@ coverage.xml
 local_settings.py
 db.sqlite3
 
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Jupyter Notebook
-.ipynb_checkpoints

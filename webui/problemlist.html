@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block main %}
+<ul>
+	{% for problem in problems %}
+		<li>
+			<a href="/problem/{{ problem.show_id }}">{{ problem.title }}</a>
+		</li>
+	{% empty %}
+		<li>No problems found.</li>
+	{% endfor %}
+</ul>
+{% endblock %}
