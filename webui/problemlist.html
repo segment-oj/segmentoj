@@ -4,7 +4,9 @@
 <ul>
 	{% for problem in problems %}
 		<li>
-			<a href="/problem/{{ problem.show_id }}">{{ problem.title }}</a>
+			<a href="/problem/{{ problem.show_id }}">
+				{{ problem.show_id }} {{ problem.title }}
+			</a>
 		</li>
 	{% empty %}
 		<li>No problems found.</li>

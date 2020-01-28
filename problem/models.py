@@ -4,9 +4,9 @@ from django.db import models
 class Problem(models.Model):
 	title = models.CharField(max_length=100)
 	description = models.TextField()
-	background = models.TextField()
-	sampleinput = models.TextField()
-	sampleoutput = models.TextField()
+	background = models.TextField(null=True, blank=True)
+	sampleinput = models.TextField(null=True, blank=True)
+	sampleoutput = models.TextField(null=True, blank=True)
 
 	show_id = models.IntegerField()
 	date_added = models.DateTimeField(auto_now_add=True)
