@@ -1,12 +1,10 @@
 from django.db import models
+from mdeditor.fields import MDTextField
 
 # Create your models here.
 class Problem(models.Model):
 	title = models.CharField(max_length=100)
-	description = models.TextField()
-	background = models.TextField(null=True, blank=True)
-	sampleinput = models.TextField(null=True, blank=True)
-	sampleoutput = models.TextField(null=True, blank=True)
+	description = MDTextField()
 
 	show_id = models.IntegerField()
 	date_added = models.DateTimeField(auto_now_add=True)
