@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from problem.models import Problem
+import markdown
 
 def welcome(request):
 	context = {}
@@ -14,5 +15,12 @@ def problemlist(request):
 def problemshow(request, pid):
 	context = {}
 	problem = Problem.objects.get(show_id=pid)
+	problem.description = markdown.markdown(
+		problem.description,
+		extensions=[
+        	'markdown.extensions.extra',
+        	'markdown.extensions.codehilite',
+        ]
+	)
 	context['problem'] = problem
 	return render(request, 'problemshow.html', context)

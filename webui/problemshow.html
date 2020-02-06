@@ -1,1 +1,10 @@
 {% extends "base.html" %}
+{% block main %}
+<div id="description">
+	{% if problem.allow_html %}
+	{{ problem.description }}
+	{% else %}
+	{{ problem.description|safe }}
+	{% endif %}
+</div>
+{% endblock%}

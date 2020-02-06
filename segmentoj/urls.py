@@ -20,8 +20,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.welcome),
-    path('problems/', views.problemlist),
-
-    # editor.md
-    path(r'mdeditor/', include('mdeditor.urls')),
+    path('problem/list', views.problemlist),
+    path('problem/show/<int:pid>', views.problemshow)
 ]

@@ -1,6 +1,5 @@
 asgiref==3.2.3
 Django==3.0.2
-django-mdeditor==0.1.17
 Markdown==3.1.1
 mysqlclient==1.4.6
 pytz==2019.3
