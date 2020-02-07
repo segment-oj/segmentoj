@@ -14,6 +14,15 @@
 					<a href="/problem/list">Problems</a>
 				</li>
 			</ul>
+			
+			<div id="user info">
+				{% if user.is_authenticated %}
+				Hello,{{ user.username }}.
+				{% else %}
+				<a href="/user/signin">signin</a>
+				{% endif %}
+			</div>
+
 		</div>
 		<main>
 			{% block main %}
