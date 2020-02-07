@@ -16,10 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from . import views
+import problem.views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.welcome),
-    path('problem/list', views.problemlist),
-    path('problem/show/<int:pid>', views.problemshow)
+    path('problem/list', problem.views.problemlist),
+    path('problem/show/<int:pid>', problem.views.problemshow)
 ]
