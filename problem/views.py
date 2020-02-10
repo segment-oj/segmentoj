@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import Http404
 
 from problem.models import Problem
 import markdown
@@ -15,7 +16,10 @@ def problemlist(request):
 def problemshow(request, pid):
 	context = {}
 	problem = Problem.objects.get(show_id=pid)
-	
+
+	if not problem.enabled and not request.user.is_superuser:
+		raise Http404
+
 	if not problem.allow_html:
 		problem.description = html.escape(problem.description)
 
@@ -27,4 +31,5 @@ def problemshow(request, pid):
         ]
 	)
 	context['problem'] = problem
+	context['tags'] = problem.getTags()
 	return render(request, 'problemshow.html', context)

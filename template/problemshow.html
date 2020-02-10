@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 {% block main %}
+
+<div id="title">{{ problem.show_id }} {{ problem.title }}</div>
+<div id="tags">
+	{% for tag in tags %}
+	<span style="color: aqua; background-color: {{ tag.color }};">{{ tag.content }}</span>
+	{% endfor %}
+</div>
 <div id="description">
 	{{ problem.description|safe }}
 </div>
