@@ -24,6 +24,7 @@
 			<div id="user info">
 				{% if user.is_authenticated %}
 				Hello,{{ user.username }}.
+				<a href="/user/logout">logout</a>
 				{% else %}
 				<a href="/user/login">Login</a>
 				{% endif %}

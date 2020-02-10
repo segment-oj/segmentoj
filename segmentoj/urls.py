@@ -22,8 +22,17 @@ from . import api
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.welcome),
+
+    # problem
+
     path('problem/list', problem.views.problemlist),
     path('problem/show/<int:pid>', problem.views.problemshow),
+
+    # user
     path('user/login', views.login),
+    path('user/logout', views.logout),
+
+    # api
     path('api/application/user/login', api.login_api),
+    path('api/application/user/logout', api.logout_api),
 ]

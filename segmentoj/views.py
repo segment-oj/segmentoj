@@ -7,3 +7,7 @@ def welcome(request):
 def login(request):
 	context = {}
 	return render(request, 'login.html', context)
+
+def logout(request):
+	context = {}
+	return render(request, 'logout.html', context)
