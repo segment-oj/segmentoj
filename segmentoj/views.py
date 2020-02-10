@@ -6,12 +6,12 @@ def welcome(request):
 
 def login(request):
 	context = {}
-	return render(request, 'login.html', context)
+	return render(request, 'user/login.html', context)
 
 def logout(request):
 	context = {}
-	return render(request, 'logout.html', context)
+	return render(request, 'user/logout.html', context)
 
 def register(request):
 	context = {}
-	return render(request, 'register.html', context)
+	return render(request, 'user/register.html', context)
