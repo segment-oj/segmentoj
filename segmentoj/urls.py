@@ -17,10 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from . import views
 import problem.views
+from . import api
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.welcome),
     path('problem/list', problem.views.problemlist),
-    path('problem/show/<int:pid>', problem.views.problemshow)
+    path('problem/show/<int:pid>', problem.views.problemshow),
+    path('user/login', views.login),
+    path('api/application/user/login', api.login_api),
 ]

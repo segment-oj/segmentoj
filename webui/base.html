@@ -7,6 +7,8 @@
 	<body>
 		<div id="load_static">
 			<script src="/static/js/jquery.min.js"></script>
+			{% block static %}
+			{% endblock %}
 		</div>
 
 		<div id="nav">
@@ -23,7 +25,7 @@
 				{% if user.is_authenticated %}
 				Hello,{{ user.username }}.
 				{% else %}
-				<a href="/user/signin">signin</a>
+				<a href="/user/login">Login</a>
 				{% endif %}
 			</div>
 

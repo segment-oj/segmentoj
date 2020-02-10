@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block static %}
+<script src="/static/js/login.js"></script>
+{% endblock %}
+
+{% block main %}
+<div class="box">
+	<form action="#" method="post" id="login_form" onsubmit="login('{{ csrf_token }}');return false;">
+		
+		<input type="text" name="username" />
+		<input type="password" name="password" />
+		<input type="submit" value="Login" />
+	</form>
+
+	<div id="message"></div>
+</div>
+{% endblock %}
