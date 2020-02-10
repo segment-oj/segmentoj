@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block static %}
+<script src="/static/js/register.js"></script>
+{% endblock %}
+
+{% block main %}
+<div class="box">
+	<form action="#" method="post" onsubmit="register('{{ csrf_token }}');return false;">
+		Username: <input type="text" name="username" />
+		Password: <input type="password" name="password" />
+		Password Confirmation: <input type="password" name="password_confirmation" />
+		email: <input type="email" name="email" />
+		<input type="submit" value="Register">
+	</form>
+	<div id="msg"></div>
+</div>
+{% endblock %}

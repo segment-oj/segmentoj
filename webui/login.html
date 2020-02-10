@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block main %}
+{% if user.is_authenticated %}
+<p>You have already login as {{ user.username }}, <a href="/user/logout">Logout</a></p>
+{% else %}
 <div class="box">
 	<form action="#" method="post" id="login_form" onsubmit="login('{{ csrf_token }}');return false;">
 		
@@ -15,4 +18,5 @@
 
 	<div id="message"></div>
 </div>
+{% endif %}
 {% endblock %}
