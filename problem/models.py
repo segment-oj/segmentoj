@@ -16,7 +16,7 @@ class Problem(models.Model):
 	date_added = models.DateTimeField(auto_now_add=True)
 	allow_html = models.BooleanField(default=False)
 	enabled = models.BooleanField(default=True)
-	tags = models.ManyToManyField(Tag, null=True, blank=True)
+	tags = models.ManyToManyField(Tag, blank=True)
 
 	def getTags(self):
 		return self.tags.all()
