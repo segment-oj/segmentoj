@@ -25,7 +25,7 @@ SECRET_KEY = 'sx!y=avrq(g1o+-7o2ef_4e*slekh5vtd-+6rs&c-nbfzw0*b^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
