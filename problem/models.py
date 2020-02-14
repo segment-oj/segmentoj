@@ -5,7 +5,7 @@ class Tag(models.Model):
 	content = models.CharField(max_length=30, unique=True)
 	color = models.CharField(max_length=30, default="blue")
 
-	def __str_(self):
+	def __str__(self):
 		return self.content
 
 class Problem(models.Model):
@@ -18,9 +18,14 @@ class Problem(models.Model):
 	enabled = models.BooleanField(default=True)
 	tags = models.ManyToManyField(Tag, blank=True)
 
+	class Meta:
+		permissions = (
+			("view_hidden", "Can view hidden problems."),
+        )
+
 	def getTags(self):
 		return self.tags.all()
 
-	def __str_(self):
+	def __str__(self):
 		return self.title
 

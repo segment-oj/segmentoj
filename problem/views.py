@@ -17,7 +17,7 @@ def problemshow(request, pid):
 	context = {}
 	problem = get_object_or_404(Problem, show_id=pid)
 
-	if not problem.enabled and not request.user.is_superuser:
+	if not problem.enabled and not request.user.has_perm("problem.view_hidden"):
 		raise Http404
 
 	if not problem.allow_html:
