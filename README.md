@@ -10,4 +10,4 @@ A OnlineJudge using Django and Docker.
 
 这是segmentoj的Web端，segmentoj是前后端分离架构。
 
-Python + Django框架，Nginx + uwsgi部署。
+Python + Django框架，可以用Nginx + uwsgi部署。
