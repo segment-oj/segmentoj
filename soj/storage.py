@@ -7,12 +7,12 @@ class AvatarStorage(FileSystemStorage):
  
     def __init__(self, uid, location=settings.MEDIA_ROOT, base_url=settings.MEDIA_URL):
         self.uid = uid
-        super(ImageStorage, self).__init__(location, base_url)
+        super(AvatarStorage, self).__init__(location, base_url)
 
     def _save(self, name, content):
         import os
         ext = os.path.splitext(name)[1]
         d = os.path.dirname(name)
-        fn = str(uid)]
+        fn = str(uid)
         name = os.path.join(d, fn + ext)
-        return super(ImageStorage, self)._save(name, content)
+        return super(AvatarStorage, self)._save(name, content)
