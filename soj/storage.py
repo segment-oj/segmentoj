@@ -13,6 +13,6 @@ class AvatarStorage(FileSystemStorage):
         import os
         ext = os.path.splitext(name)[1]
         d = os.path.dirname(name)
-        fn = str(uid)
+        fn = str(self.uid)
         name = os.path.join(d, fn + ext)
         return super(AvatarStorage, self)._save(name, content)
