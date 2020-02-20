@@ -19,6 +19,9 @@ from . import views
 import problem.views
 from . import api
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.welcome),
@@ -38,3 +41,6 @@ urlpatterns = [
     path('api/application/user/logout', api.logout_api),
     path('api/application/user/register', api.register_api),
 ]
+
+if settings.DEBUG:
+    urlpatterns += + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

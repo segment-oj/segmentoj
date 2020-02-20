@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'sx!y=avrq(g1o+-7o2ef_4e*slekh5vtd-+6rs&c-nbfzw0*b^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True # CHANGE HERE ON PRODUCTION
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*'] # CHANGE HERE ON PRODUCTION
 
 
 # Application definition
@@ -76,7 +76,7 @@ WSGI_APPLICATION = 'segmentoj.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+# change here if want to change to MySQL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -108,7 +108,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
-
+# Time Zone, CHANGE HERE
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
@@ -121,9 +121,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/static/' # DON'T CHANGE THIS
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Session ID
 # SESSION_SAVE_EVERY_REQUEST = False
 # SESSION_COOKIE_AGE = 1209600
+
+# User uploads file placses
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads').replace("\\", "/")
+MEDIA_URL = '/media/' # DON'T CHANGE THIS
