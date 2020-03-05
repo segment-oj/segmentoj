@@ -7,15 +7,15 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 class account(models.Model):
-	uid = models.IntegerField()
 	to_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='account')
-
-	avatar = models.FileField(upload_to="avatar", storage=AvatarStorage(uid))
+	
+	lang = models.IntegerField(default=0)
+	avatar = models.FileField(upload_to="avatar", storage=AvatarStorage())
 	solved = models.IntegerField(default=0)
 	submit_time = models.IntegerField(default=0)
 
 	def __str__(self):
-		return str(self.uid)
+		return str(self.to_user.id)
 
 @receiver(post_save,sender=User)
 def create_user_extension(sender,instance,created,**kwargs):
