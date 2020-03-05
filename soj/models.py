@@ -20,6 +20,6 @@ class account(models.Model):
 @receiver(post_save,sender=User)
 def create_user_extension(sender,instance,created,**kwargs):
     if created:
-        account.objects.create(to_user=instance, uid=instance.id)
+        account.objects.create(to_user=instance)
     else:
         instance.account.save()
