@@ -15,31 +15,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import views
 import problem.views
-from . import api
 
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.welcome),
-
-    # problem
-
-    path('problem/', include('problem.urls')),
-
-    # user
-    path('user/login', views.login),
-    path('user/logout', views.logout),
-    path('user/register', views.register),
-
-    # api
-    path('api/application/user/login', api.login_api),
-    path('api/application/user/logout', api.logout_api),
-    path('api/application/user/register', api.register_api),
+    path('list', problem.views.problemlist),
+    path('show/<int:pid>', problem.views.problemshow),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
