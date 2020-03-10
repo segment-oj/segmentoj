@@ -31,11 +31,17 @@
 			
 			<div id="user info">
 				{% if user.is_authenticated %}
-				Hello,{{ user.username }}.
-				<a href="/user/logout">logout</a>
+					Hello,{{ user.username }}.
+					{% if user.account.avatar %}
+					<img id="avatar" src="{{ user.account.avatar.url }}">
+					{% endif %}
+					<a href="/user/logout">logout</a>
+					{% if user.is_staff %}
+						<a href="/admin">admin</a>
+					{% endif %}
 				{% else %}
-				<a href="/user/login">Login</a>
-				<a href="/user/register">Register</a>
+					<a href="/user/login">Login</a>
+					<a href="/user/register">Register</a>
 				{% endif %}
 			</div>
 
