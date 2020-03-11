@@ -14,6 +14,8 @@ class account(models.Model):
 	solved = models.IntegerField(default=0)
 	submit_time = models.IntegerField(default=0)
 
+	home = models.TextField(default="# Hello World!")
+
 	def __str__(self):
 		return str(self.to_user.id)
 

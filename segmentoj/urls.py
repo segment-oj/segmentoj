@@ -33,7 +33,8 @@ urlpatterns = [
     path('user/login', views.login),
     path('user/logout', views.logout),
     path('user/register', views.register),
-    
+    path('user/home/<int:uid>', views.show_user),
+
     # api
     path('api/application/', include('segmentoj.application_api_urls')),
 ]

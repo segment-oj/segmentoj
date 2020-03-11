@@ -1,4 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
+import soj.models
+import segmentoj.tools
 
 def welcome(request):
 	context = {}
@@ -15,3 +18,15 @@ def logout(request):
 def register(request):
 	context = {}
 	return render(request, 'user/register.html', context)
+
+def show_user(request, uid):
+	context = {}
+	user = get_object_or_404(User, id=uid)
+	account = user.account
+
+	account.home = segmentoj.tools.markdown2html(
+		account.home
+	)
+
+	context['account'] = account
+	return render(request, 'user/show_home.html', context)

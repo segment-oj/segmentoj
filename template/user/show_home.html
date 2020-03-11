@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block main %}
+{% if account.avatar %}
+<img id="usr-avatar" src="{{ account.avatar.url }}">
+{% endif %}
+<p id="usr-name">{{ account.to_user.username }}</p>
+<div id="info">
+	Submit: {{ account.submit_time }} <br>
+	Solved: {{ account.solved }}
+</div>
+<div id="home">
+	{{ account.home | safe }}
+</div>
+{% endblock %}
