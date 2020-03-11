@@ -1,5 +1,5 @@
 # tools
-import re
+import re, markdown, html
 
 def isEmail(str):
 	p = re.compile("^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$")
@@ -8,3 +8,17 @@ def isEmail(str):
 		return True
 	else:
 		return False
+
+def markdown2html(str, allowhtml = False):
+	if not allowhtml:
+		str = html.escape(str)
+	
+	str = markdown.markdown(
+		str,
+		extensions=[
+        	'markdown.extensions.extra',
+        	'markdown.extensions.codehilite',
+        ]
+	)
+
+	return str

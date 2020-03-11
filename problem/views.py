@@ -2,8 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 
 from problem.models import Problem
-import markdown
-import html
+import segmentoj.tools
 
 # Create your views here.
 
@@ -20,15 +19,9 @@ def problemshow(request, pid):
 	if not problem.enabled and not request.user.has_perm("problem.view_hidden"):
 		raise Http404
 
-	if not problem.allow_html:
-		problem.description = html.escape(problem.description)
-
-	problem.description = markdown.markdown(
+	problem.description = segmentoj.tools.markdown2html(
 		problem.description,
-		extensions=[
-        	'markdown.extensions.extra',
-        	'markdown.extensions.codehilite',
-        ]
+		problem.allow_html
 	)
 	context['problem'] = problem
 	context['tags'] = problem.getTags()
