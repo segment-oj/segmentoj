@@ -10,6 +10,12 @@ def problemlist(request):
 	context = {}
 	problemlist = Problem.objects.order_by('show_id')
 	context['problems'] = problemlist
+
+	if request.user.has_perm('problem.view_hidden'):
+		context['viewhid'] = True
+	else:
+		context['viewhid'] = False
+
 	return render(request, 'problemlist.html', context)
 
 def problemshow(request, pid):
