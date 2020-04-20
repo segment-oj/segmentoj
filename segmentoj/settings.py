@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     # SegmentOJ Apps
     'problem',
     'soj',
+
+    # captcha
+    'captcha',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +134,21 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # User uploads file placses
 MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads').replace("\\", "/")
 MEDIA_URL = '/media/' # DON'T CHANGE THIS
+
+# CAPTCHA settings
+# The height of each captcha pic
+CAPTCHA_HEIGHT = 50 
+# The width of each captcha pic
+CAPTCHA_WIDTH = 200 
+# The length of each captcha pic
+CAPTCHA_LENGTH = 6 
+# font size on captcha
+# you may change this if modified height/width
+# try it until you find the best value
+CAPTCHA_FONTSIZE = 36 
+# the .ttf file of font
+CAPTCHA_FONTTYPE = "arial.ttf"
+# The number of dots on the pic to interfare
+CAPTCHA_DOTNUM = 50
+# The number of lines on the pic to interfare
+CAPTCHA_LINENUM = 5

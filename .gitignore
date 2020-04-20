@@ -52,3 +52,6 @@ local_settings.py
 db.sqlite3
 uploads/
 
+# devloper temp files
+initworkspace.bat
+local_tools/
