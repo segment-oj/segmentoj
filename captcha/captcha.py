@@ -26,3 +26,17 @@ def setcaptcha(key):
 	
 	return ans
 	
+def check(key, ans):
+	CaptchaStore.clean_expire()
+
+	try:
+		s = CaptchaStore.objects.het(key=key)
+	except ObjectDoesNotExist:
+		return False
+	else:
+		if (s.answer == ans):
+			s.delete()
+			return True
+		else:
+			s.delete();
+			return False
