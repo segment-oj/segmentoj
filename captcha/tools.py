@@ -1,6 +1,7 @@
 # generating captcha
 
 from django.conf import settings
+import datetime
 import random
 from PIL import Image, ImageDraw, ImageFont
 
@@ -55,6 +56,8 @@ class GenCaptcha:
 			draw.point((x,y), fill = self.getRandomColor())
 
 	# create random picture
+	# @parm -> img save path
+	# @return -> answer
 	def createImg(self, path):
 		bg_color = self.getRandomColor()
 
@@ -87,7 +90,9 @@ class GenCaptcha:
 		with open(path, "wb") as f:
 			img.save(f, format="png")
 
-if __name__ == '__main__':
-	
-	g = GenCaptcha()
-	g.createImg("a.png")
+		
+
+def settimelater(d = settings.CAPTCHA_AGE):
+	nowtime = datetime.datetime.now()
+	res = nowtime + datetime.timedelta(minutes=5)
+	return res

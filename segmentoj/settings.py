@@ -152,3 +152,5 @@ CAPTCHA_FONTTYPE = "arial.ttf"
 CAPTCHA_DOTNUM = 50
 # The number of lines on the pic to interfare
 CAPTCHA_LINENUM = 5
+# how long a captcha expire (min)
+CAPTCHA_AGE = 5
