@@ -1,6 +1,7 @@
 # generating captcha
 
 from django.conf import settings
+from django.utils import timezone
 import datetime
 import random
 from PIL import Image, ImageDraw, ImageFont
@@ -59,6 +60,8 @@ class GenCaptcha:
 	# @parm -> img save path
 	# @return -> answer
 	def createImg(self, path):
+		ans = ""
+
 		bg_color = self.getRandomColor()
 
 		# create new pic with random background
@@ -82,7 +85,9 @@ class GenCaptcha:
 			# I don't quite sure what the numbers is all about under.
 			# TODO: fix number under
 			draw.text((10 + 30 * i, 3), text=random_txt, fill=txt_color, font=font)
-		
+			
+			ans += random_txt
+
 		# draw interfere elements
 		self.drawLine(draw)
 		self.drawPoint(draw)
@@ -90,9 +95,9 @@ class GenCaptcha:
 		with open(path, "wb") as f:
 			img.save(f, format="png")
 
-		
+		return ans
 
 def settimelater(d = settings.CAPTCHA_AGE):
-	nowtime = datetime.datetime.now()
+	nowtime =timezone.now()
 	res = nowtime + datetime.timedelta(minutes=5)
 	return res

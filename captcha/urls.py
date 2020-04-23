@@ -15,31 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from . import views
-from . import api
+import captcha.views
 
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.welcome),
-
-    # problem
-    path('problem/', include('problem.urls')),
-
-    # user
-    path('user/login', views.login),
-    path('user/logout', views.logout),
-    path('user/register', views.register),
-    path('user/home/<int:uid>', views.show_user),
-
-    # captcha
-    path('captcha/', include('captcha.urls')),
-
-    # api
-    path('api/application/', include('segmentoj.application_api_urls')),
+    path("get/<int:key>", captcha.views.getcaptcha),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
