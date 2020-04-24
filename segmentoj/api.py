@@ -16,29 +16,37 @@ def login_api(request):
 	if user:
 		# authenticate success
 		auth.login(request,user);
-		data = {
-			'code': 0,
-			'msg': "Hello, {name}".format(name=username)
+		res = {
+			'code': 20,
+			'msg': "Login Success"
 		}
 
-		return JsonResponse(data)
+		return JsonResponse(res)
 	else:
 		# failed
-		data = {
-			'code': 1,
+		res = {
+			'code': 41,
 			'msg': 'Username or password wrong, authenticate failed.'
 		}
 
-		return JsonResponse(data)
+		return JsonResponse(res)
 
 def logout_api(request):
+	if not request.user.is_authenticate():
+		res = {
+			'code': 42,
+			'msg': 'Not logged in.'
+		}
+
+		return JsonResponse(res);
+
 	auth.logout(request)
 
-	data = {
+	res = {
 		'code': 20,
 		'msg': 'Success'
 	}
-	return JsonResponse(data)
+	return JsonResponse(res)
 
 def register_api(request):
 	data = json.loads(request.body)
@@ -68,7 +76,7 @@ def register_api(request):
 
 	if email != '' and not tools.isEmail(email):
 		res = {
-			'code': 1,
+			'code': 11,
 			'msg': 'Email address is not valid'
 		}
 

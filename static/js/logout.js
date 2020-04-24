@@ -10,14 +10,17 @@ var logout = function(csrf_token) {
 		url: '/api/application/user/logout',
 		cache: false,
 		error: function() {
-			$('#msg').text('Logout Failed.');
+			$('#msg').text('Logout Failed: Network Error');
 		},
 		success: function(data) {
-			if (data.code == 0) {
+			if (data.code == 20) {
 				$('#msg').text('Logout Success.');
 				window.location.href = '/';
 			} else {
-				$('#msg').text('Logout Failed.');
+				$('#msg').text('Logout Failed: [Err{code}]{msg}'.format({
+					code: data.code,
+					msg: data.msg
+				}));
 			}
 		}
 	})

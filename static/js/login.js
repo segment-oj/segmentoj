@@ -17,18 +17,23 @@ var login = function(csrf_token) {
 		cache: false,
 		data: JSON.stringify(login_data),
 		error: function () {
-			$("#message").text("login failed");
+			$("#message").text("Login failed: Network Error.");
 			$("input[name=password]").val('');
 		},
 		success: function (data) {
 			if (null != data && "" != data) {
-				if (data.code == 0) { // success
-					$("#message").text("Login succes: " + data.msg);
+				if (data.code == 20) { // success
+					$("#message").text("Login succes: Hello, {name}".format({
+						name: username
+					}));
 					setTimeout(function() {
 						window.location.href = "/";
 					}, 500);
 				} else { // failed
-					$("#message").text("Login failed: " + data.msg);
+					$("#message").text("Login failed: [Err{code}]{msg}".format({
+						code: data.code,
+						msg: data.msg
+					}));
 					$("input[name=password]").val('');
 				}
 			}
