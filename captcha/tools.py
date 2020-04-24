@@ -95,6 +95,7 @@ class GenCaptcha:
 		with open(path, "wb") as f:
 			img.save(f, format="png")
 
+		ans = ans.lower()
 		return ans
 
 def settimelater(d = settings.CAPTCHA_AGE):

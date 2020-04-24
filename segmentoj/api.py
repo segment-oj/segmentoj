@@ -3,6 +3,7 @@ from django.contrib import auth
 from django.http import JsonResponse
 import json
 from . import tools
+from captcha import captcha
 
 def login_api(request):
 	data = json.loads(request.body)
@@ -34,7 +35,7 @@ def logout_api(request):
 	auth.logout(request)
 
 	data = {
-		'code': 0,
+		'code': 20,
 		'msg': 'Success'
 	}
 	return JsonResponse(data)
@@ -46,45 +47,64 @@ def register_api(request):
 	password = data['password']
 	email = data['email']
 
-	if not tools.isEmail(email):
-		data = {
+	try:
+		ckey = data['captcha-key']
+		canswer = data['captcha-ans']
+	except KeyError:
+		res = {
+			'code': 31,
+			'msg': 'Captcha is required'
+		}
+
+		return JsonResponse(res)
+	
+	if (not captcha.check(ckey, canswer)):
+		res = {
+			'code': 32,
+			'msg': 'Captcha is incorrect'
+		}
+
+		return JsonResponse(res)
+
+	if email != '' and not tools.isEmail(email):
+		res = {
 			'code': 1,
 			'msg': 'Email address is not valid'
 		}
 
-		return JsonResponse(data)
+		return JsonResponse(res)
 	
 	if len(password) < 6:
-		data = {
-			'code': 2,
+		res = {
+			'code': 11,
 			'msg': 'Password is too short'
 		}
 
-		return JsonResponse(data)
+		return JsonResponse(res)
 
 	if username == '':
-		data = {
-			'code': 3,
+		res = {
+			'code': 11,
 			'msg': 'Username is required'
 		}
 
-		return JsonResponse(data)
+		return JsonResponse(res)
 
 	user = auth.models.User.objects.create_user(username=username, password=password, email=email)
 
 	if user:
 		# Success
 		user.save()
-		data = {
-			'code': 0,
+		res = {
+			'code': 20,
 			'msg': 'Success'
 		}
-		return JsonResponse(data)
+		return JsonResponse(res)
 	else:
 		# failed
 		data = {
-			'code': 3,
+			'code': 15,
 			'msg': 'Failed to create user'
 		}
 
-		return JsonResponse(data)
+		return JsonResponse(res)

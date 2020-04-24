@@ -30,11 +30,11 @@ def check(key, ans):
 	CaptchaStore.clean_expire()
 
 	try:
-		s = CaptchaStore.objects.het(key=key)
+		s = CaptchaStore.objects.get(key=key)
 	except ObjectDoesNotExist:
 		return False
 	else:
-		if (s.answer == ans):
+		if (s.answer == ans.lower()):
 			s.delete()
 			return True
 		else:
