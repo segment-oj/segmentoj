@@ -1,8 +1,10 @@
 // login support javasript
+import {ask_captcha} from '/static/js/captcha.js';
 
 var login = function(csrf_token) {
 	var username = $("input[name=username]").val();
 	var password = $("input[name=password]").val();
+	
 	var login_data = {
 		"username": username,
 		"password": password

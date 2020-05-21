@@ -5,16 +5,16 @@
 
 {% block main %}
 <div class="box">
-	<form action="#" method="post" onsubmit="register('{{ csrf_token }}');return false;">
-		Username: <input type="text" name="username" />
-		Password: <input type="password" name="password" />
-		Password Confirmation: <input type="password" name="password_confirmation" />
-		email: <input type="email" name="email" /> <br>
-		captcha: <input type="text" name="canswer" />
-		<input type="hidden" name="ckey" />
-		<img id="captcha-pic" />
-		<input type="submit" value="Register">
-	</form>
-	<div id="message"></div>
+  <form action="#" method="post" onsubmit="register('{{ csrf_token }}');return false;">
+    Username: <input type="text" name="username" />
+    Password: <input type="password" name="password" />
+    Password Confirmation: <input type="password" name="password_confirmation" />
+    email: <input type="email" name="email" /> <br>
+    captcha: <input type="text" name="canswer" />
+    <input type="hidden" name="ckey" />
+    <img id="captcha-pic" />
+    <input type="submit" value="Register">
+  </form>
+  <div id="message"></div>
 </div>
 {% endblock %}
