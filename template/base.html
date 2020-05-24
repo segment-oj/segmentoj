@@ -50,7 +50,8 @@
     
     <div id="load_static">
       <!-- place static loaders at the end of file to make page loads faster -->
-      <script defer src="js/require.js" data-main="/static/js/loader.js"></script>
+	  <script src="/static/js/jquery.min.js"></script>
+      <script src="js/webimport.js"></script>
       {% block static %}
       {% endblock %}
     </div>

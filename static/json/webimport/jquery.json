@@ -1,0 +1,5 @@
+{
+	"name": "jquery",
+	"path": "/static/js/jquery.min.js",
+	"description": "jquery v3.5.1 compressed production"
+}

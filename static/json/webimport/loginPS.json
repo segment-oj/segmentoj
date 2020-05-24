@@ -1,0 +1,5 @@
+{
+	"name": "loginXS",
+	"path": "/static/js/login.js",
+	"dependence": ["mainJS", "captchaJS"]
+}

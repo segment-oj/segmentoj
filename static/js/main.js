@@ -1,3 +1,5 @@
+// This file will be load in every page
+
 String.prototype.format = function(args) {
     var result = this;
     if (arguments.length < 1) {
