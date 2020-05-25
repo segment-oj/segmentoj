@@ -1,10 +1,16 @@
 // register javascript
-import {captcha_init, captcha_refresh, ask_captcha} from '/static/js/captcha.js';
-import {isEmail} from '/static/js/tools.js';
 
-var 
+mailReg = /^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$/;
 
-var do_register = function(csrf_token) {
+var isEmail = function(str) {
+	if (mailReg.test(str)) {
+		return true;
+	} else {
+		return false;
+	}
+};
+
+var register = function(csrf_token) {
 	var username = $("input[name=username]").val();
 	var password = $("input[name=password]").val();
 	var password_confirmation = $("input[name=password_confirmation]").val();
@@ -50,22 +56,15 @@ var do_register = function(csrf_token) {
 		dataType: "json",
 		cache: false,
 		data: JSON.stringify(register_data),
-		
-		error: function () { // Error, requirst failed.
+		error: function () {
 			$("#message").text("Register Failed: Network Error.");
 			$("input[name=password]").val('');
 			$('input[name=password_confirmation]').val('');
 			$('#captcha-pic').click();
 		},
-		
-		success: function (data) { // Success, DOSE NOT MEAN REGISTER SUCCESS
+		success: function (data) {
 			if (null != data && "" != data) {
-				if (data.code == 20) { 
-					/*
-					Reg success.
-					See 	https://github.com/segment-oj/segmentoj/wiki/API%E6%8E%A5%E5%8F%A3%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F#code%E5%90%AB%E4%B9%89 for ret code details.
-					*/
-					
+				if (data.code == 20) { // success
 					$("#message").text("Register Succesful. Please Login.");
 					setTimeout(function() {
 						window.location.href = "/";
@@ -84,3 +83,21 @@ var do_register = function(csrf_token) {
 		}
 	});
 };
+
+var captcha_init = function() {
+	var ckey = random(1, 100000);
+	$("input[name=ckey]").val(ckey);
+	$("#captcha-pic").attr("src", "/captcha/get/{key}".format({key: ckey}));
+};
+
+$(document).ready(function(){
+	$("#captcha-pic").click(function() {
+		var ckey = $("input[name=ckey]").val();
+		$(this).attr('src', '/captcha/get/{key}?c={t}'.format({
+			key: ckey,
+			t: Math.random()
+		}));
+	});
+
+	captcha_init();
+});

@@ -99,6 +99,6 @@ class GenCaptcha:
 		return ans
 
 def settimelater(d = settings.CAPTCHA_AGE):
-	nowtime = timezone.now()
+	nowtime =timezone.now()
 	res = nowtime + datetime.timedelta(minutes=5)
 	return res
