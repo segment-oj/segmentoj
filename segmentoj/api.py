@@ -35,7 +35,7 @@ def login_api(request):
 			}
 
 			return JsonResponse(res)
-		else if not captcha.check(ckey, canswer):
+		elif not captcha.check(ckey, canswer):
 			res = {
 				'code': 32,
 				'msg': 'Captcha is incorrect'
