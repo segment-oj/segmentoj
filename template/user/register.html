@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block static %}
-<script src="/static/js/register.js"></script>
+<script type="type/webimport">
+registerXS
+</script>
 {% endblock %}
 
 {% block main %}
@@ -10,10 +12,6 @@
     Password: <input type="password" name="password" />
     Password Confirmation: <input type="password" name="password_confirmation" />
     email: <input type="email" name="email" /> <br>
-    captcha: <input type="text" name="canswer" />
-    <input type="hidden" name="ckey" />
-    <img id="captcha-pic" />
-    <input type="submit" value="Register">
   </form>
   <div id="message"></div>
 </div>

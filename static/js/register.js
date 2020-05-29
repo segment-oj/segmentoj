@@ -1,17 +1,14 @@
 // register javascript
-import {captcha_init, captcha_refresh, ask_captcha} from '/static/js/captcha.js';
-import {isEmail} from '/static/js/tools.js';
 
-var 
+var register = function(csrf_token) {
+	
+}
 
 var do_register = function(csrf_token) {
 	var username = $("input[name=username]").val();
 	var password = $("input[name=password]").val();
 	var password_confirmation = $("input[name=password_confirmation]").val();
 	var email = $("input[name=email]").val();
-
-	var ckey = $("input[name=ckey]").val();
-	var cans = $("input[name=canswer]").val();
 
 	if (password != password_confirmation) {
 		$("#message").text("password mismatch.");
@@ -63,7 +60,7 @@ var do_register = function(csrf_token) {
 				if (data.code == 20) { 
 					/*
 					Reg success.
-					See 	https://github.com/segment-oj/segmentoj/wiki/API%E6%8E%A5%E5%8F%A3%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F#code%E5%90%AB%E4%B9%89 for ret code details.
+					See https://github.com/segment-oj/segmentoj/wiki/API%E6%8E%A5%E5%8F%A3%E8%AE%BF%E9%97%AE%E6%96%B9%E5%BC%8F#code%E5%90%AB%E4%B9%89 for ret code details.
 					*/
 					
 					$("#message").text("Register Succesful. Please Login.");
