@@ -1,38 +1,20 @@
 // import packages
 
-window.webimport = {};
-window.webimport.conf_path = "/static/json/webimport/load.json";
-window.webimport.loaded_mods = new Array();
-window.webimport.waiting_to_load = new Array();
-window.webimport.mod_name_map = new Map();
-window.webimport.mod_id_map = new Array();
-window.webimport.dep_graph = new Array();
-window.webimport.mod_cnt = 0;
-
-// e referres to methods obj, f referrers to wantted export objs
-var webexport = function(e, f) {
-	for (var i = 0; i < f.length; ++i) {
-		if (window[f[i]] != undefined) {
-			console.error("Identifier " + f[i] + " already in use when loading.");
-			continue;
-		}
-		
-		if (e[f[i]] == undefined) {
-			console.error("Identifier " + f[i] + " not defined when exporting.");
-			continue;
-		}
-		
-		window[f[i]] = e[f[i]];
-	}
-}
-
 var array_unique = function(a) {
 	let s = new Set(a);
 	let res = new Array(s);
 	return res;
 }
 
-window.webimport.methods = {
+window.webimport = {
+	baseurl: "/static/json/webimport/",
+	loaded_mods: new Array(),
+	waiting_to_load: new Array(),
+	mod_name_map: new Map(),
+	mod_id_map: new Array(),
+	dep_graph: new Array(),
+	mod_cnt: 0,
+
 	load_json: function(url) {
 		let data = $.get(url);
 		let res = eval("(" + data + ")");
@@ -40,11 +22,15 @@ window.webimport.methods = {
 	},
 
 	require_new_mod: function(name) {
-		window.webimport.waiting_to_load.push(name);
+		this.waiting_to_load.push(load_conf(name));
+	},
+	
+	load_conf: function(name) {
+		return load_json(this.baseurl + name + ".json");
 	},
 
 	list_mods: function(name) {
-		let mod_conf = load_json(window.webimport.baseurl + name + ".json");
+		let mod_conf = this.load_conf(name);
 		if (mod_conf.name != name) {
 			console.error("Module " + name + " name dissmatch.");
 			return false;
@@ -57,11 +43,11 @@ window.webimport.methods = {
 			}
 		}
 		
-		if (window.webimport.loaded_mods.indexOf(mod_conf.name) != -1) { 
-			window.webimport.waiting_to_load.push(mod_conf);
+		if (this.loaded_mods.indexOf(mod_conf.name) != -1) { 
+			this.waiting_to_load.push(mod_conf);
 			
-			window.webimport.mod_name_map.set(mod_conf.name, ++window.webimport.mod_cnt);
-			window.webimport.mod_id_map[window.webimport.mod_cnt] = mod_conf.name;
+			this.mod_name_map.set(mod_conf.name, ++this.mod_cnt);
+			this.mod_id_map[this.mod_cnt] = mod_conf.name;
 		}
 		
 		return true;
@@ -70,17 +56,17 @@ window.webimport.methods = {
 	init_dependence_graph: function() {
 		let res = new Array();
 		
-		for (let i = 0; i < window.webimport.waiting_to_load.length; ++i) {
-			let deps = window.webimport.waiting_to_load[i].depandence;
+		for (let i = 0; i < this.waiting_to_load.length; ++i) {
+			let deps = this.waiting_to_load[i].depandence;
 			if (deps == undefined || deps.length == 0) continue;
 			for (let j = 0; j < deps.length; ++j) {
 				let x = deps[j];
 				if (typeof(x) != "string") {
-					console.warn("Type error when calculating Module " + window.webimport.waiting_to_load[i].name + " dependences");
+					console.warn("Type error when calculating Module " + this.waiting_to_load[i].name + " dependences");
 					continue;
 				}
 				
-				res[i].push(window.webimport.mod_name_map.get(x));
+				res[i].push(this.mod_name_map.get(x));
 			}
 		}
 		
@@ -88,7 +74,7 @@ window.webimport.methods = {
 	},
 	
 	load_script: function(mod_conf) {
-		if (window.webimport.loaded_mods.indexOf(mod_conf.name) != -1) {
+		if (this.loaded_mods.indexOf(mod_conf.name) != -1) {
 			console.warn("Module " + mod_conf.name + " already loaded.")
 		}
 		
@@ -96,13 +82,13 @@ window.webimport.methods = {
 		tag.attr("src", mod_conf.path);
 		$("#load_static").append(tag);
 		
-		window.webimport.loaded_mods.push(mod_conf.name);
+		this.loaded_mods.push(mod_conf.name);
 	},
 	
 	topu_sort: function() {
-		window.webimport.waiting_to_load = array_unique(window.webimport.waiting_to_load);
+		this.waiting_to_load = array_unique(this.waiting_to_load);
 		let G = this.init_dependence_graph();
-		window.webimport.depandence_graph = G;
+		this.depandence_graph = G;
 		
 		let in_cnt = new Array();
 		for (let i = 0; i < G.length; ++i) {
@@ -131,9 +117,26 @@ window.webimport.methods = {
 			}
 		}
 		
-		window.webimport.waiting_to_load = res;
+		this.waiting_to_load = res;
 		return res;
 	},
+	
+	init_webscripts: function() {
+		this.loaded_mods.push("jquery");
+		this.load_script(this.load_conf("queueJS"));
+		
+		let ori = this.waiting_to_load.concat();
+		waiting_to_load = [];
+		for (lei i = 0; i < ori.length; ++i) {
+			if (!this.list_mods(ori[i].name)) {
+				console.error(ori[i].name + "Failed.");
+				continue;
+			}
+		}
+		
+		let ss = this.topu_sort();
+		for (let i = 0; i < ss.length; ++i) {
+			this.load_script(this.load_conf(this.mod_id_map[ss[i]]));
+		}
+	}
 };
-
-webexport(window.webimport.methods, ["require_new_mod", "load_modules"]);
