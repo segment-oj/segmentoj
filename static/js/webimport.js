@@ -1,10 +1,15 @@
 // import packages
 
 var array_unique = function(a) {
-	let s = new Set(a);
-	let res = new Array(s);
-	return res;
-}
+	let n = {}, res = [];
+    for (let i = 0; i < a.length; ++i) {
+        if (!n[a[i]]) {
+            n[a[i]] = true;
+            res.push(a[i]); 
+        }
+    }
+    return res;
+};
 
 window.webimport = {
 	baseurl: "/static/json/webimport/",
@@ -16,17 +21,21 @@ window.webimport = {
 	mod_cnt: 0,
 
 	load_json: function(url) {
+		// TODO: Change here to async load
+		$.ajaxSettings.async = false;
 		let data = $.get(url);
-		let res = eval("(" + data + ")");
+		$.ajaxSettings.async = true;
+		let res = data.responseJSON;
 		return res;
 	},
 
 	require_new_mod: function(name) {
-		this.waiting_to_load.push(load_conf(name));
+		this.waiting_to_load.push(this.load_conf(name));
 	},
 	
 	load_conf: function(name) {
-		return load_json(this.baseurl + name + ".json");
+		let res = this.load_json(this.baseurl + name + ".json");
+		return res;
 	},
 
 	list_mods: function(name) {
@@ -35,11 +44,13 @@ window.webimport = {
 			console.error("Module " + name + " name dissmatch.");
 			return false;
 		}
-		
-		for (let i = 0; i < name.depandence.length; i++) {
-			if (this.list_mods(name.dependence[i])) {
-				console.error("Module " + name + " dependence load failed.");
-				return false;
+
+		if (mod_conf.depandence !== undefined) {
+			for (let i = 0; i < mod_conf.depandence.length; i++) {
+				if (this.list_mods(mod_conf.dependence[i])) {
+					console.error("Module " + name + " dependence load failed.");
+					return false;
+				}
 			}
 		}
 		
@@ -57,8 +68,8 @@ window.webimport = {
 		let res = new Array();
 		
 		for (let i = 0; i < this.waiting_to_load.length; ++i) {
-			let deps = this.waiting_to_load[i].depandence;
-			if (deps == undefined || deps.length == 0) continue;
+			let deps = this.waiting_to_load[i].dependence;
+			if (deps === undefined || deps.length == 0) continue;
 			for (let j = 0; j < deps.length; ++j) {
 				let x = deps[j];
 				if (typeof(x) != "string") {
@@ -66,6 +77,7 @@ window.webimport = {
 					continue;
 				}
 				
+				if (res[i] === undefined) res[i] = new Array();
 				res[i].push(this.mod_name_map.get(x));
 			}
 		}
@@ -111,7 +123,7 @@ window.webimport = {
 			q.pop();
 			
 			for (let i = 0; i < G[x].length; ++i) {
-				int y = G[x][i];
+				let y = G[x][i];
 				--in_cnt[y];
 				if (in_cnt[y] === 0) q.push(y);
 			}
@@ -123,11 +135,13 @@ window.webimport = {
 	
 	init_webscripts: function() {
 		this.loaded_mods.push("jquery");
-		this.load_script(this.load_conf("queueJS"));
+
+		let queueJS = this.load_conf("queueJS");
+		this.load_script(queueJS);
 		
-		let ori = this.waiting_to_load.concat();
-		waiting_to_load = [];
-		for (lei i = 0; i < ori.length; ++i) {
+		let ori = JSON.parse(JSON.stringify(this.waiting_to_load)); // deep copy
+		this.waiting_to_load = [];
+		for (let i = 0; i < ori.length; ++i) {
 			if (!this.list_mods(ori[i].name)) {
 				console.error(ori[i].name + "Failed.");
 				continue;
@@ -138,5 +152,7 @@ window.webimport = {
 		for (let i = 0; i < ss.length; ++i) {
 			this.load_script(this.load_conf(this.mod_id_map[ss[i]]));
 		}
+
+		this.waiting_to_load = [];
 	}
 };

@@ -8,13 +8,13 @@ var loadjs = {
 			let val = slt.text;
 			
 			let now = "";
-			for (let j = 0; j < v.length; ++j) {
-				if (v[j] == "\n" && now.length > 0) {
+			for (let j = 0; j < val.length; ++j) {
+				if (val[j] == "\n" && now.length > 0) {
 					res.push(now);
 					now = "";
 				}
 				
-				if (v[j] != "\n") now += v[j];
+				if (val[j] != "\n") now += val[j];
 			}
 		}
 		
@@ -25,7 +25,7 @@ var loadjs = {
 		let a = this.get_imports();
 		for (let i = 0; i < a.length; ++i) webimport.require_new_mod(a[i]);
 		
-		webimport.init_webscript();
+		webimport.init_webscripts();
 	},
 };
 
