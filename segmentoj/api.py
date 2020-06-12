@@ -8,8 +8,42 @@ from captcha import captcha
 def login_api(request):
 	data = json.loads(request.body)
 
+<<<<<<< HEAD
 	username = data['username']
 	password = data['password']
+=======
+	username = data.get('username')
+	password = data.get('password')
+	ckey = data.get('captcha-key')
+	canswer = data.get('captcha-ans')
+	
+	last_try = request.session.get('login_try_time', default=None)
+	this_try = timezone.now()
+	captcha_r = False
+	if last_try != None:
+		dlt = this_try - last_try
+		if dlt < datetime.timedelta(minutes=5):
+			captcha_r = True
+	
+	request.session['login_try_time'] = this_try
+	
+	if captcha_r:
+		if ckey == None or canswer == None:
+			# captcha required
+			res = {
+				'code': 31,
+				'msg': 'Captcha is required'
+			}
+
+			return JsonResponse(res)
+		elif not captcha.check(ckey, canswer):
+			res = {
+				'code': 32,
+				'msg': 'Captcha is incorrect'
+			}
+
+			return JsonResponse(res)
+>>>>>>> dev
 
 	user = auth.authenticate(request,username=username,password=password)
 

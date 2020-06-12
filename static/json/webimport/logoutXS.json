@@ -1,0 +1,5 @@
+{
+	"name": "logoutXS",
+	"path": "/static/js/logout.js",
+	"dependence": ["mainJS"]
+}
