@@ -19,7 +19,7 @@ class account(models.Model):
 	def __str__(self):
 		return str(self.to_user.id)
 
-@receiver(post_save,sender=User)
+@receiver(post_save, sender=User)
 def create_user_extension(sender,instance,created,**kwargs):
     if created:
         account.objects.create(to_user=instance)
