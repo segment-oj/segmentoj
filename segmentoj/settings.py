@@ -38,19 +38,23 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-	# API
-	'rest_framework',
-	'api', # Segment OJ API
-
     # SegmentOJ Apps
     'problem',
     'soj',
 
     # captcha
     'captcha',
+
+	# API
+	'rest_framework',
+	'api', # Segment OJ API
 ]
 
 MIDDLEWARE = [
+	# My middleware
+	'segmentoj.middleware.DisableCSRFCheck', # Disable CSRF chack
+
+	# Default middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
