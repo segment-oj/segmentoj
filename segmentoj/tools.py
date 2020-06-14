@@ -2,7 +2,7 @@
 import re, markdown, html
 
 def isEmail(str):
-	p = re.compile("^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$")
+	p = re.compile(r"^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$")
 
 	if p.match(str):
 		return True
