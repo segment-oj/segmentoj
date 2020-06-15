@@ -10,7 +10,6 @@ class account(models.Model):
 	to_user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='account')
 	
 	lang = models.IntegerField(default=0)
-	avatar = models.FileField(upload_to="avatar", storage=AvatarStorage())
 	solved = models.IntegerField(default=0)
 	submit_time = models.IntegerField(default=0)
 
