@@ -8,7 +8,7 @@ import captcha.tools as tools
 class CaptchaStore(models.Model):
 	key = models.IntegerField()
 	answer = models.CharField(max_length=10)
-	expire_time = models.DateTimeField(default=tools.settimelater())
+	expire_time = models.DateTimeField(auto_now_add=True)
 
 	@classmethod
 	def clean_expire(self):
