@@ -1,5 +1,0 @@
-{
-	"name": "captchaJS",
-	"path": "/static/js/captcha.js",
-	"dependence": ["mainJS", "layerJS"]
-}

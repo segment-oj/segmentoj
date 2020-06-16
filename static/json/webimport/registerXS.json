@@ -1,5 +1,0 @@
-{
-	"name": "registerXS",
-	"path": "/static/js/register.js",
-	"dependence": ["mainJS", "captchaJS"]
-}

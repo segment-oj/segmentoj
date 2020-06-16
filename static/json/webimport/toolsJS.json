@@ -1,6 +1,0 @@
-{
-	"name": "toolsJS",
-	"path": "/static/ujs/tools.js",
-	"dependence": ["mainJS"],
-	"description": "Tools"
-}

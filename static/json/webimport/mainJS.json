@@ -1,6 +1,0 @@
-{
-	"name": "mainJS",
-	"path": "/static/js/main.js",
-	"dependence": ["jquery"],
-	"description": "main.js loads in all files"
-}
