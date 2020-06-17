@@ -19,7 +19,7 @@ class Problem(models.Model):
 	tags = models.ManyToManyField(Tag, blank=True)
 
 	class Meta:
-		permissions = (
+		permissions = ( # (permission name, promission explaination)
 			("view_hidden", "Can view hidden problems."),
         )
 
