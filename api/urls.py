@@ -16,9 +16,7 @@ Including another URLconf
 from django.urls import path, include
 from api import views
 
-from django.conf.urls.static import static
-from django.conf import settings
-
 urlpatterns = [
 	path('user', views.UserView.as_view()),
+	path('problem', views.ProblemView.as_view()),
 ]
