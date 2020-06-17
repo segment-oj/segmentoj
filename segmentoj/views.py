@@ -1,11 +1,15 @@
 from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+
 import soj.models
 import segmentoj.tools
 
 def welcome(request):
-	context = {}
-	return render(request, 'welcome.html', context)
+	return HttpResponseRedirect('/admin')
+
+	# context = {}
+	# return render(request, 'welcome.html', context)
 
 def login(request):
 	context = {}
