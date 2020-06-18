@@ -17,18 +17,3 @@ def problemlist(request):
 		context['viewhid'] = False
 
 	return render(request, 'problemlist.html', context)
-
-def problemshow(request, pid):
-	context = {}
-	problem = get_object_or_404(Problem, show_id=pid)
-
-	if not problem.enabled and not request.user.has_perm("problem.view_hidden"):
-		raise Http404
-
-	problem.description = segmentoj.tools.markdown2html(
-		problem.description,
-		problem.allow_html
-	)
-	context['problem'] = problem
-	context['tags'] = problem.getTags()
-	return render(request, 'problemshow.html', context)

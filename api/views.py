@@ -3,6 +3,9 @@ from django.contrib import auth
 from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
 
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required, permission_required
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -85,12 +88,23 @@ class ProblemView(APIView):
 
 		problem = get_object_or_404(Problem, show_id=id)
 
-		if not problem.enabled and not request.user.har_perm('problem.view_hidden'):
+		if not problem.enabled and not request.user.has_perm('problem.view_hidden'):
 			return Response({"msg": "Problem is hidden."}, status=status.HTTP_403_FORBIDDEN)
 		
 		ps = ProblemSerializer(problem)
-		print(ps.data)
 
 		return Response(ps.get_problem(), status=status.HTTP_200_OK)
-	
-		
+
+	@method_decorator(permission_required('problem.add', raise_exception=True))
+	def post(self, request):
+		# Add a new problem
+
+		data = request.data
+		data['show_id'] = data.get('pid') # change pid to show_id
+
+		ps = ProblemSerializer(data=data)
+		if ps.is_valid():
+			ps.save()
+			return Response(status=status.HTTP_201_CREATED)
+		else:
+			return Response(status=status.HTTP_400_BAD_REQUEST)

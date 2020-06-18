@@ -20,7 +20,9 @@ class Problem(models.Model):
 
 	class Meta:
 		permissions = ( # (permission name, promission explaination)
-			("view_hidden", "Can view hidden problems."),
+			('add', 'Can add problems'),
+			('remove', 'Can delete problems'),
+			('view_hidden', 'Can view hidden problems'),
         )
 
 	def getTags(self):
