@@ -6,8 +6,10 @@ from problem.models import Problem
 from segmentoj import tools
 
 class ProblemSerializer(serializers.ModelSerializer):
-	
+
 	def get_problem(self):
+		# render markdown
+
 		obj = self.data
 
 		content = obj.get('description')

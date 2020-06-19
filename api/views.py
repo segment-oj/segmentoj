@@ -84,7 +84,7 @@ class ProblemView(APIView):
 		id = data.get('pid')
 
 		if not id:
-			return Response(status=status.HTTP_400_BAD_REQUEST)
+			return Response({"msg": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
 
 		problem = get_object_or_404(Problem, show_id=id)
 
@@ -95,7 +95,7 @@ class ProblemView(APIView):
 
 		return Response(ps.get_problem(), status=status.HTTP_200_OK)
 
-	@method_decorator(permission_required('problem.add', raise_exception=True))
+	@method_decorator(permission_required('problem.edit', raise_exception=True))
 	def post(self, request):
 		# Add a new problem
 
@@ -103,8 +103,22 @@ class ProblemView(APIView):
 		data['show_id'] = data.get('pid') # change pid to show_id
 
 		ps = ProblemSerializer(data=data)
-		if ps.is_valid():
-			ps.save()
-			return Response(status=status.HTTP_201_CREATED)
-		else:
-			return Response(status=status.HTTP_400_BAD_REQUEST)
+		ps.is_valid(raise_exception=True)
+		ps.save()
+		return Response(status=status.HTTP_201_CREATED)
+
+	@method_decorator(permission_required('problem.edit', raise_exception=True))
+	def patch(slef, request):
+		data = request.data
+		id = data.get('pid')
+
+		if not id:
+			return Response({"msg": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+		data['show_id'] = id
+
+		problem = get_object_or_404(Problem, show_id=id)
+		ps = ProblemSerializer(problem, data=data, partial=True)
+		ps.is_valid(raise_exception=True)
+		ps.save()
+		return Response(status=status.HTTP_204_NO_CONTENT)
