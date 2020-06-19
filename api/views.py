@@ -31,18 +31,18 @@ class UserView(APIView):
 		if user:
 			auth.login(request, user)
 			return Response({
-				"msg": "Success",
+				"detail": "Success",
 				"res": {
 					"id": user.id
 				}}, status=status.HTTP_201_CREATED)
 		else:
-			return Response({"msg": "Username or password wrong"}, status=status.HTTP_403_FORBIDDEN)
+			return Response({"detail": "Username or password wrong"}, status=status.HTTP_403_FORBIDDEN)
 
 	def delete(self, request):
 		# delete session(logout)
 
 		if not request.user.is_authenticated:
-			return Response({"msg": "Not logged in!"}, status=status.HTTP_401_UNAUTHORIZED)
+			return Response({"detail": "Not logged in!"}, status=status.HTTP_401_UNAUTHORIZED)
 		
 		auth.logout(request)
 		return Response(status=status.HTTP_204_NO_CONTENT)
@@ -58,20 +58,20 @@ class UserView(APIView):
 			return Response(status.HTTP_400_BAD_REQUEST)
 
 		if not tools.isEmail(email):
-			return Response({"msg": "Email is not correct!"}, status=status.HTTP_400_BAD_REQUEST)
+			return Response({"detail": "Email is not correct!"}, status=status.HTTP_400_BAD_REQUEST)
 
 		try: 
 			user = auth.models.User.objects.create_user(username=username, password=password, email=email)
 		except IntegrityError:
 			# failed, probably because username already exits
-			return Response({"msg": "Failed to create user."}, status=status.HTTP_409_CONFLICT)
+			return Response({"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT)
 
 		if user: # Success
 			user.save() # Save user
 
 			return Response(status=status.HTTP_201_CREATED)
 		else: # failed, probably because username already exits
-			return Response({"msg": "Failed to create user."}, status=status.HTTP_409_CONFLICT)
+			return Response({"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT)
 
 
 class ProblemView(APIView):
@@ -83,12 +83,12 @@ class ProblemView(APIView):
 		id = data.get('pid')
 
 		if not id:
-			return Response({"msg": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
+			return Response({"detail": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
 
 		problem = get_object_or_404(Problem, show_id=id)
 
 		if not problem.enabled and not request.user.has_perm('problem.view_hidden'):
-			return Response({"msg": "Problem is hidden."}, status=status.HTTP_403_FORBIDDEN)
+			return Response({"detail": "Problem is hidden."}, status=status.HTTP_403_FORBIDDEN)
 		
 		ps = ProblemSerializer(problem)
 
@@ -112,7 +112,7 @@ class ProblemView(APIView):
 		id = data.get('pid')
 
 		if not id:
-			return Response({"msg": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
+			return Response({"detail": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
 
 		data['show_id'] = id
 
@@ -131,7 +131,7 @@ class TagView(APIView):
 		id = data.get('id')
 
 		if not id:
-			return Response({"msg": "id is required"}, status=status.HTTP_400_BAD_REQUEST)
+			return Response({"detail": "id is required"}, status=status.HTTP_400_BAD_REQUEST)
 
 		tag = get_object_or_404(Tag, id=id)
 		ts = TagSerializer(tag)
