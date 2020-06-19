@@ -2,7 +2,7 @@
 
 from rest_framework import serializers
 
-from problem.models import Problem
+from problem.models import Problem, Tag
 from segmentoj import tools
 
 class ProblemSerializer(serializers.ModelSerializer):
@@ -31,3 +31,10 @@ class ProblemSerializer(serializers.ModelSerializer):
 		fields = '__all__'
 		depth = 0
 		read_only_fields = ['id', 'date_added']
+
+class TagSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Tag
+		fields = '__all__'
+		read_only_fields = ['id']

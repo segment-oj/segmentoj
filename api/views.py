@@ -11,11 +11,10 @@ from rest_framework.views import APIView
 from rest_framework import status
 
 from segmentoj import tools
-from problem.models import Problem
-from .serializers import ProblemSerializer
+from problem.models import Problem, Tag
+from .serializers import ProblemSerializer, TagSerializer
 
 # Create your views here.
-
 class UserView(APIView):
 
 	def post(self, request):
@@ -122,3 +121,17 @@ class ProblemView(APIView):
 		ps.is_valid(raise_exception=True)
 		ps.save()
 		return Response(status=status.HTTP_204_NO_CONTENT)
+
+class TagView(APIView):
+
+	def get(self, request):
+		data = request.data
+		id = data.get('id')
+
+		if not id:
+			return Response({"msg": "id is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+		tag = get_object_or_404(Tag, id=id)
+		ts = TagSerializer(tag)
+
+		return Response(ts.data, status=status.HTTP_200_OK)

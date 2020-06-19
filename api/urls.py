@@ -18,5 +18,7 @@ from api import views
 
 urlpatterns = [
 	path('user', views.UserView.as_view()),
+
 	path('problem', views.ProblemView.as_view()),
+	path('tag', views.TagView.as_view()),
 ]
