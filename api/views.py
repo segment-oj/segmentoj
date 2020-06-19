@@ -94,7 +94,7 @@ class ProblemView(APIView):
 
 		return Response(ps.get_problem(), status=status.HTTP_200_OK)
 
-	@method_decorator(permission_required('problem.edit', raise_exception=True))
+	@method_decorator(permission_required('problem.add_problem', raise_exception=True))
 	def post(self, request):
 		# Add a new problem
 
@@ -106,7 +106,7 @@ class ProblemView(APIView):
 		ps.save()
 		return Response(status=status.HTTP_201_CREATED)
 
-	@method_decorator(permission_required('problem.edit', raise_exception=True))
+	@method_decorator(permission_required('problem.change_problem', raise_exception=True))
 	def patch(slef, request):
 		data = request.data
 		id = data.get('pid')
@@ -125,6 +125,8 @@ class ProblemView(APIView):
 class TagView(APIView):
 
 	def get(self, request):
+		# Get a tag
+
 		data = request.data
 		id = data.get('id')
 
@@ -135,3 +137,12 @@ class TagView(APIView):
 		ts = TagSerializer(tag)
 
 		return Response(ts.data, status=status.HTTP_200_OK)
+
+	@method_decorator(permission_required('problem.add_tag', raise_exception=True))
+	def post(slef, request):
+		# add new tag
+		data = request.data
+		ts = TagSerializer(data=data)
+		ts.is_valid(raise_exception=True)
+		ts.save()
+		return Response(status=status.HTTP_201_CREATED)

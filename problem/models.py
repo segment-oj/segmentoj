@@ -20,8 +20,6 @@ class Problem(models.Model):
 
 	class Meta:
 		permissions = ( # (permission name, promission explaination)
-			('edit', 'Can edit problem'),
-			('remove', 'Can delete problem'),
 			('view_hidden', 'Can view hidden problem'),
         )
 
