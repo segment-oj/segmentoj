@@ -55,3 +55,6 @@ uploads/
 # devloper temp files
 initworkspace.bat
 local_tools/
+
+# Editor
+.vscode/
