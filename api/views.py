@@ -121,6 +121,19 @@ class ProblemView(APIView):
 		ps.is_valid(raise_exception=True)
 		ps.save()
 		return Response(status=status.HTTP_204_NO_CONTENT)
+	
+	@method_decorator(permission_required('problem.delete_problem'))
+	def delete(self, request):
+		data = request.data
+		id = data.get('pid')
+
+		if not id:
+			return Response({"detail": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
+
+		problem = get_object_or_404(Problem, show_id=id)
+		problem.delete()
+		return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class TagView(APIView):
 
