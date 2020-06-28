@@ -50,8 +50,16 @@ coverage.xml
 *.log
 local_settings.py
 db.sqlite3
-uploads/
 
 # devloper temp files
 initworkspace.bat
 local_tools/
+
+# Editor
+.vscode/
+
+# Other
+/uploads/*.*
+/uploads/*/*
+!/uploads/README.md
+!/uploads/*/.placeholder
