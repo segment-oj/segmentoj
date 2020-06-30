@@ -152,10 +152,23 @@ class TagView(APIView):
 		return Response(ts.data, status=status.HTTP_200_OK)
 
 	@method_decorator(permission_required('problem.add_tag', raise_exception=True))
-	def post(slef, request):
+	def post(self, request):
 		# add new tag
 		data = request.data
 		ts = TagSerializer(data=data)
 		ts.is_valid(raise_exception=True)
 		ts.save()
 		return Response(status=status.HTTP_201_CREATED)
+
+    @method_decorator(permission_required('problem.delete_tag', raise_exception=True))
+    def delete(self, request):
+        # delete a tag
+        data = request.data
+        id = data.get('id')
+
+		if not id:
+			return Response({"detail": "id is required"}, status=status.HTTP_400_BAD_REQUEST)
+
+        tag = get_object_or_404(Tag, id=id)
+        tag.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
