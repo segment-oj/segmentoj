@@ -159,7 +159,7 @@ CAPTCHA_LENGTH = 6
 # you may change this if modified height/width
 # try it until you find the best value
 CAPTCHA_FONTSIZE = 36 
-# the .ttf file of font
+# the font file of font
 CAPTCHA_FONTTYPE = "arial.ttf"
 # The number of dots on the pic to interfare
 CAPTCHA_DOTNUM = 50
