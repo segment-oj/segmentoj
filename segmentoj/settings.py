@@ -54,13 +54,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-	# My middleware
 	'segmentoj.middleware.DisableCSRFCheck', # Disable CSRF chack
-    'corsheaders.middleware.CorsMiddleware', # Control CORS
-
-	# Default middleware
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware', # Control CORS
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -171,3 +168,5 @@ CAPTCHA_AGE = 5
 # CORS settings
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
+SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = True
