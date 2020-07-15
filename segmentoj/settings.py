@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # CORS Control
+    'corsheaders',
+
     # SegmentOJ Apps
     'problem',
     'soj',
@@ -53,6 +56,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
 	# My middleware
 	'segmentoj.middleware.DisableCSRFCheck', # Disable CSRF chack
+    'corsheaders.middleware.CorsMiddleware', # Control CORS
 
 	# Default middleware
     'django.middleware.security.SecurityMiddleware',
@@ -163,3 +167,7 @@ CAPTCHA_DOTNUM = 50
 CAPTCHA_LINENUM = 5
 # how long a captcha expire (min)
 CAPTCHA_AGE = 5
+
+# CORS settings
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
