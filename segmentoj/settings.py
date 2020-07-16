@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     # SegmentOJ Apps
     'account',
     'problem',
-    # 'soj',
+    'status',
 
     # captcha
     'captcha',
