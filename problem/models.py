@@ -12,7 +12,7 @@ class Problem(models.Model):
 	title = models.CharField(max_length=100)
 	description = models.TextField()
 
-	show_id = models.IntegerField(unique=True)
+	pid = models.IntegerField(unique=True)
 	date_added = models.DateTimeField(auto_now_add=True)
 	allow_html = models.BooleanField(default=False)
 	enabled = models.BooleanField(default=True)

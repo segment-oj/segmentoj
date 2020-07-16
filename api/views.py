@@ -9,12 +9,12 @@ from django.contrib.auth.decorators import login_required, permission_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework.pagination import PageNumberPagination
+from rest_framework.pagination import LimitOffsetPagination
 
 
 from segmentoj import tools
 from problem.models import Problem, Tag
-from .serializers import ProblemSerializer, TagSerializer
+from .serializers import ProblemSerializer, ProblemListSerializer, TagSerializer
 from segmentoj.decorator import syllable_required
 
 # Create your views here.
@@ -86,7 +86,7 @@ class ProblemView(APIView):
         data = request.data
         id = data.get('pid')
 
-        problem = get_object_or_404(Problem, show_id=id)
+        problem = get_object_or_404(Problem, pid=id)
 
         if not problem.enabled and not request.user.has_perm('problem.view_hidden'):
             return Response({'detail': 'Problem is hidden.'}, status=status.HTTP_403_FORBIDDEN)
@@ -100,7 +100,6 @@ class ProblemView(APIView):
         # Add a new problem
 
         data = request.data
-        data['show_id'] = data.get('pid') # change pid to show_id
 
         ps = ProblemSerializer(data=data)
         ps.is_valid(raise_exception=True)
@@ -112,9 +111,8 @@ class ProblemView(APIView):
     def patch(slef, request):
         data = request.data
         id = data.get('pid')
-        data['show_id'] = id
 
-        problem = get_object_or_404(Problem, show_id=id)
+        problem = get_object_or_404(Problem, pid=id)
         ps = ProblemSerializer(problem, data=data, partial=True)
         ps.is_valid(raise_exception=True)
         ps.save()
@@ -126,7 +124,7 @@ class ProblemView(APIView):
         data = request.data
         id = data.get('pid')
 
-        problem = get_object_or_404(Problem, show_id=id)
+        problem = get_object_or_404(Problem, pid=id)
         problem.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -169,13 +167,12 @@ class ProblemListView(APIView):
 
     def get(self, request):
 
-        request.data['show_id'] = request.data.get('pid')
-        queryset = Problem.objects.all()
+        queryset = Problem.objects.all().order_by('pid')
 
-        pg = PageNumberPagination()
+        pg = LimitOffsetPagination()
         problems = pg.paginate_queryset(queryset=queryset, request=request, view=self)
 
-        ps = ProblemSerializer(problems, many=True)
+        ps = ProblemListSerializer(problems, many=True)
         print(ps.data)
         return Response({
             'res': [x for x in ps.data]
