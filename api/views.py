@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from account.models import User
 from django.contrib import auth
 from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
@@ -25,10 +25,7 @@ class UserView(APIView):
         username = data.get('username')
         password = data.get('password')
 
-        if not username or not password:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
-
-        user = auth.authenticate(request,username=username,password=password)
+        user = auth.authenticate(request, username=username,password=password)
 
         if user:
             auth.login(request, user)
@@ -59,14 +56,11 @@ class UserView(APIView):
         password = request.data.get('password')
         email = request.data.get('email')
 
-        if not username or not password or not email:
-            return Response(status.HTTP_400_BAD_REQUEST)
-
         if not tools.isEmail(email):
             return Response({'detail': 'Email is not correct!'}, status=status.HTTP_400_BAD_REQUEST)
 
         try: 
-            user = auth.models.User.objects.create_user(username=username, password=password, email=email)
+            user = User.objects.create_user(username=username, password=password, email=email)
         except IntegrityError:
             # failed, probably because username already exits
             return Response({'detail': 'Failed to create user.'}, status=status.HTTP_409_CONFLICT)
@@ -83,13 +77,10 @@ class ProblemView(APIView):
     
     @method_decorator(syllable_required('pid', int))
     def get(self, request):
-        # Get the conten of a problem
+        # Get the content of a problem
 
         data = request.data
         id = data.get('pid')
-
-        # if not id:
-        #     return Response({'detail': 'pid is required.'}, status=status.HTTP_400_BAD_REQUEST)
 
         problem = get_object_or_404(Problem, show_id=id)
 
