@@ -1,19 +1,115 @@
-from django.shortcuts import render, get_object_or_404
-from django.http import Http404
+from django.shortcuts import get_object_or_404
 
-from problem.models import Problem
-import segmentoj.tools
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required, permission_required
 
-# Create your views here.
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+from rest_framework.pagination import LimitOffsetPagination
 
-def problemlist(request):
-	context = {}
-	problemlist = Problem.objects.order_by('show_id')
-	context['problems'] = problemlist
+from segmentoj import tools
+from problem.models import Problem, Tag
+from .serializers import ProblemSerializer, ProblemListSerializer, TagSerializer
+from segmentoj.decorator import syllable_required
 
-	if request.user.has_perm('problem.view_hidden'):
-		context['viewhid'] = True
-	else:
-		context['viewhid'] = False
+class ProblemView(APIView):
+    
+    @method_decorator(syllable_required('pid', int))
+    def get(self, request):
+        # Get the content of a problem
 
-	return render(request, 'problemlist.html', context)
+        data = request.data
+        id = data.get('pid')
+
+        problem = get_object_or_404(Problem, pid=id)
+
+        if not problem.enabled and not request.user.has_perm('problem.view_hidden'):
+            return Response({'detail': 'Problem is hidden.'}, status=status.HTTP_403_FORBIDDEN)
+        
+        ps = ProblemSerializer(problem)
+
+        return Response(ps.get_problem(), status=status.HTTP_200_OK)
+
+    @method_decorator(permission_required('problem.add_problem', raise_exception=True))
+    def post(self, request):
+        # Add a new problem
+
+        data = request.data
+
+        ps = ProblemSerializer(data=data)
+        ps.is_valid(raise_exception=True)
+        ps.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+    @method_decorator(syllable_required('pid', int))
+    @method_decorator(permission_required('problem.change_problem', raise_exception=True))
+    def patch(slef, request):
+        data = request.data
+        id = data.get('pid')
+
+        problem = get_object_or_404(Problem, pid=id)
+        ps = ProblemSerializer(problem, data=data, partial=True)
+        ps.is_valid(raise_exception=True)
+        ps.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    
+    @method_decorator(syllable_required('pid', int))
+    @method_decorator(permission_required('problem.delete_problem'))
+    def delete(self, request):
+        data = request.data
+        id = data.get('pid')
+
+        problem = get_object_or_404(Problem, pid=id)
+        problem.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class TagView(APIView):
+
+    @method_decorator(syllable_required('pid', int))
+    def get(self, request):
+        # Get a tag
+
+        data = request.data
+        id = data.get('id')
+
+        tag = get_object_or_404(Tag, id=id)
+        ts = TagSerializer(tag)
+
+        return Response(ts.data, status=status.HTTP_200_OK)
+
+    @method_decorator(permission_required('problem.add_tag', raise_exception=True))
+    def post(self, request):
+        # add new tag
+        data = request.data
+        ts = TagSerializer(data=data)
+        ts.is_valid(raise_exception=True)
+        ts.save()
+        return Response(status=status.HTTP_201_CREATED)
+
+    @method_decorator(syllable_required('pid', int))
+    @method_decorator(permission_required('problem.delete_tag', raise_exception=True))
+    def delete(self, request):
+        # delete a tag
+        data = request.data
+        id = data.get('id')
+
+        tag = get_object_or_404(Tag, id=id)
+        tag.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ProblemListView(APIView):
+
+    def get(self, request):
+
+        queryset = Problem.objects.all().order_by('pid')
+
+        pg = LimitOffsetPagination()
+        problems = pg.paginate_queryset(queryset=queryset, request=request, view=self)
+
+        ps = ProblemListSerializer(problems, many=True)
+        print(ps.data)
+        return Response({
+            'res': [x for x in ps.data]
+        }, status=status.HTTP_200_OK)

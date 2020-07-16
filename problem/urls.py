@@ -20,6 +20,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('list', problem.views.problemlist),
-    path('show/<int:pid>', problem.views.problemshow),
+    path('content', problem.views.ProblemView.as_view()),
+    path('tag', problem.views.TagView.as_view()),
+    path('list', problem.views.ProblemListView.as_view())
 ]

@@ -9,12 +9,9 @@ from django.contrib.auth.decorators import login_required, permission_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
-from rest_framework.pagination import LimitOffsetPagination
 
 
 from segmentoj import tools
-from problem.models import Problem, Tag
-from .serializers import ProblemSerializer, ProblemListSerializer, TagSerializer
 from segmentoj.decorator import syllable_required
 
 # Create your views here.

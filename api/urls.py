@@ -18,8 +18,5 @@ from api import views
 
 urlpatterns = [
 	path('user', views.UserView.as_view()),
-
-	path('problem', views.ProblemView.as_view()),
-	path('tag', views.TagView.as_view()),
-    path('problem/list', views.ProblemListView.as_view()),
+    path('problem/', include('problem.urls'))
 ]
