@@ -13,10 +13,12 @@ from rest_framework import status
 from segmentoj import tools
 from problem.models import Problem, Tag
 from .serializers import ProblemSerializer, TagSerializer
+from segmentoj.decorator import syllable_required
 
 # Create your views here.
 class UserView(APIView):
-
+    @method_decorator(syllable_required('username', str))
+    @method_decorator(syllable_required('password', str))
     def post(self, request):
         # Create user session(Login)
         data = request.data
@@ -31,22 +33,25 @@ class UserView(APIView):
         if user:
             auth.login(request, user)
             return Response({
-                "detail": "Success",
-                "res": {
-                    "id": user.id
+                'detail': 'Success',
+                'res': {
+                    'id': user.id
                 }}, status=status.HTTP_201_CREATED)
         else:
-            return Response({"detail": "Username or password wrong"}, status=status.HTTP_403_FORBIDDEN)
+            return Response({'detail': 'Username or password wrong'}, status=status.HTTP_403_FORBIDDEN)
 
     def delete(self, request):
         # delete session(logout)
 
         if not request.user.is_authenticated:
-            return Response({"detail": "Not logged in!"}, status=status.HTTP_401_UNAUTHORIZED)
+            return Response({'detail': 'Not logged in!'}, status=status.HTTP_401_UNAUTHORIZED)
         
         auth.logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+    @method_decorator(syllable_required('username', str))
+    @method_decorator(syllable_required('password', str))
+    @method_decorator(syllable_required('email', str))
     def put(self, request):
         # put a record(register an account)
 
@@ -58,37 +63,38 @@ class UserView(APIView):
             return Response(status.HTTP_400_BAD_REQUEST)
 
         if not tools.isEmail(email):
-            return Response({"detail": "Email is not correct!"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({'detail': 'Email is not correct!'}, status=status.HTTP_400_BAD_REQUEST)
 
         try: 
             user = auth.models.User.objects.create_user(username=username, password=password, email=email)
         except IntegrityError:
             # failed, probably because username already exits
-            return Response({"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT)
+            return Response({'detail': 'Failed to create user.'}, status=status.HTTP_409_CONFLICT)
 
         if user: # Success
             user.save() # Save user
 
             return Response(status=status.HTTP_201_CREATED)
         else: # failed, probably because username already exits
-            return Response({"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT)
+            return Response({'detail': 'Failed to create user.'}, status=status.HTTP_409_CONFLICT)
 
 
 class ProblemView(APIView):
     
+    @method_decorator(syllable_required('pid', int))
     def get(self, request):
         # Get the conten of a problem
 
         data = request.data
         id = data.get('pid')
 
-        if not id:
-            return Response({"detail": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
+        # if not id:
+        #     return Response({'detail': 'pid is required.'}, status=status.HTTP_400_BAD_REQUEST)
 
         problem = get_object_or_404(Problem, show_id=id)
 
         if not problem.enabled and not request.user.has_perm('problem.view_hidden'):
-            return Response({"detail": "Problem is hidden."}, status=status.HTTP_403_FORBIDDEN)
+            return Response({'detail': 'Problem is hidden.'}, status=status.HTTP_403_FORBIDDEN)
         
         ps = ProblemSerializer(problem)
 
@@ -106,14 +112,11 @@ class ProblemView(APIView):
         ps.save()
         return Response(status=status.HTTP_201_CREATED)
 
+    @method_decorator(syllable_required('pid', int))
     @method_decorator(permission_required('problem.change_problem', raise_exception=True))
     def patch(slef, request):
         data = request.data
         id = data.get('pid')
-
-        if not id:
-            return Response({"detail": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
-
         data['show_id'] = id
 
         problem = get_object_or_404(Problem, show_id=id)
@@ -122,13 +125,11 @@ class ProblemView(APIView):
         ps.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
     
+    @method_decorator(syllable_required('pid', int))
     @method_decorator(permission_required('problem.delete_problem'))
     def delete(self, request):
         data = request.data
         id = data.get('pid')
-
-        if not id:
-            return Response({"detail": "pid is required."}, status=status.HTTP_400_BAD_REQUEST)
 
         problem = get_object_or_404(Problem, show_id=id)
         problem.delete()
@@ -137,14 +138,12 @@ class ProblemView(APIView):
 
 class TagView(APIView):
 
+    @method_decorator(syllable_required('pid', int))
     def get(self, request):
         # Get a tag
 
         data = request.data
         id = data.get('id')
-
-        if not id:
-            return Response({"detail": "id is required"}, status=status.HTTP_400_BAD_REQUEST)
 
         tag = get_object_or_404(Tag, id=id)
         ts = TagSerializer(tag)
@@ -160,14 +159,12 @@ class TagView(APIView):
         ts.save()
         return Response(status=status.HTTP_201_CREATED)
 
+    @method_decorator(syllable_required('pid', int))
     @method_decorator(permission_required('problem.delete_tag', raise_exception=True))
     def delete(self, request):
         # delete a tag
         data = request.data
         id = data.get('id')
-
-        if not id:
-            return Response({"detail": "id is required"}, status=status.HTTP_400_BAD_REQUEST)
 
         tag = get_object_or_404(Tag, id=id)
         tag.delete()
