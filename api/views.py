@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required, permission_required
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from rest_framework.pagination import PageNumberPagination
+
 
 from segmentoj import tools
 from problem.models import Problem, Tag
@@ -17,6 +19,8 @@ from segmentoj.decorator import syllable_required
 
 # Create your views here.
 class UserView(APIView):
+    throttle_scope = "user"
+
     @method_decorator(syllable_required('username', str))
     @method_decorator(syllable_required('password', str))
     def post(self, request):
@@ -160,3 +164,19 @@ class TagView(APIView):
         tag = get_object_or_404(Tag, id=id)
         tag.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class ProblemListView(APIView):
+
+    def get(self, request):
+
+        request.data['show_id'] = request.data.get('pid')
+        queryset = Problem.objects.all()
+
+        pg = PageNumberPagination()
+        problems = pg.paginate_queryset(queryset=queryset, request=request, view=self)
+
+        ps = ProblemSerializer(problems, many=True)
+        print(ps.data)
+        return Response({
+            'res': [x for x in ps.data]
+        }, status=status.HTTP_200_OK)

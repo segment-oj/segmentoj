@@ -173,3 +173,16 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SAMESITE = None
 # SESSION_COOKIE_SECURE = True     # ENABLE THIS if you server is based on HTTPS
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': (
+        "rest_framework.throttling.ScopedRateThrottle",  # use throttle_scope = 'xxx'
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 100,
+
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '5/m',
+    }
+}

@@ -21,4 +21,5 @@ urlpatterns = [
 
 	path('problem', views.ProblemView.as_view()),
 	path('tag', views.TagView.as_view()),
+    path('problem/list', views.ProblemListView.as_view()),
 ]
