@@ -102,14 +102,18 @@ class TagView(APIView):
 class ProblemListView(APIView):
 
     def get(self, request):
+        problem_filter = {}
+        data = request.GET
 
-        queryset = Problem.objects.all().order_by('pid')
+        if data.get('title'):
+            problem_filter['title__icontains'] = data.get('title')
+        
+        queryset = Problem.objects.filter(**problem_filter).order_by('pid')
 
         pg = LimitOffsetPagination()
         problems = pg.paginate_queryset(queryset=queryset, request=request, view=self)
 
         ps = ProblemListSerializer(problems, many=True)
-        print(ps.data)
         return Response({
             'res': [x for x in ps.data]
         }, status=status.HTTP_200_OK)
