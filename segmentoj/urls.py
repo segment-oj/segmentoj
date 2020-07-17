@@ -24,18 +24,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.welcome),
 
-    # problem
-    # path('problem/', include('problem.urls')),
-
-    # user
-    # path('user/login', views.login),
-    # path('user/logout', views.logout),
-    # path('user/register', views.register),
-    # path('user/home/<int:uid>', views.show_user),
-
-    # captcha
-    # path('captcha/', include('captcha.urls')),
-
     # api
     path('api/', include('api.urls')),
 ]

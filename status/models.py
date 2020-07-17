@@ -6,15 +6,6 @@ from problem.models import Problem
 from . import JudgeStatus
 
 # Create your models here.
-class StatusDetail(models.Model):
-    state = models.IntegerField(default=0)
-    time = models.IntegerField(default=0)
-    memory = models.IntegerField(default=0)
-
-    input_s = models.CharField(max_length=100)
-    output_s = models.CharField(max_length=100)
-    answer_s = models.CharField(max_length=100)
-
 class Status(models.Model):
     state = models.IntegerField(default=0)
 
@@ -22,9 +13,8 @@ class Status(models.Model):
     memory = models.IntegerField(default=0)
     lang = models.IntegerField(default=0)
 
-    owner = models.OneToOneField(User, on_delete=models.CASCADE)
-    judge_detail = models.ForeignKey(StatusDetail, on_delete=models.PROTECT)
-    problem = models.OneToOneField(Problem, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
 
     code = models.TextField()
 
@@ -44,4 +34,14 @@ class Status(models.Model):
         self.state = self.judge_detail[0].state
 
     def __str__(self):
-        return self.problem.title + "-" + self.owner.username
+        return str(self.id)
+
+class StatusDetail(models.Model):
+    state = models.IntegerField(default=0)
+    time = models.IntegerField(default=0)
+    memory = models.IntegerField(default=0)
+
+    input_s = models.CharField(max_length=100)
+    output_s = models.CharField(max_length=100)
+    answer_s = models.CharField(max_length=100)
+    main_state = models.ForeignKey(Status, on_delete=models.CASCADE, related_name='judge_detail')

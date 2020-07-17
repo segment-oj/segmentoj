@@ -18,3 +18,15 @@ def syllable_required(syllable_id, syllable_type=None):
             return func(request, *args, **kwargs)
         return _wrapped_view
     return decorator
+
+def login_required():
+    def decorator(func):
+        def _wrapped_view(request, *args, **kwargs):
+            if not request.user.is_authenticated:
+                return Response({
+                    'detail': 'Login Required'
+                }, status=status.HTTP_401_UNAUTHORIZED)
+
+            return func(request, *args, **kwargs)
+        return _wrapped_view
+    return decorator

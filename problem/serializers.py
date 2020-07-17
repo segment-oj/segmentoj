@@ -19,7 +19,7 @@ class ProblemSerializer(serializers.ModelSerializer):
         )
 
         # filter needed values
-        return {"id": obj.get('show_id'),
+        return {"id": obj.get('pid'),
                 "title": obj.get('title'), 
                 "description": content,
                 "tags": obj.get('tags'),

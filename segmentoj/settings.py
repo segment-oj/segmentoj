@@ -172,7 +172,7 @@ CAPTCHA_AGE = 5
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SAMESITE = None
-# SESSION_COOKIE_SECURE = True     # ENABLE THIS if you server is based on HTTPS
+SESSION_COOKIE_SECURE = True     # ENABLE THIS if you server is based on HTTPS
 
 
 REST_FRAMEWORK = {
@@ -183,6 +183,6 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 5,
 
     'DEFAULT_THROTTLE_RATES': {
-        'user': '5/m',
+        'user': '10/m',
     }
 }
