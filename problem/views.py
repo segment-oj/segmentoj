@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404
-
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required, permission_required
+from django.db.models import Max
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -12,6 +12,7 @@ from segmentoj import tools
 from problem.models import Problem, Tag
 from .serializers import ProblemSerializer, ProblemListSerializer, TagSerializer
 from segmentoj.decorator import syllable_required
+from status.models import Status
 
 class ProblemView(APIView):
     
@@ -102,6 +103,18 @@ class TagView(APIView):
 class ProblemListView(APIView):
 
     def get(self, request):
+        def process_data(x):
+            pid = x.get('pid')
+            userid = request.user.id
+
+            statusset = Status.objects.filter(problem=pid, owner=userid)
+            if statusset.count() == 0:
+                x['score'] = -1
+            else:
+                x['score'] = statusset.aggregate(Max('score'))['score__max']
+
+            return x
+
         problem_filter = {}
         data = request.GET
 
@@ -115,5 +128,5 @@ class ProblemListView(APIView):
 
         ps = ProblemListSerializer(problems, many=True)
         return Response({
-            'res': [x for x in ps.data]
+            'res': [process_data(x) for x in ps.data]
         }, status=status.HTTP_200_OK)
