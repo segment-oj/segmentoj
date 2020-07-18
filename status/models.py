@@ -7,6 +7,7 @@ from . import JudgeStatus
 
 # Create your models here.
 class Status(models.Model):
+    score = models.IntegerField(default=0)
     state = models.IntegerField(default=0)
 
     time = models.IntegerField(default=0)
@@ -35,6 +36,9 @@ class Status(models.Model):
 
     def __str__(self):
         return str(self.id)
+    
+    class Meta:
+        index_together = ['owner', 'problem']
 
 class StatusDetail(models.Model):
     state = models.IntegerField(default=0)

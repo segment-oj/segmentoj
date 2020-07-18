@@ -35,7 +35,7 @@ class StatusView(APIView):
         data.pop('memory', None)
         data.pop('judge_detail', None)
         data.pop('add_time', None)
-
+        data.pop('score', None)
 
         ss = StatusSerializer(data=data)
         ss.is_valid(raise_exception=True)
