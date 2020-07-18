@@ -13,3 +13,7 @@ A OnlineJudge using Django and Docker.
 Python + Django框架，可以用Nginx + uwsgi部署。
 
 使用segment-judger测评（尚未完成）。
+
+[SegmentOJ前端](https://github.com/segment-oj/segmentoj-frontend)
+[SegmentOJ沙箱](https://github.com/segment-oj/segment-sandbox)
+[SegmentOJ测评机](https://github.com/segment-oj/segment-judger-v1)
