@@ -16,4 +16,4 @@ Python + Django框架，可以用Nginx + uwsgi部署。
 
 [SegmentOJ前端](https://github.com/segment-oj/segmentoj-frontend)
 [SegmentOJ沙箱](https://github.com/segment-oj/segment-sandbox)
-[SegmentOJ测评机](https://github.com/segment-oj/segment-judger-v1)
+[SegmentOJ测评机(V1)](https://github.com/segment-oj/segment-judger-v1)
