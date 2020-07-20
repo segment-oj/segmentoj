@@ -22,5 +22,6 @@ from django.conf import settings
 urlpatterns = [
     path('content', problem.views.ProblemView.as_view()),
     path('tag', problem.views.TagView.as_view()),
-    path('list', problem.views.ProblemListView.as_view())
+    path('list', problem.views.ProblemListView.as_view()),
+    path('list/count', problem.views.ProblemListCountView.as_view())
 ]

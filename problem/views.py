@@ -118,6 +118,9 @@ class ProblemListView(APIView):
         problem_filter = {}
         data = request.GET
 
+        if not request.user.has_perm('problem.view_hidden'):
+            problem_filter['enabled'] = True
+
         if data.get('title'):
             problem_filter['title__icontains'] = data.get('title')
         
@@ -129,4 +132,23 @@ class ProblemListView(APIView):
         ps = ProblemListSerializer(problems, many=True)
         return Response({
             'res': [process_data(x) for x in ps.data]
+        }, status=status.HTTP_200_OK)
+
+class ProblemListCountView(APIView):
+
+    def get(self, request):
+
+        problem_filter = {}
+        data = request.GET
+
+        if not request.user.has_perm('problem.view_hidden'):
+            problem_filter['enabled'] = True
+
+        if data.get('title'):
+            problem_filter['title__icontains'] = data.get('title')
+        
+        queryset = Problem.objects.filter(**problem_filter)
+        res = queryset.count()
+        return Response({
+            'res': res
         }, status=status.HTTP_200_OK)
