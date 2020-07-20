@@ -1,10 +1,12 @@
 from rest_framework.response import Response
 from rest_framework import status
 
-def syllable_required(syllable_id, syllable_type=None):
+def syllable_required(syllable_id, syllable_type=None, is_get_request=False):
     def decorator(func):
         def _wrapped_view(request, *args, **kwargs):
-            r = request.data.get(syllable_id)
+            data = request.GET if is_get_request else request.data
+
+            r = data.get(syllable_id)
             if r == None:
                 return Response({
                     'detail': 'syllable {sid} is required'.format(sid=syllable_id)
