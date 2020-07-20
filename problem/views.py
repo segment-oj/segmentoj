@@ -68,7 +68,7 @@ class ProblemView(APIView):
 
 class TagView(APIView):
 
-    @method_decorator(syllable_required('pid', int))
+    @method_decorator(syllable_required('id', int))
     def get(self, request):
         # Get a tag
 
@@ -86,10 +86,15 @@ class TagView(APIView):
         data = request.data
         ts = TagSerializer(data=data)
         ts.is_valid(raise_exception=True)
-        ts.save()
-        return Response(status=status.HTTP_201_CREATED)
+        tag = ts.save()
 
-    @method_decorator(syllable_required('pid', int))
+        return Response({
+            'res': {
+                'id': tag.id
+            }
+        }, status=status.HTTP_201_CREATED)
+
+    @method_decorator(syllable_required('id', int))
     @method_decorator(permission_required('problem.delete_tag', raise_exception=True))
     def delete(self, request):
         # delete a tag
