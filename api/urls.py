@@ -15,10 +15,12 @@ Including another URLconf
 """
 from django.urls import path, include
 from api.views import UserView
-from status.views import StatusView
+from status.views import StatusView, StatusListCountView, StatusListView
 
 urlpatterns = [
 	path('user', UserView.as_view()),
     path('problem/', include('problem.urls')),
-    path('status', StatusView.as_view())
+    path('status', StatusView.as_view()),
+    path('status/list', StatusListView.as_view()),
+    path('status/list/count', StatusListCountView.as_view())
 ]

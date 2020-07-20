@@ -10,7 +10,7 @@ from rest_framework.pagination import LimitOffsetPagination
 
 from segmentoj import tools
 from .models import Status, StatusDetail
-from .serializers import StatusSerializer
+from .serializers import StatusSerializer, StatusListSerializer
 from problem.models import Problem
 from segmentoj.decorator import login_required, syllable_required
 
@@ -56,3 +56,35 @@ class StatusView(APIView):
         ss.save()
         return Response(status=HTTP_201_CREATED)
 
+class StatusListView(APIView):
+
+    def get(self, request):
+        # Status List
+
+        status_filter = {}
+        data = request.GET
+        
+        queryset = Status.objects.filter(**status_filter).order_by('-add_time')
+
+        pg = LimitOffsetPagination()
+        statuses = pg.paginate_queryset(queryset=queryset, request=request, view=self)
+
+        ss = StatusListSerializer(statuses, many=True)
+        return Response({
+            'res': ss.data
+        }, status=HTTP_200_OK)
+
+class StatusListCountView(APIView):
+
+    def get(self, request):
+        # Status List Count
+
+        status_filter = {}
+        data = request.GET
+        
+        queryset = Status.objects.filter(**status_filter).order_by('-add_time')
+        res = queryset.count()
+
+        return Response({
+            'res': res
+        }, status=HTTP_200_OK)
