@@ -43,7 +43,7 @@ class StatusView(APIView):
         
         data['problem'] = get_object_or_404(Problem, pid=data['problem']).id
         
-        # Disallow User Provide This Syllables To Get Unjudged AC
+        # Disallow User Provide These Syllables To Get Unjudged AC
         data.pop('state', None)
         data.pop('time', None)
         data.pop('memory', None)
