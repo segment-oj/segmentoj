@@ -17,6 +17,18 @@ from segmentoj.decorator import login_required, syllable_required
 # Create your views here.
 class StatusView(APIView):
 
+    @method_decorator(syllable_required('id', int))
+    def get(self, request):
+        data = request.data
+
+        id = data.get('id')
+        status = get_object_or_404(Status, id=id)
+        ss = StatusSerializer(status)
+
+        return Response({
+            'res': ss.data
+        }, status=HTTP_200_OK)
+
     @method_decorator(syllable_required('problem', int))
     @method_decorator(syllable_required('code', str))
     @method_decorator(login_required())
@@ -43,3 +55,4 @@ class StatusView(APIView):
         ss.is_valid(raise_exception=True)
         ss.save()
         return Response(status=HTTP_201_CREATED)
+
