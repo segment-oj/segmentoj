@@ -21,6 +21,8 @@ class StatusView(APIView):
     @method_decorator(syllable_required('code', str))
     @method_decorator(login_required())
     def post(self, request):
+        # Create Status(Submit Problem)
+
         data = request.data
         data['owner'] = request.user.id
 
