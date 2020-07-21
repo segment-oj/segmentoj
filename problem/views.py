@@ -16,12 +16,14 @@ from status.models import Status
 
 class ProblemView(APIView):
     
-    @method_decorator(syllable_required('pid', int))
+    @method_decorator(syllable_required('pid', is_get_request=True))
     def get(self, request):
         # Get the content of a problem
 
-        data = request.data
+        data = request.GET
         id = data.get('pid')
+        if type(id) != int:
+            id = int(id)
 
         problem = get_object_or_404(Problem, pid=id)
 
