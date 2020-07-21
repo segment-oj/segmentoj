@@ -63,3 +63,6 @@ local_tools/
 /uploads/*/*
 !/uploads/README.md
 !/uploads/*/.placeholder
+
+# Backup
+*.bak
