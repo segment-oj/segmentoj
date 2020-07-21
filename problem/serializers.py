@@ -13,13 +13,15 @@ class ProblemSerializer(serializers.ModelSerializer):
         obj = self.data
 
         content = obj.get('description')
+        content = content.replace('\\', '\\\\') # For KaTeX
+
         content = tools.markdown2html(
             content,
             obj.get('allow_htlm')
         )
 
         # filter needed values
-        return {"id": obj.get('pid'),
+        return {"pid": obj.get('pid'),
                 "title": obj.get('title'), 
                 "description": content,
                 "tags": obj.get('tags'),
