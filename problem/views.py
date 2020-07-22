@@ -112,13 +112,17 @@ class ProblemListView(APIView):
     def get(self, request):
         def process_data(x):
             pid = x.get('pid')
-            userid = request.user.id
 
-            statusset = Status.objects.filter(problem=pid, owner=userid)
-            if statusset.count() == 0:
-                x['score'] = -1
+            if request.user.is_authenticated:
+                userid = request.user.id
+
+                statusset = Status.objects.filter(problem=pid, owner=userid)
+                if statusset.count() == 0:
+                    x['score'] = -1
+                else:
+                    x['score'] = statusset.aggregate(Max('score'))['score__max']
             else:
-                x['score'] = statusset.aggregate(Max('score'))['score__max']
+                x['score'] = -1
 
             return x
 
