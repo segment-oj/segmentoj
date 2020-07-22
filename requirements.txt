@@ -1,5 +1,5 @@
 asgiref==3.2.10
-Django==3.1b1
+Django==3.1rc1
 django-cors-headers==3.4.0
 django-filter==2.3.0
 djangorestframework==3.11.0
