@@ -13,12 +13,6 @@ class ProblemSerializer(serializers.ModelSerializer):
         obj = self.data
 
         content = obj.get('description')
-        content = content.replace('\\', '\\\\') # For KaTeX
-
-        content = tools.markdown2html(
-            content,
-            obj.get('allow_htlm')
-        )
 
         # filter needed values
         return {"pid": obj.get('pid'),
@@ -26,7 +20,8 @@ class ProblemSerializer(serializers.ModelSerializer):
                 "description": content,
                 "tags": obj.get('tags'),
                 "enabled": obj.get('enabled'),
-                "date_added": obj.get('date_added')}
+                "date_added": obj.get('date_added'),
+                "allow_html": obj.get('allow_html')}
 
     class Meta:
         model = Problem
