@@ -40,6 +40,6 @@ class ProblemListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Problem
-        fields = ['pid', 'title', 'enabled']
+        fields = ['id', 'pid', 'title', 'enabled']
         depth = 0
         read_only_fields = ['id', 'date_added']
