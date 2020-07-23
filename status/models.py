@@ -4,6 +4,7 @@ from account.models import User
 from problem.models import Problem
 
 from . import JudgeStatus
+from . import JudgeLanguage
 
 # Create your models here.
 class Status(models.Model):
