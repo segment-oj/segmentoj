@@ -1,4 +1,5 @@
 asgiref==3.2.10
+coverage==5.2
 Django==3.1rc1
 django-cors-headers==3.4.0
 django-filter==2.3.0
