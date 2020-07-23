@@ -40,6 +40,7 @@ class UserTest(TestCase):
         }
 
         res = self.client.get(self.base_url, {'id': 1})
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = json.loads(res.content)
         res_data = res_json['res']
         self.assertEqual(res_data.get('id'), user_data['id'])
@@ -49,3 +50,31 @@ class UserTest(TestCase):
         self.assertEqual(res_data.get('is_staff'), user_data['is_staff'])
         self.assertEqual(res_data.get('is_active'), user_data['is_active'])
         self.assertEqual(res_data.get('is_superuser'), user_data['is_superuser'])
+
+    def testC_get_404_user(self):
+        res = self.client.get(self.base_url, {'id': -1})
+        self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
+
+    def testD_get_user_miss_id(self):
+        res = self.client.get(self.base_url)
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def testE_add_exit_user(self):
+        request_data = {
+            'username': 'unittesuser01',
+            'email': 'unittesuser01@soj.ac.cn',
+            'password': 'unittest'
+        }
+
+        res = self.client.put(self.base_url, data=request_data, format='json')
+        res = self.client.put(self.base_url, data=request_data, format='json')
+        self.assertEqual(res.status_code, status.HTTP_409_CONFLICT)
+
+    def testF_add_user_miss_sth(self):
+        request_data = {
+            'username': 'unittesuser01',
+            'email': 'unittesuser01@soj.ac.cn',
+        }
+
+        res = self.client.put(self.base_url, data=request_data, format='json')
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
