@@ -4,5 +4,6 @@ from django.http import HttpResponseRedirect
 
 import segmentoj.tools
 
+
 def welcome(request):
-	return HttpResponseRedirect('/admin')
+    return HttpResponseRedirect("/admin")

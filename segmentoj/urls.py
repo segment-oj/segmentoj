@@ -21,11 +21,10 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', views.welcome),
-
+    path("admin/", admin.site.urls),
+    path("", views.welcome),
     # api
-    path('api/', include('api.urls')),
+    path("api/", include("api.urls")),
 ]
 
 if settings.DEBUG:

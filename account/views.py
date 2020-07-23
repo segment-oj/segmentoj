@@ -16,80 +16,89 @@ from account.serializers import AccountSerializer
 
 # Create your views here.
 class UserView(APIView):
-
-    @method_decorator(syllable_required('id', is_get_request=True))
+    @method_decorator(syllable_required("id", is_get_request=True))
     def get(self, request):
         data = request.GET
-        uid = data.get('id')
+        uid = data.get("id")
         if type(uid) != int:
             uid = int(uid)
-        
+
         user = get_object_or_404(User, id=uid)
         us = AccountSerializer(user)
-        return Response({'res': us.data}, status=status.HTTP_200_OK)
+        return Response({"res": us.data}, status=status.HTTP_200_OK)
 
-    @method_decorator(syllable_required('username', str))
-    @method_decorator(syllable_required('password', str))
+    @method_decorator(syllable_required("username", str))
+    @method_decorator(syllable_required("password", str))
     def post(self, request):
         # Create user session(Login)
         data = request.data
-        username = data.get('username')
-        password = data.get('password')
+        username = data.get("username")
+        password = data.get("password")
 
-        user = auth.authenticate(request, username=username,password=password)
+        user = auth.authenticate(request, username=username, password=password)
 
         if user:
             auth.login(request, user)
-            return Response({
-                'detail': 'Success',
-                'res': {
-                    'id': user.id
-                }}, status=status.HTTP_201_CREATED)
+            return Response(
+                {"detail": "Success", "res": {"id": user.id}},
+                status=status.HTTP_201_CREATED,
+            )
         else:
-            return Response({'detail': 'Username or password wrong'}, status=status.HTTP_403_FORBIDDEN)
+            return Response(
+                {"detail": "Username or password wrong"},
+                status=status.HTTP_403_FORBIDDEN,
+            )
 
     def delete(self, request):
         # delete session(logout)
 
         if not request.user.is_authenticated:
-            return Response({'detail': 'Not logged in!'}, status=status.HTTP_401_UNAUTHORIZED)
-        
+            return Response(
+                {"detail": "Not logged in!"}, status=status.HTTP_401_UNAUTHORIZED
+            )
+
         auth.logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-    @method_decorator(syllable_required('username', str))
-    @method_decorator(syllable_required('password', str))
-    @method_decorator(syllable_required('email', str))
+
+    @method_decorator(syllable_required("username", str))
+    @method_decorator(syllable_required("password", str))
+    @method_decorator(syllable_required("email", str))
     def put(self, request):
         # put a record(register an account)
 
-        username = request.data.get('username')
-        password = request.data.get('password')
-        email = request.data.get('email')
+        username = request.data.get("username")
+        password = request.data.get("password")
+        email = request.data.get("email")
 
         if len(password) < 6:
-            return Response({
-                'detail': 'Password too short'
-            }, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "Password too short"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
         if not tools.isEmail(email):
-            return Response({'detail': 'Email is not correct'}, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "Email is not correct"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
-        try: 
-            user = User.objects.create_user(username=username, password=password, email=email)
+        try:
+            user = User.objects.create_user(
+                username=username, password=password, email=email
+            )
         except IntegrityError:
             # failed, probably because username already exits
-            return Response({'detail': 'Failed to create user.'}, status=status.HTTP_409_CONFLICT)
+            return Response(
+                {"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT
+            )
 
+        if user:  # Success
+            user.save()  # Save user
 
-        if user: # Success
-            user.save() # Save user
+            return Response(
+                {"detail": "Success", "res": {"id": user.id}},
+                status=status.HTTP_201_CREATED,
+            )
+        else:  # failed, probably because username already exits
+            return Response(
+                {"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT
+            )
 
-            return Response({
-                'detail': 'Success',
-                'res': {
-                    'id': user.id
-                }
-            }, status=status.HTTP_201_CREATED)
-        else: # failed, probably because username already exits
-            return Response({'detail': 'Failed to create user.'}, status=status.HTTP_409_CONFLICT)

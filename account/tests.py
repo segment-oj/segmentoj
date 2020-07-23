@@ -7,52 +7,52 @@ import json
 
 # Create your tests here.
 class UserTest(TestCase):
-    fixtures = ['testdatabase.yaml']
+    fixtures = ["testdatabase.yaml"]
 
     # setup test case
     def setUp(self):
-        self.base_url = '/api/user'
+        self.base_url = "/api/user"
         self.client = APIClient()
 
     # test adding a user
     def testA_add_user(self):
         request_data = {
-            'username': 'unittesuser01',
-            'email': 'unittesuser01@soj.ac.cn',
-            'password': 'unittest'
+            "username": "unittesuser01",
+            "email": "unittesuser01@soj.ac.cn",
+            "password": "unittest",
         }
 
-        res = self.client.put(self.base_url, data=request_data, format='json')
+        res = self.client.put(self.base_url, data=request_data, format="json")
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         res_json = json.loads(res.content)
-        self.assertEqual(type(res_json['res']['id']), int)
+        self.assertEqual(type(res_json["res"]["id"]), int)
 
     def testB_get_user(self):
         user_data = {
-            'id': 1,
-            'username': 'admin',
-            'introduction': '# Hello World!',
-            'email': 'admin@soj.ac.cn',
-            'lang': 0,
-            'is_staff': True,
-            'is_active': True,
-            'is_superuser': True
+            "id": 1,
+            "username": "admin",
+            "introduction": "# Hello World!",
+            "email": "admin@soj.ac.cn",
+            "lang": 0,
+            "is_staff": True,
+            "is_active": True,
+            "is_superuser": True,
         }
 
-        res = self.client.get(self.base_url, {'id': 1})
+        res = self.client.get(self.base_url, {"id": 1})
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         res_json = json.loads(res.content)
-        res_data = res_json['res']
-        self.assertEqual(res_data.get('id'), user_data['id'])
-        self.assertEqual(res_data.get('username'), user_data['username'])
-        self.assertEqual(res_data.get('introduction'), user_data['introduction'])
-        self.assertEqual(res_data.get('lang'), user_data['lang'])
-        self.assertEqual(res_data.get('is_staff'), user_data['is_staff'])
-        self.assertEqual(res_data.get('is_active'), user_data['is_active'])
-        self.assertEqual(res_data.get('is_superuser'), user_data['is_superuser'])
+        res_data = res_json["res"]
+        self.assertEqual(res_data.get("id"), user_data["id"])
+        self.assertEqual(res_data.get("username"), user_data["username"])
+        self.assertEqual(res_data.get("introduction"), user_data["introduction"])
+        self.assertEqual(res_data.get("lang"), user_data["lang"])
+        self.assertEqual(res_data.get("is_staff"), user_data["is_staff"])
+        self.assertEqual(res_data.get("is_active"), user_data["is_active"])
+        self.assertEqual(res_data.get("is_superuser"), user_data["is_superuser"])
 
     def testC_get_404_user(self):
-        res = self.client.get(self.base_url, {'id': -1})
+        res = self.client.get(self.base_url, {"id": -1})
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
 
     def testD_get_user_miss_id(self):
@@ -61,20 +61,20 @@ class UserTest(TestCase):
 
     def testE_add_exit_user(self):
         request_data = {
-            'username': 'unittesuser01',
-            'email': 'unittesuser01@soj.ac.cn',
-            'password': 'unittest'
+            "username": "unittesuser01",
+            "email": "unittesuser01@soj.ac.cn",
+            "password": "unittest",
         }
 
-        res = self.client.put(self.base_url, data=request_data, format='json')
-        res = self.client.put(self.base_url, data=request_data, format='json')
+        res = self.client.put(self.base_url, data=request_data, format="json")
+        res = self.client.put(self.base_url, data=request_data, format="json")
         self.assertEqual(res.status_code, status.HTTP_409_CONFLICT)
 
     def testF_add_user_miss_sth(self):
         request_data = {
-            'username': 'unittesuser01',
-            'email': 'unittesuser01@soj.ac.cn',
+            "username": "unittesuser01",
+            "email": "unittesuser01@soj.ac.cn",
         }
 
-        res = self.client.put(self.base_url, data=request_data, format='json')
+        res = self.client.put(self.base_url, data=request_data, format="json")
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
