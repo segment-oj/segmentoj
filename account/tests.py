@@ -26,7 +26,6 @@ class UserTest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         res_json = json.loads(res.content)
         self.assertEqual(type(res_json['res']['id']), int)
-        testuserid = res_json['res']['id']
 
     def testB_get_user(self):
         user_data = {
