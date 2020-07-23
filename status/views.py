@@ -20,8 +20,8 @@ class StatusView(APIView):
     def get(self, request):
         data = request.data
 
-        id = data.get("id")
-        status = get_object_or_404(Status, id=id)
+        sid = data.get("id")
+        status = get_object_or_404(Status, id=sid)
         ss = StatusSerializer(status)
 
         return Response({"res": ss.data}, status=HTTP_200_OK)
