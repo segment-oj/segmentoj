@@ -173,7 +173,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SAMESITE = 'none'
 # SESSION_COOKIE_SECURE = True     # ENABLE THIS if you server is based on HTTPS
-
+SESSION_COOKIE_HTTPONLY = True    # DISABLE THIS ON PRODUCTION
 
 REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_CLASSES': (
@@ -181,8 +181,4 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 5,
-
-    'DEFAULT_THROTTLE_RATES': {
-        'user': '10/m',
-    }
 }
