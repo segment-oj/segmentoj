@@ -1,0 +1,8 @@
+[run]
+source = .
+omit = manage.py 
+    */apps.py
+    segmentoj/asgi.py
+
+[report]
+fail_under = 60
