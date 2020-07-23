@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APIRequestFactory, force_authenticate
 
 from .views import StatusView
-from account.models import User 
+from account.models import User
 
 # Create your tests here.
 class StatusTest(TestCase):
@@ -12,8 +12,9 @@ class StatusTest(TestCase):
 
     # setup test case
     def setUp(self):
-        self.base_url = 'api/status'
+        self.base_url = '/api/status'
         self.view = StatusView.as_view()
+        self.factory = APIRequestFactory()
     
     def testA_submit_problem(self):
         request_data = {
@@ -23,7 +24,7 @@ class StatusTest(TestCase):
 
         user = User.objects.get(username="testuser")
 
-        request = APIRequestFactory.post(self.base_url, data, format='json')
+        request = self.factory.post(self.base_url, request_data, format='json')
         force_authenticate(request, user)
         res = self.view(request)
 
