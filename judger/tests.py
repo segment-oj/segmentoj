@@ -21,10 +21,22 @@ class JudgerStatusTest(TestCase):
         ac_data = 3
 
         request = self.factory.get(self.base_url)
-        force_authenticate(request, User.objects.get(username="ForcesEqual"))
+        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
         response = self.view(request)
         self.assertIsNotNone(response)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.data.get("res")
         self.assertEqual(data, ac_data)
+
+    def testB_get_task_not_logged_in(self):
+        request = self.factory.get(self.base_url)
+        force_authenticate(request) # Logout
+        response = self.view(request)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
+    
+    def testB_get_task_not_judger(self):
+        request = self.factory.get(self.base_url)
+        force_authenticate(request, user=User.objects.get(username="admin"))
+        response = self.view(request)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
