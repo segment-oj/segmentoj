@@ -20,20 +20,7 @@ class Status(models.Model):
     code = models.TextField()
 
     add_time = models.DateTimeField(auto_now_add=True)
-
-    def fresh_state(self):
-        for Jdetail in self.judge_detail:
-            if Jdetail.state < 10:
-                self.state = Jdetail.state
-                return
-
-        for Jdetail in self.judge_detail:
-            if Jdetail.state >= 20:
-                self.state = Jdetail.state
-                return
-
-        self.state = self.judge_detail[0].state
-
+    
     def __str__(self):
         return str(self.id)
 
