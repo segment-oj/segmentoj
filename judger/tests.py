@@ -83,7 +83,7 @@ class JudgerStatusDetailTest(TestCase):
             "answer_s": "3"
         }
 
-        request = self.factory.post(self.base_url)
+        request = self.factory.post(self.base_url, data=request_data, format="json")
         force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3, cid=1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -96,9 +96,10 @@ class JudgerStatusDetailTest(TestCase):
             "score": 100
         }
 
-        request = self.factory.post(self.base_url)
+        request = self.factory.post(self.base_url, data=request_data, format="json")
         force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3, cid=2)
+        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def testD_post_detail_same_twice(self):
@@ -106,7 +107,7 @@ class JudgerStatusDetailTest(TestCase):
             "state": js.JUDGE_STATUS_JUDGING,
         }
 
-        request = self.factory.post(self.base_url)
+        request = self.factory.post(self.base_url, data=request_data, format="json")
         force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3, cid=3)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
@@ -122,7 +123,7 @@ class JudgerStatusDetailTest(TestCase):
             "answer_s": "30",
         }
 
-        request = self.factory.post(self.base_url)
+        request = self.factory.post(self.base_url, data=request_data, format="json")
         force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3, cid=3)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
