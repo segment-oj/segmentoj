@@ -11,7 +11,7 @@ class AccountTest(TestCase):
 
     # setup test case
     def setUp(self):
-        self.base_url = "api/user"
+        self.base_url = "api/account"
         self.factory = APIRequestFactory()
         self.view = AccountView.as_view()
 

@@ -28,9 +28,9 @@ urlpatterns = [
     path("", views.welcome),
     # api
     # Account
-    path("api/user", AccountView.as_view()),
-    path("api/user/<int:uid>", AccountView.as_view()),
-    path("api/user/session", AccountSessionView.as_view()),
+    path("api/account", AccountView.as_view()),
+    path("api/account/<int:uid>", AccountView.as_view()),
+    path("api/account/session", AccountSessionView.as_view()),
     # Problem
     path("api/problem/", include("problem.urls")),
     # Status
