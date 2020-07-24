@@ -10,6 +10,8 @@ from account.models import User
 
 
 class JudgerStatusTest(TestCase):
+    fixtures = ["testdatabase.yaml"]
+
     def setUp(self):
         self.base_url = "/api/judger/status"
         self.factory = APIRequestFactory()
@@ -19,7 +21,7 @@ class JudgerStatusTest(TestCase):
         ac_data = 3
 
         request = self.factory.get(self.base_url)
-        force_authenticate(request, User.objects.get(username="forcesequal"))
+        force_authenticate(request, User.objects.get(username="ForcesEqual"))
         response = self.view(request)
         self.assertIsNotNone(response)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
