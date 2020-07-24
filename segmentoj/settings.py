@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # API
+    "rest_framework",
     # CORS Control
     "corsheaders",
     # SegmentOJ Apps
@@ -47,9 +49,6 @@ INSTALLED_APPS = [
     "status",
     # captcha
     "captcha",
-    # API
-    "rest_framework",
-    "api",  # Segment OJ API
 ]
 
 MIDDLEWARE = [

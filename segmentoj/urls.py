@@ -20,11 +20,18 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+from account.views import UserView
+from status.views import StatusView, StatusListCountView, StatusListView
+
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", views.welcome),
     # api
-    path("api/", include("api.urls")),
+    path("api/user", UserView.as_view()),
+    path("api/problem/", include("problem.urls")),
+    path("api/status", StatusView.as_view()),
+    path("api/status/list", StatusListView.as_view()),
+    path("api/status/list/count", StatusListCountView.as_view()),
 ]
 
 if settings.DEBUG:
