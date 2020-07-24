@@ -3,34 +3,24 @@ from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
 
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required, permission_required
+from django.contrib.auth.decorators import permission_required
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
 from segmentoj import tools
-from segmentoj.decorator import syllable_required
+from segmentoj.decorator import syllable_required, parameter_required
 from account.models import User
 from account.serializers import AccountSerializer
 
 # Create your views here.
-class UserView(APIView):
-    @method_decorator(syllable_required("id", is_get_request=True))
-    def get(self, request):
-        data = request.GET
-        uid = data.get("id")
-        if type(uid) != int:
-            uid = int(uid)
+class AccountSessionView(APIView):
 
-        user = get_object_or_404(User, id=uid)
-        us = AccountSerializer(user)
-        return Response({"res": us.data}, status=status.HTTP_200_OK)
-
+    # Create user session(Login)
     @method_decorator(syllable_required("username", str))
     @method_decorator(syllable_required("password", str))
     def post(self, request):
-        # Create user session(Login)
         data = request.data
         username = data.get("username")
         password = data.get("password")
@@ -49,8 +39,8 @@ class UserView(APIView):
                 status=status.HTTP_403_FORBIDDEN,
             )
 
+    # delete session(logout)
     def delete(self, request):
-        # delete session(logout)
 
         if not request.user.is_authenticated:
             return Response(
@@ -60,12 +50,21 @@ class UserView(APIView):
         auth.logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+class AccountView(APIView):
+
+    # Get User Infomation
+    @method_decorator(parameter_required("uid"))
+    def get(self, request, uid):
+        user = get_object_or_404(User, id=uid)
+        us = AccountSerializer(user)
+        return Response({"res": us.data}, status=status.HTTP_200_OK)
+
+    # Create New User(register an account)
     @method_decorator(syllable_required("username", str))
     @method_decorator(syllable_required("password", str))
     @method_decorator(syllable_required("email", str))
-    def put(self, request):
-        # put a record(register an account)
-
+    def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
         email = request.data.get("email")
