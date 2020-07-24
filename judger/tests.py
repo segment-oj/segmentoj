@@ -99,7 +99,6 @@ class JudgerStatusDetailTest(TestCase):
         request = self.factory.post(self.base_url, data=request_data, format="json")
         force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3, cid=2)
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
     def testD_post_detail_same_twice(self):

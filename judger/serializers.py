@@ -2,7 +2,7 @@
 
 from rest_framework import serializers
 
-from status.models import Status
+from status.models import Status, StatusDetail
 
 
 class StatusSerializer(serializers.ModelSerializer):
@@ -12,4 +12,9 @@ class StatusSerializer(serializers.ModelSerializer):
         fields = ["code", "lang", "problem", "id"]
         read_only_fields = ["id"]
 
-
+class StatusDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StatusDetail
+        depth = 0
+        fields = "__all__"
+        read_only_fields = ["id"]
