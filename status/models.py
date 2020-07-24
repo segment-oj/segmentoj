@@ -53,7 +53,7 @@ class StatusDetail(models.Model):
     answer_s = models.CharField(max_length=100, null=True, blank=True)
 
     caseid = models.IntegerField()
-    main_state = models.ForeignKey(
+    main_status = models.ForeignKey(
         Status, on_delete=models.CASCADE, related_name="judge_detail"
     )
 
