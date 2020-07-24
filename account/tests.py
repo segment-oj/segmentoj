@@ -1,9 +1,10 @@
 from django.test import TestCase
 
 from rest_framework import status
-from rest_framework.test import APIRequestFactory
+from rest_framework.test import APIRequestFactory, APIClient
 
 from .views import AccountView
+from .models import User
 
 # Create your tests here.
 class AccountTest(TestCase):
@@ -11,7 +12,7 @@ class AccountTest(TestCase):
 
     # setup test case
     def setUp(self):
-        self.base_url = "api/account"
+        self.base_url = "/api/account"
         self.factory = APIRequestFactory()
         self.view = AccountView.as_view()
 
@@ -89,3 +90,30 @@ class AccountTest(TestCase):
         request = self.factory.get(self.base_url, format="json")
         res = self.view(request)
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
+
+
+class AccountSessionTest(TestCase):
+    fixtures = ["testdatabase.yaml"]
+
+    def setUp(self):
+        self.base_url = "/api/account/session"
+        self.client = APIClient()
+
+    def testA_create_session(self):
+        request_data = {
+            "username": "admin",
+            "password": "123456",
+        }
+
+        res = self.client.post(self.base_url, request_data)
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        sid_cookie = res.cookies.get("sessionid")
+        self.assertIsNotNone(sid_cookie)
+        self.assertEqual(sid_cookie["samesite"], "none")
+        self.assertEqual(sid_cookie["path"], "/")
+
+    def testB_logout_session(self):
+        user = User.objects.get(username="ztl")
+        self.client.force_authenticate(user=user)
+        res = self.client.delete(self.base_url)
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
