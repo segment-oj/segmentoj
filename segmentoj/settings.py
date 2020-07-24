@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    # API
+    # API Framework
     "rest_framework",
     # CORS Control
     "corsheaders",
@@ -47,8 +47,8 @@ INSTALLED_APPS = [
     "account",
     "problem",
     "status",
-    # captcha
     "captcha",
+    "judger",  # Judger API
 ]
 
 MIDDLEWARE = [
