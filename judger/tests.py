@@ -35,7 +35,7 @@ class JudgerStatusTest(TestCase):
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
     
-    def testB_get_task_not_judger(self):
+    def testC_get_task_not_judger(self):
         request = self.factory.get(self.base_url)
         force_authenticate(request, user=User.objects.get(username="admin"))
         response = self.view(request)
