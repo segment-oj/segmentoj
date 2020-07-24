@@ -6,6 +6,7 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 from .views import JudgerStatusView, JudgerStatusDetailView
 from account.models import User
 from status import JudgeLanguage as jl
+from status import JudgeStatus as js
 
 # Create your tests here.
 
@@ -69,3 +70,59 @@ class JudgerStatusDetailTest(TestCase):
         self.assertEqual(data.get("problem"), ac_data["problem"])
         self.assertEqual(data.get("lang"), ac_data["lang"])
         self.assertEqual(data.get("id"), ac_data["id"])
+    
+    def testB_post_detail(self):
+        request_data = {
+            "state": js.JUDGE_STATUS_AC,
+            "time": 200,
+            "memory": 8500,
+            "score": 100,
+            "input_s": "1 2",
+            "output_s": "3",
+            "error_s": "",
+            "answer_s": "3"
+        }
+
+        request = self.factory.post(self.base_url)
+        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        response = self.view(request, sid=3, cid=1)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        
+    def testC_post_detail_partly(self):
+        request_data = {
+            "state": js.JUDGE_STATUS_AC,
+            "time": 203,
+            "memory": 8501,
+            "score": 100
+        }
+
+        request = self.factory.post(self.base_url)
+        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        response = self.view(request, sid=3, cid=2)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def testD_post_detail_same_twice(self):
+        request_data = {
+            "state": js.JUDGE_STATUS_JUDGING,
+        }
+
+        request = self.factory.post(self.base_url)
+        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        response = self.view(request, sid=3, cid=3)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+        request_data = {
+            "state": js.JUDGE_STATUS_AC,
+            "time": 200,
+            "memory": 8500,
+            "score": 100,
+            "input_s": "10 20",
+            "output_s": "30",
+            "error_s": "",
+            "answer_s": "30",
+        }
+
+        request = self.factory.post(self.base_url)
+        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        response = self.view(request, sid=3, cid=3)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
