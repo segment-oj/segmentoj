@@ -118,6 +118,186 @@
     object_repr: '1'
     action_flag: 2
     change_message: '[]'
+- model: admin.logentry
+  pk: 13
+  fields:
+    action_time: 2020-07-23 10:22:18.566904+00:00
+    user: 1
+    content_type: 3
+    object_id: '1'
+    object_repr: Problem Group
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 14
+  fields:
+    action_time: 2020-07-23 10:22:30.464554+00:00
+    user: 1
+    content_type: 6
+    object_id: '3'
+    object_repr: zhangtianli
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Groups", "Staff status", "Email"]}}]'
+- model: admin.logentry
+  pk: 15
+  fields:
+    action_time: 2020-07-23 10:23:23.469657+00:00
+    user: 3
+    content_type: 7
+    object_id: '3'
+    object_repr: Markdown Tests
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Description"]}}]'
+- model: admin.logentry
+  pk: 16
+  fields:
+    action_time: 2020-07-23 10:25:14.275753+00:00
+    user: 3
+    content_type: 7
+    object_id: '4'
+    object_repr: Long Code Test
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 17
+  fields:
+    action_time: 2020-07-23 10:28:37.005037+00:00
+    user: 3
+    content_type: 7
+    object_id: '4'
+    object_repr: Long Code Test
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Description"]}}]'
+- model: admin.logentry
+  pk: 18
+  fields:
+    action_time: 2020-07-23 10:30:00.819187+00:00
+    user: 3
+    content_type: 7
+    object_id: '4'
+    object_repr: Long Code Test
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Description"]}}]'
+- model: admin.logentry
+  pk: 19
+  fields:
+    action_time: 2020-07-23 10:30:26.093213+00:00
+    user: 3
+    content_type: 7
+    object_id: '4'
+    object_repr: Long Code Test
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Description"]}}]'
+- model: admin.logentry
+  pk: 20
+  fields:
+    action_time: 2020-07-23 10:47:14.098980+00:00
+    user: 3
+    content_type: 7
+    object_id: '4'
+    object_repr: Long Code Test
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Pid"]}}]'
+- model: admin.logentry
+  pk: 21
+  fields:
+    action_time: 2020-07-23 10:57:35.631734+00:00
+    user: 3
+    content_type: 7
+    object_id: '3'
+    object_repr: Markdown Tests
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Description"]}}]'
+- model: admin.logentry
+  pk: 22
+  fields:
+    action_time: 2020-07-24 00:53:59.151246+00:00
+    user: 1
+    content_type: 6
+    object_id: '4'
+    object_repr: 肥硕
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Groups", "Staff status"]}}]'
+- model: admin.logentry
+  pk: 23
+  fields:
+    action_time: 2020-07-24 00:55:34.860507+00:00
+    user: 4
+    content_type: 7
+    object_id: '3'
+    object_repr: Markdown Tests
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Description"]}}]'
+- model: admin.logentry
+  pk: 24
+  fields:
+    action_time: 2020-07-24 00:56:29.253977+00:00
+    user: 4
+    content_type: 7
+    object_id: '3'
+    object_repr: Markdown Tests
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Description"]}}]'
+- model: admin.logentry
+  pk: 25
+  fields:
+    action_time: 2020-07-24 00:58:54.957552+00:00
+    user: 4
+    content_type: 7
+    object_id: '3'
+    object_repr: Markdown Tests
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Description"]}}]'
+- model: admin.logentry
+  pk: 26
+  fields:
+    action_time: 2020-07-24 01:00:10.996114+00:00
+    user: 4
+    content_type: 7
+    object_id: '3'
+    object_repr: Markdown Tests
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Description"]}}]'
+- model: admin.logentry
+  pk: 27
+  fields:
+    action_time: 2020-07-24 01:03:10.666446+00:00
+    user: 4
+    content_type: 7
+    object_id: '3'
+    object_repr: Markdown Tests
+    action_flag: 2
+    change_message: '[]'
+- model: admin.logentry
+  pk: 28
+  fields:
+    action_time: 2020-07-24 10:00:02.029978+00:00
+    user: 1
+    content_type: 6
+    object_id: '3'
+    object_repr: zhangtianli
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Password"]}}]'
+- model: admin.logentry
+  pk: 29
+  fields:
+    action_time: 2020-07-24 10:00:11.587938+00:00
+    user: 1
+    content_type: 6
+    object_id: '4'
+    object_repr: 肥硕
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Password"]}}]'
+- model: admin.logentry
+  pk: 30
+  fields:
+    action_time: 2020-07-24 10:00:20.121914+00:00
+    user: 1
+    content_type: 6
+    object_id: '5'
+    object_repr: ztl
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Password"]}}]'
 - model: auth.permission
   pk: 1
   fields:
@@ -388,6 +568,20 @@
     name: Can view captcha store
     content_type: 11
     codename: view_captchastore
+- model: auth.group
+  pk: 1
+  fields:
+    name: Problem Group
+    permissions:
+    - 25
+    - 26
+    - 27
+    - 29
+    - 28
+    - 30
+    - 31
+    - 32
+    - 33
 - model: contenttypes.contenttype
   pk: 1
   fields:
@@ -444,15 +638,30 @@
     app_label: captcha
     model: captchastore
 - model: sessions.session
+  pk: 0ny7ycm282w3z69i6n3f2rb0sdju6whr
+  fields:
+    session_data: .eJxVjMsOwiAQRf-FtSEDnaHWpft-AxkGkKqBpI-V8d-1SRe6veec-1Ket7X4bUmzn6K6KFSn3y2wPFLdQbxzvTUtra7zFPSu6IMuemwxPa-H-3dQeCnfmoSYOhCBjuzZUEYCsAQugTOuHwQGZGcdIjJbyT3aYFKfOJpMIQf1_gCsKDcm:1jylwR:oUvKHOzseR1V1YCGcwbJzfjfsSbCH67tRjxwQpCUZgQ
+    expire_date: 2020-08-07 00:52:03.760881+00:00
+- model: sessions.session
+  pk: iqkwhegqx0vtevk9gt6jhy3ieljys9sr
+  fields:
+    session_data: .eJxVjMsOwiAQRf-FtSEDnaHWpft-AxkGkKqBpI-V8d-1SRe6veec-1Ket7X4bUmzn6K6KFSn3y2wPFLdQbxzvTUtra7zFPSu6IMuemwxPa-H-3dQeCnfmoSYOhCBjuzZUEYCsAQugTOuHwQGZGcdIjJbyT3aYFKfOJpMIQf1_gCsKDcm:1jylyW:BqhhNPe8EyULSllW_M3qg-hRnT6vtFEcAxpqGMnUIo4
+    expire_date: 2020-08-07 00:54:12.621083+00:00
+- model: sessions.session
+  pk: vyqfd7ispubdbs7m27z6a71ycimujeyn
+  fields:
+    session_data: .eJxVjEEOwiAQAP_C2ZClFVo8evcNZJddpGogKe3J-HdD0oNeZybzVgH3LYe9yRoWVhdl1emXEcanlC74geVedaxlWxfSPdGHbfpWWV7Xo_0bZGy5b-OZI9vRsAwTjox2SpDEkBABo2cB58knOw4g4u1snItgnBWYhZHU5wsT6jjr:1jynmD:0zaSq0EOoCHHfUjvMNCmz2zY009NQEIDnWBwEsO3_5c
+    expire_date: 2020-08-07 02:49:37.426117+00:00
+- model: sessions.session
   pk: y6rzqdzc64nbr5uqbp04rzgnsoeoffo6
   fields:
-    session_data: .eJxVjMEOwiAQRP-FsyGFLrJ49O43ENgFqRqalPZk_HdL0oOeJpn3Zt7Ch20tfmtp8ROLi1Di9NvFQM9UO-BHqPdZ0lzXZYqyK_KgTd5mTq_r4f4dlNDKvsaokRjJpB4J0CZHceSBtTWjBsomDsFlFx26s8UMCCrDbjGBM0p8vvoNOAs:1jyXYQ:DRe6MJwkLlVtcL-dTxrfha6byUczcSj-Bkz4imdpZ-c
-    expire_date: 2020-08-06 09:30:18.740814+00:00
+    session_data: .eJxVjMEOwiAQRP-FsyGFLrJ49O43ENgFqRqalPZk_HdL0oOeJpn3Zt7Ch20tfmtp8ROLi1Di9NvFQM9UO-BHqPdZ0lzXZYqyK_KgTd5mTq_r4f4dlNDKvsaokRjJpB4J0CZHceSBtTWjBsomDsFlFx26s8UMCCrDbjGBM0p8vvoNOAs:1jyZsu:fn-kYDzmyZMgZn9uaEu5usHJ_lfI6EzKWKMuzT37MW8
+    expire_date: 2020-08-06 11:59:36.426950+00:00
 - model: account.user
   pk: 1
   fields:
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
-    last_login: 2020-07-23 09:30:18.731220+00:00
+    last_login: 2020-07-24 09:59:09.161240+00:00
     is_superuser: true
     first_name: ''
     last_name: ''
@@ -480,6 +689,65 @@
     date_joined: 2020-07-23 09:29:41.657217+00:00
     username: testuser
     email: testuser@soj.ac.cn
+    introduction: '# Hello World!'
+    lang: 0
+    solved: 0
+    submit_time: 0
+    groups: []
+    user_permissions: []
+- model: account.user
+  pk: 3
+  fields:
+    password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
+    last_login: 2020-07-24 02:47:54+00:00
+    is_superuser: false
+    first_name: ''
+    last_name: ''
+    is_staff: true
+    is_active: true
+    date_joined: 2020-07-23 10:19:46+00:00
+    username: zhangtianli
+    email: ztl@soj.ac.cn
+    introduction: '# Hello World!'
+    lang: 0
+    solved: 0
+    submit_time: 0
+    groups:
+    - 1
+    user_permissions: []
+- model: account.user
+  pk: 4
+  fields:
+    password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
+    last_login: 2020-07-24 00:54:12+00:00
+    is_superuser: false
+    first_name: ''
+    last_name: ''
+    is_staff: true
+    is_active: true
+    date_joined: 2020-07-24 00:51:40+00:00
+    username: 肥硕
+    email: fat@soj.ac.cn
+    introduction: '# Hello World!'
+    lang: 0
+    solved: 0
+    submit_time: 0
+    groups:
+    - 1
+    user_permissions: []
+- model: account.user
+  pk: 5
+  fields:
+    password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
+    last_login: 2020-07-24 02:49:37+00:00
+    is_superuser: false
+    first_name: ''
+    last_name: ''
+    is_staff: false
+    is_active: true
+    date_joined: 2020-07-24 02:49:22+00:00
+    username: ztl
+    email: ztl@soj.ac.cn
     introduction: '# Hello World!'
     lang: 0
     solved: 0
@@ -566,13 +834,13 @@
   fields:
     title: Markdown Tests
     description: "# 标题H1\r\n\r\n## 标题H2\r\n\r\n### 标题H3\r\n\r\n#### 标题H4\r\n\r\n#####\
-      \ 标题H5\r\n\r\n###### 标题H5\r\n\r\n### 字符效果和横线等\r\n----\r\n\r\n~~删除线~~ \r\n\r\n\
-      <s>删除线（开启识别HTML标签时）</s>\r\n\r\n*斜体字*      _斜体字_\r\n\r\n**粗体**  __粗体__\r\n\r\n\
-      ***粗斜体*** ___粗斜体___\r\n\r\n上标：X<sub>2</sub>，下标：O<sup>2</sup>\r\n\r\n**缩写(同HTML的abbr标签)**\r\
-      \n> 即更长的单词或短语的缩写形式，前提是开启识别HTML标签时，已默认开启\r\n\r\nThe <abbr title=\"Hyper Text\
-      \ Markup Language\">HTML</abbr> specification is maintained by the <abbr title=\"\
-      World Wide Web Consortium\">W3C</abbr>.\r\n### 引用 Blockquotes\r\n\r\n> 引用文本\
-      \ Blockquotes\r\n\r\n引用的行内混合 Blockquotes\r\n\r\n> 引用：如果想要插入空白换行`即<br />标签`，在插入处先键入两个以上的空格然后回车即可，[普通链接](https://www.mdeditor.com/)。\r\
+      \ 标题H5\r\n\r\n### 字符效果和横线等\r\n----\r\n\r\n~~删除线~~ \r\n\r\n<s>删除线（开启识别HTML标签时）</s>\r\
+      \n\r\n*斜体字*      _斜体字_\r\n\r\n**粗体**  __粗体__\r\n\r\n***粗斜体*** ___粗斜体___\r\n\r\
+      \n上标：X<sub>2</sub>，下标：O<sup>2</sup>\r\n\r\n**缩写(同HTML的abbr标签)**\r\n> 即更长的单词或短语的缩写形式，前提是开启识别HTML标签时，已默认开启\r\
+      \n\r\nThe <abbr title=\"Hyper Text Markup Language\">HTML</abbr> specification\
+      \ is maintained by the <abbr title=\"World Wide Web Consortium\">W3C</abbr>.\r\
+      \n### 引用 Blockquotes\r\n\r\n> 引用文本 Blockquotes\r\n\r\n引用的行内混合 Blockquotes\r\n\
+      \r\n> 引用：如果想要插入空白换行`即<br />标签`，在插入处先键入两个以上的空格然后回车即可，[普通链接](https://www.mdeditor.com/)。\r\
       \n\r\n\r\n### 多语言代码高亮 Codes\r\n\r\n#### 行内代码 Inline code\r\n\r\n\r\n执行命令：`npm\
       \ install marked`\r\n\r\n#### 缩进风格\r\n\r\n即缩进四个空格，也做为实现类似 `<pre>` 预格式化文本 ( Preformatted\
       \ Text ) 的功能。\r\n\r\n    <?php\r\n        echo \"Hello world!\";\r\n    ?>\r\
@@ -617,18 +885,18 @@
       \ Codes\r\n\r\n&copy; &  &uml; &trade; &iexcl; &pound;\r\n&amp; &lt; &gt; &yen;\
       \ &euro; &reg; &plusmn; &para; &sect; &brvbar; &macr; &laquo; &middot;\r\n\r\
       \nX&sup2; Y&sup3; &frac34; &frac14;  &times;  &divide;   &raquo;\r\n\r\n18&ordm;C\
-      \  &quot;  &apos;\r\n\r\n#### 反斜杠 Escape\r\n\r\n\\*literal asterisks\\*\r\n\r\
-      \n### 科学公式 TeX(KaTeX)\r\n\r\n$$E=mc^2$$\r\n\r\n行内的公式$$E=mc^2$$行内的公式，行内的$$E=mc^2$$公式。\r\
-      \n\r\n$$x > y$$\r\n\r\n$$\\(\\sqrt{3x-1}+(1+x)^2\\)$$\r\n\r\n$$\\sin(\\alpha)^{\\\
+      \  &quot;  &apos;\r\n\r\n#### 反斜杠 Escape\r\n\r\n*literal asterisks*\r\n\r\n\
+      ### 科学公式 TeX(KaTeX)\r\n\r\n> $E=mc^2$ \r\n\r\n$$E=mc^2$$\r\n\r\n行内的公式$$E=mc^2$$行内的公式，行内的$$E=mc^2$$公式。\r\
+      \n\r\n$$x > y$$\r\n\r\n$$\\sqrt{3x-1}+(1+x)^2$$\r\n\r\n$$\\sin(\\alpha)^{\\\
       theta}=\\sum_{i=0}^{n}(x^i + \\cos(f))$$\r\n\r\n多行公式：\r\n\r\n$$\r\n\\displaystyle\r\
-      \n\\left( \\sum\\_{k=1}^n a\\_k b\\_k \\right)^2\r\n\\leq\r\n\\left( \\sum\\\
-      _{k=1}^n a\\_k^2 \\right)\r\n\\left( \\sum\\_{k=1}^n b\\_k^2 \\right)\r\n$$\r\
-      \n\r\n$$\r\n\\displaystyle\r\n    \\frac{1}{\r\n        \\Bigl(\\sqrt{\\phi\
-      \ \\sqrt{5}}-\\phi\\Bigr) e^{\r\n        \\frac25 \\pi}} = 1+\\frac{e^{-2\\\
-      pi}} {1+\\frac{e^{-4\\pi}} {\r\n        1+\\frac{e^{-6\\pi}}\r\n        {1+\\\
-      frac{e^{-8\\pi}}\r\n         {1+\\cdots} }\r\n        }\r\n    }\r\n$$\r\n\r\
-      \n$$\r\nf(x) = \\int_{-\\infty}^\\infty\r\n    \\hat f(\\xi)\\,e^{2 \\pi i \\\
-      xi x}\r\n    \\,d\\xi\r\n$$\r\n\r\n### End"
+      \n\\left( \\sum_{k=1}^n a_k b_k \\right)^2\r\n\\leq\r\n\\left( \\sum_{k=1}^n\
+      \ {a_k}^2 \\right)\r\n\\left( \\sum_{k=1}^n {b_k}^2 \\right)\r\n$$\r\n\r\n$$\r\
+      \n\\displaystyle\r\n    \\frac{1}{\r\n        \\Bigl(\\sqrt{\\phi \\sqrt{5}}-\\\
+      phi\\Bigr) e^{\r\n        \\frac25 \\pi}} = 1+\\frac{e^{-2\\pi}} {1+\\frac{e^{-4\\\
+      pi}} {\r\n        1+\\frac{e^{-6\\pi}}\r\n        {1+\\frac{e^{-8\\pi}}\r\n\
+      \         {1+\\cdots} }\r\n        }\r\n    }\r\n$$\r\n\r\n$$\r\nf(x) = \\int_{-\\\
+      infty}^\\infty\r\n    \\hat f(\\xi)\\,e^{2 \\pi i \\xi x}\r\n    \\,d\\xi\r\n\
+      $$\r\n\r\n### End"
     pid: 3
     date_added: 2020-07-23 09:12:43.755606+00:00
     allow_html: false
@@ -636,6 +904,213 @@
     tags:
     - 1
     - 4
+- model: problem.problem
+  pk: 4
+  fields:
+    title: Long Code Test
+    description: "```cpp\r\n#include <exception>\r\n#include <iostream>\r\n#include\
+      \ <string>\r\n\r\n// Huge_int by ZTL\r\nclass huge_int\r\n{\r\nprivate:\r\n\
+      \    std::string bits;\r\n    bool positive;\r\n    inline void flip(std::string\
+      \ &str)\r\n    {\r\n        for (int i = 0; i < str.size() / 2; i++)\r\n   \
+      \         std::swap(str[i], str[str.size() - i - 1]);\r\n    }\r\n    inline\
+      \ bool bigger(std::string a, std::string b)\r\n    {\r\n        if (a.size()\
+      \ != b.size())\r\n            return a.size() > b.size();\r\n        for (int\
+      \ i = 0; i < a.size(); i++)\r\n            if (a[i] != b[i])\r\n           \
+      \     return a[i] > b[i];\r\n        return false;\r\n    }\r\n    inline bool\
+      \ smaller(std::string a, std::string b)\r\n    {\r\n        if (a.size() !=\
+      \ b.size())\r\n            return a.size() < b.size();\r\n        for (int i\
+      \ = 0; i < a.size(); i++)\r\n            if (a[i] != b[i])\r\n             \
+      \   return a[i] < b[i];\r\n        return false;\r\n    }\r\n    // Add\r\n\
+      \    inline std::string add(std::string a, std::string b)\r\n    {\r\n     \
+      \   if (b.size() > a.size())\r\n            swap(a, b);\r\n        std::string\
+      \ c = a;\r\n        while (a.size() - b.size() > 0)\r\n            b = \"0\"\
+      \ + b;\r\n        flip(a);\r\n        flip(b);\r\n        int carry = 0;\r\n\
+      \        for (int i = 0; i < a.size(); i++)\r\n        {\r\n            int\
+      \ tmp = a[i] - '0' + b[i] - '0' + carry;\r\n            c[i] = (tmp % 10) +\
+      \ '0';\r\n            carry = tmp / 10;\r\n        }\r\n        if (carry)\r\
+      \n            c += (carry + '0');\r\n        flip(c);\r\n        return c;\r\
+      \n    }\r\n    // Difference\r\n    inline std::string diff(std::string a, std::string\
+      \ b)\r\n    {\r\n        if (bigger(b, a))\r\n            swap(a, b);\r\n  \
+      \      std::string c = a;\r\n        while (a.size() > b.size())\r\n       \
+      \     b = \"0\" + b;\r\n        flip(a);\r\n        flip(b);\r\n        int\
+      \ carry = 0;\r\n        for (int i = 0; i < a.size(); i++)\r\n        {\r\n\
+      \            int tmp = a[i] - b[i] - carry;\r\n            a[i] += (tmp < 0\
+      \ ? 10 : 0);\r\n            c[i] = a[i] - b[i] - carry + '0';\r\n          \
+      \  carry = (tmp < 0 ? 1 : 0);\r\n        }\r\n        int k = 0;\r\n       \
+      \ while (c[c.size() - k - 1] == '0')\r\n            k++;\r\n        c = c.substr(0,\
+      \ c.size() - k);\r\n        flip(c);\r\n        if (c.size() == 0)\r\n     \
+      \       c = \"0\";\r\n        return c;\r\n    }\r\n\r\npublic:\r\n    huge_int()\r\
+      \n    {\r\n        positive = true;\r\n    }\r\n    // Get huge_int's lenth\r\
+      \n    inline int size()\r\n    {\r\n        return bits.size();\r\n    }\r\n\
+      \    // Clear huge_int\r\n    inline void clear()\r\n    {\r\n        this->bits.clear();\r\
+      \n        this->bits.shrink_to_fit();\r\n        this->positive = true;\r\n\
+      \    }\r\n    // Convert int to huge_int\r\n    inline void import_int(int x)\r\
+      \n    {\r\n        huge_int res;\r\n        if (x < 0)\r\n        {\r\n    \
+      \        this->positive = false;\r\n            x = -x;\r\n        }\r\n   \
+      \     else\r\n            this->positive = true;\r\n        while (x)\r\n  \
+      \      {\r\n            std::string tmp = \"#\";\r\n            tmp[0] = x %\
+      \ 10 + '0';\r\n            this->bits = tmp + this->bits;\r\n            x /=\
+      \ 10;\r\n        }\r\n    }\r\n    // Convert long long to huge_int\r\n    inline\
+      \ void import_long_long(long long x)\r\n    {\r\n        huge_int res;\r\n \
+      \       if (x < 0)\r\n        {\r\n            this->positive = false;\r\n \
+      \           x = -x;\r\n        }\r\n        else\r\n            this->positive\
+      \ = true;\r\n        while (x)\r\n        {\r\n            std::string tmp =\
+      \ \"#\";\r\n            tmp[0] = x % 10 + '0';\r\n            this->bits = tmp\
+      \ + this->bits;\r\n            x /= 10;\r\n        }\r\n    }\r\n    // Operator\
+      \ >\r\n    inline bool operator>(const huge_int x)\r\n    {\r\n        if (this->positive\
+      \ != x.positive)\r\n            return this->positive > x.positive;\r\n    \
+      \    else\r\n        {\r\n            if (this->positive == 1)\r\n         \
+      \       return bigger(this->bits, x.bits);\r\n            else\r\n         \
+      \       return smaller(this->bits, x.bits);\r\n        }\r\n        return false;\r\
+      \n    }\r\n    // Operator <\r\n    inline bool operator<(const huge_int x)\r\
+      \n    {\r\n        if (this->positive != x.positive)\r\n            return this->positive\
+      \ < x.positive;\r\n        else\r\n        {\r\n            if (this->positive\
+      \ == 1)\r\n                return smaller(this->bits, x.bits);\r\n         \
+      \   else\r\n                return bigger(this->bits, x.bits);\r\n        }\r\
+      \n        return false;\r\n    }\r\n    // Operator ==\r\n    inline bool operator==(const\
+      \ huge_int x)\r\n    {\r\n        if (*this < x)\r\n            return false;\r\
+      \n        if (*this > x)\r\n            return false;\r\n        return true;\r\
+      \n    }\r\n    // Operator !=\r\n    inline bool operator!=(const huge_int x)\r\
+      \n    {\r\n        if (*this == x)\r\n            return false;\r\n        return\
+      \ true;\r\n    }\r\n    // Operator =\r\n    inline huge_int &operator=(huge_int\
+      \ x)\r\n    {\r\n        this->bits = x.bits;\r\n        this->positive = x.positive;\r\
+      \n        return *this;\r\n    }\r\n    // Operator []\r\n    inline int operator[](const\
+      \ size_t __index)\r\n    {\r\n        if (__index >= this->bits.size())\r\n\
+      \            throw std::range_error(\"[HugeInt - operator[]] Index out of range\"\
+      );\r\n\r\n        return this->bits[__index] - '0';\r\n    }\r\n\r\n    /**\r\
+      \n\t * @brief Convert huge_int to int\r\n\t * @return int: the val of huge_int\r\
+      \n\t * @throw overflow_error, which in case the int is bigger than INT_MAX\r\
+      \n\t */\r\n    inline int export_int()\r\n    {\r\n        if (bigger(this->bits,\
+      \ \"2147483647\"))\r\n            throw std::overflow_error(\"[HugeInt - export_int]\
+      \ Interger lager than INT_MAX\");\r\n\r\n        int ans = 0;\r\n        int\
+      \ bit = 1;\r\n        for (int i = this->size() - 1; i >= 0; i--)\r\n      \
+      \  {\r\n            ans += (*this)[i] * bit;\r\n            bit *= 10;\r\n \
+      \       }\r\n        return ans;\r\n    }\r\n    // Operator <<\r\n    friend\
+      \ std::ostream &operator<<(std::ostream &os, const huge_int &x)\r\n    {\r\n\
+      \        if (x.positive == false)\r\n            os << '-' << x.bits;\r\n  \
+      \      else\r\n            os << x.bits;\r\n        return os;\r\n    }\r\n\
+      \    // Operator >>\r\n    friend std::istream &operator>>(std::istream &is,\
+      \ huge_int &x)\r\n    {\r\n        is >> x.bits;\r\n        x.positive = true;\r\
+      \n        if (x.bits[0] == '-')\r\n        {\r\n            x.bits = x.bits.substr(1,\
+      \ x.bits.size() - 1);\r\n            x.positive = false;\r\n        }\r\n  \
+      \      else if (x.bits[0] == '+')\r\n        {\r\n            x.bits = x.bits.substr(1,\
+      \ x.bits.size() - 1);\r\n            x.positive = true;\r\n        }\r\n   \
+      \     return is;\r\n    }\r\n    // Operator +\r\n    inline huge_int operator+(const\
+      \ huge_int x)\r\n    {\r\n        huge_int res;\r\n        if (this->positive\
+      \ == x.positive)\r\n        {\r\n            res.bits = add(this->bits, x.bits);\r\
+      \n            if (this->positive == 1)\r\n                res.positive = true;\r\
+      \n            else\r\n                res.positive = false;\r\n        }\r\n\
+      \        else\r\n        {\r\n            res.bits = diff(this->bits, x.bits);\r\
+      \n            if (this->positive == 1)\r\n            {\r\n                if\
+      \ (smaller(this->bits, x.bits))\r\n                    res.positive = false;\r\
+      \n                else\r\n                    res.positive = true;\r\n     \
+      \       }\r\n            else\r\n            {\r\n                if (bigger(this->bits,\
+      \ x.bits))\r\n                    res.positive = false;\r\n                else\r\
+      \n                    res.positive = true;\r\n            }\r\n        }\r\n\
+      \        return res;\r\n    }\r\n    // Operator -\r\n    inline huge_int operator-(const\
+      \ huge_int x)\r\n    {\r\n        huge_int res;\r\n        if (this->positive\
+      \ == x.positive)\r\n        {\r\n            res.bits = diff(this->bits, x.bits);\r\
+      \n            if (this->positive == 1)\r\n            {\r\n                if\
+      \ (smaller(this->bits, x.bits))\r\n                    res.positive = false;\r\
+      \n                else\r\n                    res.positive = true;\r\n     \
+      \       }\r\n            else\r\n            {\r\n                if (bigger(this->bits,\
+      \ x.bits))\r\n                    res.positive = false;\r\n                else\r\
+      \n                    res.positive = true;\r\n            }\r\n        }\r\n\
+      \        else\r\n        {\r\n            res.bits = add(this->bits, x.bits);\r\
+      \n            if (this->positive == 1)\r\n                res.positive = true;\r\
+      \n            else\r\n                res.positive = false;\r\n        }\r\n\
+      \        return res;\r\n    }\r\n    // Operator +=\r\n    inline void operator+=(huge_int\
+      \ x)\r\n    {\r\n        *this = *this + x;\r\n    }\r\n    // Operator -=\r\
+      \n    inline void operator-=(huge_int x)\r\n    {\r\n        *this = *this -\
+      \ x;\r\n    }\r\n};\r\n```\r\n\r\n```css\r\n/* --scrollbar-- */\r\n\r\n::-webkit-scrollbar\
+      \ {\r\n    width: 10px;\r\n    height: 10px;\r\n    background-color: #cccccc;\r\
+      \n}\r\n\r\n::-webkit-scrollbar-track {\r\n    background-color: #cccccc;\r\n\
+      }\r\n\r\n::-webkit-scrollbar-thumb {\r\n    background-color: #b3b3b3;\r\n}\r\
+      \n\r\n::-webkit-scrollbar-thumb:hover {\r\n    background-color: #808080;\r\n\
+      }\r\n\r\n\r\n/* --selection-- */\r\n\r\n*::selection {\r\n    background-color:\
+      \ #b9d7ff;\r\n    opacity: 0.2;\r\n}\r\n\r\n*::-moz-selection {\r\n    background-color:\
+      \ #b9d7ff;\r\n    opacity: 0.2;\r\n}\r\n\r\n*::-webkit-selection {\r\n    background-color:\
+      \ #b9d7ff;\r\n    opacity: 0.2;\r\n}\r\n\r\npre {\r\n    white-space: pre-wrap;\r\
+      \n    white-space: -moz-pre-wrap;\r\n    white-space: -pre-wrap;\r\n    white-space:\
+      \ -o-pre-wrap;\r\n    word-wrap: break-word;\r\n}\r\n\r\n.markdown-container\
+      \ table {\r\n    margin-top: 20px;\r\n}\r\n\r\n.markdown-container hr {\r\n\
+      \    margin: 20px 0px 20px 0px;\r\n}\r\n\r\n.markdown-container h1,\r\nh2,\r\
+      \nh3,\r\nh4,\r\nh5,\r\nh6 {\r\n    font-weight: 400;\r\n    color: #303133;\r\
+      \n}\r\n\r\n.markdown-container h1::before,\r\nh2::before,\r\nh3::before {\r\n\
+      \    color: #409eff;\r\n    content: \"# \";\r\n}\r\n\r\nbody {\r\n    color:\
+      \ #606266;\r\n}\r\n\r\nblockquote {\r\n    background-color: #f8f8f8;\r\n  \
+      \  border-left: 5px solid #a8a8a8;\r\n    padding-left: 15px;\r\n    padding-right:\
+      \ 10px;\r\n    padding-top: 5px;\r\n    padding-bottom: 5px;\r\n    color: #909399;\r\
+      \n    margin-left: 0;\r\n    margin-right: 0;\r\n}\r\n\r\n.markdown-container\
+      \ code {\r\n    background-color: #f8f8f8;\r\n    padding: 5px;\r\n}\r\n\r\n\
+      .markdown-container pre {\r\n    padding: 10px;\r\n    background-color: #f8f8f8;\r\
+      \n}\r\n\r\n.markdown-container pre>code {\r\n    padding: 0;\r\n}\r\n\r\n.markdown-container\
+      \ table {\r\n    border-collapse: collapse;\r\n    width: 100%;\r\n}\r\n\r\n\
+      .markdown-container th {\r\n    padding: 10px;\r\n    border-bottom: 2px solid\
+      \ #909399;\r\n}\r\n\r\n.markdown-container td {\r\n    border-top: 1.5px solid\
+      \ #EBEEF5;\r\n    padding: 10px;\r\n}\r\n\r\n.markdown-container hr {\r\n  \
+      \  background-color: #E4E7ED;\r\n    height: 2px;\r\n    border: none;\r\n}\r\
+      \n```\r\n\r\n```html\r\n<template>\r\n  <div id=\"problem-view\">\r\n    <div\
+      \ id=\"content\">\r\n      <div id=\"problem-content\">\r\n        <div v-if=\"\
+      !isWider\" id=\"full-screen-button\" @click=\"full_screen()\">\r\n         \
+      \ Expand\r\n          <i class=\"el-icon-arrow-right\"></i>\r\n        </div>\r\
+      \n        <div v-else id=\"full-screen-button\" @click=\"full_screen()\">\r\n\
+      \          Fold\r\n          <i class=\"el-icon-arrow-left\"></i>\r\n      \
+      \  </div>\r\n        <div style=\"display: flex;\">\r\n          <div id=\"\
+      title\" class=\"header text-bold\">#{{pid}}. {{ title }}</div>\r\n        </div>\r\
+      \n        <MarkdownContainer v-if=\"description\" :content=\"description\" :allowHTML=\"\
+      this.allowHTML\"/>\r\n      </div>\r\n      <div id=\"pannel\" v-if=\"!isWider\"\
+      >\r\n        <div id=\"tools\">\r\n          <el-row>\r\n            <el-col>\r\
+      \n              <div>Tool Bar</div>\r\n              <el-menu default-active=\"\
+      3\">\r\n                <el-menu-item index=\"3\">\r\n                  <span\
+      \ slot=\"title\">Submit</span>\r\n                </el-menu-item>\r\n      \
+      \          <el-submenu index=\"0\">\r\n                  <template slot=\"title\"\
+      >Statistics</template>\r\n                  <el-menu-item index=\"0-0\">\r\n\
+      \                    Submissions\r\n                  </el-menu-item>\r\n  \
+      \                <el-menu-item index=\"0-1\">\r\n                    Statistics\r\
+      \n                  </el-menu-item>\r\n                </el-submenu>\r\n   \
+      \             <el-submenu index=\"1\">\r\n                  <template slot=\"\
+      title\">Discuss</template>\r\n                  <el-menu-item index=\"1-0\"\
+      >\r\n                    Discussions\r\n                  </el-menu-item>\r\n\
+      \                  <el-menu-item index=\"1-1\">\r\n                    Solutions\r\
+      \n                  </el-menu-item>\r\n                </el-submenu>\r\n   \
+      \             <el-submenu index=\"2\">\r\n                  <template slot=\"\
+      title\">Edit</template>\r\n                  <el-menu-item index=\"2-0\">\r\n\
+      \                    Edit\r\n                  </el-menu-item>\r\n         \
+      \         <el-menu-item index=\"2-1\">\r\n                    Delete\r\n   \
+      \               </el-menu-item>\r\n                  <el-menu-item index=\"\
+      2-2\">\r\n                    Settings\r\n                  </el-menu-item>\r\
+      \n                </el-submenu>\r\n              </el-menu>\r\n            </el-col>\r\
+      \n          </el-row>\r\n        </div>\r\n      </div>\r\n    </div>\r\n  </div>\r\
+      \n</template>\r\n\r\n<script>\r\nimport apiurl from './../../apiurl';\r\nimport\
+      \ MarkdownContainer from './../lib/MarkdownContainer.vue';\r\n\r\nexport default\
+      \ {\r\n  name: 'ProblemView',\r\n  data() {\r\n    return {\r\n      description:\
+      \ null,\r\n      title: null,\r\n      pid: this.$route.params.id,\r\n     \
+      \ allowHTML: false,\r\n      isWider: false\r\n    };\r\n  },\r\n  methods:\
+      \ {\r\n    loadproblem() {\r\n      this.$axios\r\n        .get(apiurl('/problem/content'),\
+      \ {\r\n          params: {\r\n            pid: this.$route.params.id\r\n   \
+      \       }\r\n        })\r\n        .then(res => {\r\n          let data = res.data;\r\
+      \n          this.title = data.title;\r\n          this.pid = data.pid;\r\n \
+      \         this.allowHTML = data.allow_html;\r\n          this.description =\
+      \ data.description;\r\n        })\r\n        .catch(err => {\r\n          this.$message.error('Problem\
+      \ loading error');\r\n          console.log(err);\r\n        });\r\n    },\r\
+      \n    full_screen() {\r\n      this.isWider = !this.isWider;\r\n    }\r\n  },\r\
+      \n  mounted() {\r\n    this.loadproblem();\r\n  },\r\n  components: {\r\n  \
+      \  MarkdownContainer\r\n  }\r\n};\r\n</script>\r\n\r\n<style scoped>\r\n.el-menu\
+      \ {\r\n    border-right: none;\r\n}\r\n\r\n#content {\r\n    margin-top: 30px;\r\
+      \n    display: flex;\r\n}\r\n\r\n.header {\r\n    font-size: 35px;\r\n    font-weight:\
+      \ 400;\r\n    color: #303133;\r\n}\r\n\r\n#problem-content {\r\n    z-index:\
+      \ 10;\r\n    width: 100%;\r\n    padding: 20px;\r\n    border: 1px solid #e4e7ed;\r\
+      \n}\r\n\r\n#pannel {\r\n    margin-left: 20px;\r\n    width: calc(1140px - 850px\
+      \ - 20px);\r\n}\r\n\r\n#tools {\r\n    padding: 20px;\r\n    border: 1px solid\
+      \ #e4e7ed;\r\n}\r\n\r\n#full-screen-button {\r\n    float: right;\r\n}\r\n\r\
+      \n#full-screen-button:hover {\r\n    cursor: pointer;\r\n}\r\n</style>\r\n```"
+    pid: 4
+    date_added: 2020-07-23 10:25:14.271780+00:00
+    allow_html: false
+    enabled: true
+    tags:
+    - 1
 - model: status.status
   pk: 1
   fields:
