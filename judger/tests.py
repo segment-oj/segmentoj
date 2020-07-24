@@ -7,6 +7,7 @@ from .views import JudgerStatusView, JudgerStatusDetailView
 from account.models import User
 from status import JudgeLanguage as jl
 from status import JudgeStatus as js
+from status.models import Status
 
 # Create your tests here.
 
@@ -42,6 +43,17 @@ class JudgerStatusTest(TestCase):
         force_authenticate(request, user=User.objects.get(username="admin"))
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+    
+    def testW_get_task_not_exist(self):
+        target = Status.objects.get(id=3)
+        target.delete()
+        target = Status.objects.get(id=5)
+        target.delete()
+
+        request = self.factory.get(self.base_url)
+        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        response = self.view(request)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
 
 class JudgerStatusDetailTest(TestCase):
