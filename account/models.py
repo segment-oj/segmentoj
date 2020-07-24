@@ -12,5 +12,7 @@ class User(AbstractUser):
     solved = models.IntegerField(default=0)
     submit_time = models.IntegerField(default=0)
 
+    is_judger = models.BooleanField(default=False)
+
     def __str__(self):
         return self.username
