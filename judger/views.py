@@ -17,8 +17,13 @@ class JudgerStatusView(APIView):
     @method_decorator(judger_account_required())
     def get(self, request):
         task_filter = {"state": js.JUDGE_STATUS_WAITING}
-        queryset = Status.objects.filter(**task_filter).order_by("id")[:1]
-        res_status = queryset[0]
+        queryset = Status.objects.filter(**task_filter).order_by("id")
+        res_status = queryset.first()
+        if res_status == None:
+            return Response({
+                "detail": "No waiting tasks"
+            }, status=status.HTTP_404_NOT_FOUND)
+
         res_status.state = js.JUDGE_STATUS_INPROCESS
 
         return Response({
