@@ -43,12 +43,16 @@ class Status(models.Model):
 
 class StatusDetail(models.Model):
     state = models.IntegerField(default=0)
+    score = models.IntegerField(default=0)
     time = models.IntegerField(default=0)
     memory = models.IntegerField(default=0)
 
-    input_s = models.CharField(max_length=100)
-    output_s = models.CharField(max_length=100)
-    answer_s = models.CharField(max_length=100)
+    input_s = models.CharField(default="", max_length=100)
+    output_s = models.CharField(default="", max_length=100)
+    error_s = models.CharField(default="", max_length=100)
+    answer_s = models.CharField(default="", max_length=100)
+
+    caseid = models.IntegerField()
     main_state = models.ForeignKey(
         Status, on_delete=models.CASCADE, related_name="judge_detail"
     )
