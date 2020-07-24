@@ -19,7 +19,7 @@ class JudgerStatusTest(TestCase):
         self.factory = APIRequestFactory()
         self.view = JudgerStatusView.as_view()
 
-    def testA_get_task(self):
+    def testZ_get_task(self):
         ac_data = 3
 
         request = self.factory.get(self.base_url)
@@ -31,17 +31,18 @@ class JudgerStatusTest(TestCase):
         data = response.data.get("res")
         self.assertEqual(data, ac_data)
 
-    def testB_get_task_not_logged_in(self):
+    def testY_get_task_not_logged_in(self):
         request = self.factory.get(self.base_url)
         force_authenticate(request) # Logout
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
     
-    def testC_get_task_not_judger(self):
+    def testX_get_task_not_judger(self):
         request = self.factory.get(self.base_url)
         force_authenticate(request, user=User.objects.get(username="admin"))
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
 
 class JudgerStatusDetailTest(TestCase):
     fixtures = ["testdatabase.yaml"]
@@ -51,7 +52,7 @@ class JudgerStatusDetailTest(TestCase):
         self.factory = APIRequestFactory()
         self.view = JudgerStatusDetailView.as_view()
 
-    def testA_get_submit_detail(self):
+    def testZ_get_submit_detail(self):
         ac_data = {
             "code": "#include <cstdio>\r\nusing namespace std;\r\n\r\nint main() {\r\n    int a, b;\r\n    scanf(\"%d %d\", &a, &b);\r\n    printf(\"%d\\n\", a + b);\r\n    return 0;\r\n}",
             "problem": 1,
@@ -71,7 +72,7 @@ class JudgerStatusDetailTest(TestCase):
         self.assertEqual(data.get("lang"), ac_data["lang"])
         self.assertEqual(data.get("id"), ac_data["id"])
     
-    def testB_post_detail(self):
+    def testY_post_detail(self):
         request_data = {
             "state": js.JUDGE_STATUS_AC,
             "time": 200,
@@ -88,7 +89,7 @@ class JudgerStatusDetailTest(TestCase):
         response = self.view(request, sid=3, cid=1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         
-    def testC_post_detail_partly(self):
+    def testX_post_detail_partly(self):
         request_data = {
             "state": js.JUDGE_STATUS_AC,
             "time": 203,
@@ -101,7 +102,7 @@ class JudgerStatusDetailTest(TestCase):
         response = self.view(request, sid=3, cid=2)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def testD_post_detail_same_twice(self):
+    def testW_post_detail_same_twice(self):
         request_data = {
             "state": js.JUDGE_STATUS_JUDGING,
         }
