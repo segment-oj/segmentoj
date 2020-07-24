@@ -1258,3 +1258,55 @@
       \ int a, b;\r\n    cin >> a >> b;\r\n    cout << a + b << endl;\r\n    return\
       \ 0;\r\n}"
     add_time: 2020-07-24 11:26:02.822994+00:00
+- model: status.statusdetail
+  pk: 1
+  fields:
+    state: 0
+    score: 0
+    time: 0
+    memory: 0
+    input_s: ''
+    output_s: ''
+    error_s: ''
+    answer_s: ''
+    caseid: 4
+    main_status: 1
+- model: status.statusdetail
+  pk: 2
+  fields:
+    state: 0
+    score: 0
+    time: 0
+    memory: 0
+    input_s: ''
+    output_s: ''
+    error_s: ''
+    answer_s: ''
+    caseid: 3
+    main_status: 1
+- model: status.statusdetail
+  pk: 3
+  fields:
+    state: 0
+    score: 0
+    time: 0
+    memory: 0
+    input_s: ''
+    output_s: ''
+    error_s: ''
+    answer_s: ''
+    caseid: 2
+    main_status: 1
+- model: status.statusdetail
+  pk: 4
+  fields:
+    state: 0
+    score: 0
+    time: 0
+    memory: 0
+    input_s: ''
+    output_s: ''
+    error_s: ''
+    answer_s: ''
+    caseid: 1
+    main_status: 1
