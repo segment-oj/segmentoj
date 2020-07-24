@@ -35,6 +35,7 @@ urlpatterns = [
     path("api/problem/", include("problem.urls")),
     # Status
     path("api/status", StatusView.as_view()),
+    path("api/status/<int:sid>", StatusView.as_view()),
     path("api/status/list", StatusListView.as_view()),
     path("api/status/list/count", StatusListCountView.as_view()),
 ]

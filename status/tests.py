@@ -44,8 +44,8 @@ class StatusTest(TestCase):
             "owner": 2,
         }
 
-        request = self.factory.get(self.base_url, {"id": 1}, format="json")
-        res = self.view(request)
+        request = self.factory.get(self.base_url, format="json")
+        res = self.view(request, sid=1)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
         data = res.data["res"]

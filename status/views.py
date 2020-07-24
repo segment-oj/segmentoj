@@ -12,17 +12,12 @@ from segmentoj import tools
 from .models import Status, StatusDetail
 from .serializers import StatusSerializer, StatusListSerializer
 from problem.models import Problem
-from segmentoj.decorator import login_required, syllable_required
+from segmentoj.decorator import login_required, syllable_required, parameter_required
 
 # Create your views here.
 class StatusView(APIView):
-    @method_decorator(syllable_required("id", is_get_request=True))
-    def get(self, request):
-        data = request.GET
-
-        sid = data.get("id")
-        sid = int(sid)
-
+    @method_decorator(parameter_required("sid"))
+    def get(self, request, sid):
         status_element = get_object_or_404(Status, id=sid)
         ss = StatusSerializer(status_element)
 
