@@ -3,7 +3,6 @@ from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
 
 from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import permission_required
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
