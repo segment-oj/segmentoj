@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import permission_required
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.status import *
+from rest_framework import status
 from rest_framework.pagination import LimitOffsetPagination
 
 from segmentoj import tools
@@ -16,15 +16,17 @@ from segmentoj.decorator import login_required, syllable_required
 
 # Create your views here.
 class StatusView(APIView):
-    @method_decorator(syllable_required("id", int))
+    @method_decorator(syllable_required("id", is_get_request=True))
     def get(self, request):
-        data = request.data
+        data = request.GET
 
         sid = data.get("id")
-        status = get_object_or_404(Status, id=sid)
-        ss = StatusSerializer(status)
+        sid = int(sid)
 
-        return Response({"res": ss.data}, status=HTTP_200_OK)
+        status_element = get_object_or_404(Status, id=sid)
+        ss = StatusSerializer(status_element)
+
+        return Response({"res": ss.data}, status=status.HTTP_200_OK)
 
     @method_decorator(syllable_required("problem", int))
     @method_decorator(syllable_required("code", str))
@@ -51,7 +53,7 @@ class StatusView(APIView):
         ss = StatusSerializer(data=data)
         ss.is_valid(raise_exception=True)
         ss.save()
-        return Response(status=HTTP_201_CREATED)
+        return Response(status=status.HTTP_201_CREATED)
 
 
 class StatusListView(APIView):
@@ -61,13 +63,16 @@ class StatusListView(APIView):
         status_filter = {}
         data = request.GET
 
+        if data.get("problem"):
+            status_filter["problem"] = Problem.objects.get(pid=data.get("problem")).id
+
         queryset = Status.objects.filter(**status_filter).order_by("-add_time")
 
         pg = LimitOffsetPagination()
         statuses = pg.paginate_queryset(queryset=queryset, request=request, view=self)
 
         ss = StatusListSerializer(statuses, many=True)
-        return Response({"res": ss.data}, status=HTTP_200_OK)
+        return Response({"res": ss.data}, status=status.HTTP_200_OK)
 
 
 class StatusListCountView(APIView):
@@ -80,5 +85,5 @@ class StatusListCountView(APIView):
         queryset = Status.objects.filter(**status_filter).order_by("-add_time")
         res = queryset.count()
 
-        return Response({"res": res}, status=HTTP_200_OK)
+        return Response({"res": res}, status=status.HTTP_200_OK)
 
