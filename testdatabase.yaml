@@ -298,6 +298,57 @@
     object_repr: ztl
     action_flag: 2
     change_message: '[{"changed": {"fields": ["Password"]}}]'
+- model: admin.logentry
+  pk: 31
+  fields:
+    action_time: 2020-07-24 11:22:42.875672+00:00
+    user: 1
+    content_type: 6
+    object_id: '6'
+    object_repr: ForcesEqual
+    action_flag: 2
+    change_message: '[{"changed": {"fields": ["Superuser status", "Staff status",
+      "Introduction", "Is judger"]}}]'
+- model: admin.logentry
+  pk: 32
+  fields:
+    action_time: 2020-07-24 11:24:32.845109+00:00
+    user: 1
+    content_type: 10
+    object_id: '3'
+    object_repr: '3'
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 33
+  fields:
+    action_time: 2020-07-24 11:25:14.034192+00:00
+    user: 1
+    content_type: 10
+    object_id: '4'
+    object_repr: '4'
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 34
+  fields:
+    action_time: 2020-07-24 11:26:02.824126+00:00
+    user: 1
+    content_type: 10
+    object_id: '5'
+    object_repr: '5'
+    action_flag: 1
+    change_message: '[{"added": {}}]'
+- model: admin.logentry
+  pk: 35
+  fields:
+    action_time: 2020-07-24 11:26:10.556867+00:00
+    user: 1
+    content_type: 10
+    object_id: '5'
+    object_repr: '5'
+    action_flag: 2
+    change_message: '[]'
 - model: auth.permission
   pk: 1
   fields:
@@ -643,6 +694,11 @@
     session_data: .eJxVjMsOwiAQRf-FtSEDnaHWpft-AxkGkKqBpI-V8d-1SRe6veec-1Ket7X4bUmzn6K6KFSn3y2wPFLdQbxzvTUtra7zFPSu6IMuemwxPa-H-3dQeCnfmoSYOhCBjuzZUEYCsAQugTOuHwQGZGcdIjJbyT3aYFKfOJpMIQf1_gCsKDcm:1jylwR:oUvKHOzseR1V1YCGcwbJzfjfsSbCH67tRjxwQpCUZgQ
     expire_date: 2020-08-07 00:52:03.760881+00:00
 - model: sessions.session
+  pk: 7fqr1gvlw9dj9k6lxs7nopxlu61a5te5
+  fields:
+    session_data: .eJxVjMEOwiAQRP-FsyGFLrJ49O43ENgFqRqalPZk_HdL0oOeJpn3Zt7Ch20tfmtp8ROLi1Di9NvFQM9UO-BHqPdZ0lzXZYqyK_KgTd5mTq_r4f4dlNDKvsaokRjJpB4J0CZHceSBtTWjBsomDsFlFx26s8UMCCrDbjGBM0p8vvoNOAs:1jyvlp:DXFBDAO0kg3DXXq-swEnDSqj8orEPDinaCepZL0nZCQ
+    expire_date: 2020-08-07 11:21:45.511292+00:00
+- model: sessions.session
   pk: iqkwhegqx0vtevk9gt6jhy3ieljys9sr
   fields:
     session_data: .eJxVjMsOwiAQRf-FtSEDnaHWpft-AxkGkKqBpI-V8d-1SRe6veec-1Ket7X4bUmzn6K6KFSn3y2wPFLdQbxzvTUtra7zFPSu6IMuemwxPa-H-3dQeCnfmoSYOhCBjuzZUEYCsAQugTOuHwQGZGcdIjJbyT3aYFKfOJpMIQf1_gCsKDcm:1jylyW:BqhhNPe8EyULSllW_M3qg-hRnT6vtFEcAxpqGMnUIo4
@@ -661,7 +717,7 @@
   pk: 1
   fields:
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
-    last_login: 2020-07-24 09:59:09.161240+00:00
+    last_login: 2020-07-24 11:21:45.505376+00:00
     is_superuser: true
     first_name: ''
     last_name: ''
@@ -674,6 +730,7 @@
     lang: 0
     solved: 0
     submit_time: 0
+    is_judger: false
     groups: []
     user_permissions: []
 - model: account.user
@@ -693,6 +750,7 @@
     lang: 0
     solved: 0
     submit_time: 0
+    is_judger: false
     groups: []
     user_permissions: []
 - model: account.user
@@ -712,6 +770,7 @@
     lang: 0
     solved: 0
     submit_time: 0
+    is_judger: false
     groups:
     - 1
     user_permissions: []
@@ -732,6 +791,7 @@
     lang: 0
     solved: 0
     submit_time: 0
+    is_judger: false
     groups:
     - 1
     user_permissions: []
@@ -752,6 +812,27 @@
     lang: 0
     solved: 0
     submit_time: 0
+    is_judger: false
+    groups: []
+    user_permissions: []
+- model: account.user
+  pk: 6
+  fields:
+    password: pbkdf2_sha256$216000$ftw2RaSKYrvR$IVfkG6VWnZfOC/NGNJVsMcox/UwMUklO7lDDbmgbvig=
+    last_login: null
+    is_superuser: false
+    first_name: ''
+    last_name: ''
+    is_staff: false
+    is_active: true
+    date_joined: 2020-07-24 11:21:29+00:00
+    username: ForcesEqual
+    email: forcesequal@soj.ac.cn
+    introduction: "# Hello World!\r\npassword: forcesequal"
+    lang: 0
+    solved: 0
+    submit_time: 0
+    is_judger: true
     groups: []
     user_permissions: []
 - model: problem.tag
@@ -1135,3 +1216,45 @@
     problem: 2
     code: '# Code 2'
     add_time: 2020-07-23 09:32:01.511728+00:00
+- model: status.status
+  pk: 3
+  fields:
+    score: 0
+    state: 0
+    time: 0
+    memory: 0
+    lang: 0
+    owner: 2
+    problem: 1
+    code: "#include <cstdio>\r\nusing namespace std;\r\n\r\nint main() {\r\n    int\
+      \ a, b;\r\n    scanf(\"%d %d\", &a, &b);\r\n    printf(\"%d\\n\", a + b);\r\n\
+      \    return 0;\r\n}"
+    add_time: 2020-07-24 11:24:32.842362+00:00
+- model: status.status
+  pk: 4
+  fields:
+    score: 0
+    state: 1
+    time: 0
+    memory: 0
+    lang: 0
+    owner: 3
+    problem: 1
+    code: "#include <cstdio>\r\nusing namespace std;\r\n\r\nint main() {\r\n    int\
+      \ a, b;\r\n    scanf(\"%d %d\", &a, &b);\r\n    printf(\"%d\\n\", a + b);\r\n\
+      \    return 0;\r\n}"
+    add_time: 2020-07-24 11:25:14.033049+00:00
+- model: status.status
+  pk: 5
+  fields:
+    score: 0
+    state: 0
+    time: 0
+    memory: 0
+    lang: 0
+    owner: 2
+    problem: 1
+    code: "#include <iostream>\r\nusing namespace std;\r\n\r\nint main() {\r\n   \
+      \ int a, b;\r\n    cin >> a >> b;\r\n    cout << a + b << endl;\r\n    return\
+      \ 0;\r\n}"
+    add_time: 2020-07-24 11:26:02.822994+00:00
