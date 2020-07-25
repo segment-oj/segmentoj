@@ -44,7 +44,26 @@ class JudgerStatusTest(TestCase):
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
     
-    def testW_get_task_not_exist(self):
+    def testW_set_status(self):
+        request_data = {
+            "state": js.JUDGE_STATUS_AC,
+            "score": 0,
+            "time": 304,
+            "memory": 1000,
+        }
+
+        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        response = self.view(request, sid=3)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        
+        res_status = Status.objects.get(id=3)
+        self.assertEqual(res_status.state, request_data["state"])
+        self.assertEqual(res_status.score, request_data["score"])
+        self.assertEqual(res_status.time, request_data["time"])
+        self.assertEqual(res_status.memory, request_data["memory"])
+
+    def testA_get_task_not_exist(self):
         target = Status.objects.get(id=3)
         target.delete()
         target = Status.objects.get(id=5)
