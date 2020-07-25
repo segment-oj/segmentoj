@@ -40,11 +40,11 @@ urlpatterns = [
     path("api/status/list", StatusListView.as_view()),
     path("api/status/list/count", StatusListCountView.as_view()),
     # Judger
-    path("api/judger/status", StatusView.as_view()),
-    path("api/judger/status/<int:sid>", StatusView.as_view()),
-    path("api/judger/status/detail", StatusView.as_view()),
-    path("api/judger/status/detail/<int:sid>", StatusView.as_view()),
-    path("api/judger/status/detail/<int:sid>/<int:cid>", StatusView.as_view()),
+    path("api/judger/status", JudgerStatusView.as_view()),
+    path("api/judger/status/<int:sid>", JudgerStatusView.as_view()),
+    path("api/judger/status/detail", JudgerStatusDetailView.as_view()),
+    path("api/judger/status/detail/<int:sid>", JudgerStatusDetailView.as_view()),
+    path("api/judger/status/detail/<int:sid>/<int:cid>", JudgerStatusDetailView.as_view()),
 ]
 
 if settings.DEBUG:
