@@ -12,6 +12,13 @@ class StatusSerializer(serializers.ModelSerializer):
         fields = ["code", "lang", "problem", "id"]
         read_only_fields = ["id"]
 
+class StatusEditSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Status
+        depth = 0
+        fields = ["state", "score", "time", "memory", "id"]
+        read_only_fields = ["id"]
+
 class StatusDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = StatusDetail

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 
 from rest_framework.response import Response
@@ -8,7 +8,7 @@ from rest_framework import status
 from status import JudgeStatus as js
 from status.models import Status, StatusDetail
 from .decorator import judger_account_required
-from .serializers import StatusSerializer, StatusDetailSerializer
+from .serializers import StatusSerializer, StatusDetailSerializer, StatusEditSerializer
 from segmentoj.decorator import parameter_required, syllable_required
 
 # Create your views here.
@@ -29,6 +29,20 @@ class JudgerStatusView(APIView):
         return Response({
             "res": res_status.id
         }, status=status.HTTP_200_OK)
+    
+    @method_decorator(judger_account_required())
+    @method_decorator(parameter_required("sid"))
+    def patch(self, request, sid):
+        data = request.data
+        
+        res_status = get_object_or_404(Status, id=sid)
+        ss = StatusEditSerializer(res_status, data=data, partial=True)
+        ss.is_valid(raise_exception=True)
+        ss.save()
+
+        res_status = get_object_or_404(Status, id=sid)
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
 
 class JudgerStatusDetailView(APIView):
 
