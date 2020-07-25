@@ -22,6 +22,7 @@ from django.conf import settings
 
 from account.views import AccountView, AccountSessionView
 from status.views import StatusView, StatusListCountView, StatusListView
+from judger.views import JudgerStatusView, JudgerStatusDetailView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -38,6 +39,12 @@ urlpatterns = [
     path("api/status/<int:sid>", StatusView.as_view()),
     path("api/status/list", StatusListView.as_view()),
     path("api/status/list/count", StatusListCountView.as_view()),
+    # Judger
+    path("api/judger/status", StatusView.as_view()),
+    path("api/judger/status/<int:sid>", StatusView.as_view()),
+    path("api/judger/status/detail", StatusView.as_view()),
+    path("api/judger/status/detail/<int:sid>", StatusView.as_view()),
+    path("api/judger/status/detail/<int:sid>/<int:cid>", StatusView.as_view()),
 ]
 
 if settings.DEBUG:

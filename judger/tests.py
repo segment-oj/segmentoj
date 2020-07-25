@@ -79,7 +79,7 @@ class JudgerStatusDetailTest(TestCase):
     fixtures = ["testdatabase.yaml"]
 
     def setUp(self):
-        self.base_url = "/api/judger/status"
+        self.base_url = "/api/judger/status/detail"
         self.factory = APIRequestFactory()
         self.view = JudgerStatusDetailView.as_view()
 
