@@ -10,6 +10,7 @@ JUDGE_STATUS_RE = 14  # Runtime Error
 JUDGE_STATUS_WA = 15  # Wrong Answer
 JUDGE_STATUS_UKE = 16  # Unknow Error
 JUDGE_STATUS_CE = 17  # Compile Error
+JUDGE_STATUS_OLE = 18 # Output Limit Exceed
 JUDGE_STATUS_SE = 20  # System Error
 JUDGE_STATUS_FE = 21  # File Error
 JUDGE_STATUS_JCE = 22  # Judge Configure Error
