@@ -5,6 +5,7 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 
 
 from .views import ProblemView
+from account.models import User
 
 # Create your tests here.
 
@@ -40,3 +41,18 @@ class ProblemViewTest(TestCase):
         self.assertEqual(data.get("allow_html"), ac_data["allow_html"])
         self.assertEqual(data.get("enabled"), ac_data["enabled"])
         self.assertEqual(data.get("tags"), ac_data["tags"])
+
+    def testX_post_new_problem(self):
+        request_data = {
+            "title": "Simple Problem (new)",
+            "description": "This is description",
+            "pid": 7,
+            "allow_html": False,
+            "enabled": True,
+            "tags": [1, 2, 3],
+        }
+
+        request = self.factory.post(self.base_url, data=request_data)
+        force_authenticate(request, User.objects.get(username="admin"))
+        response = self.view(request)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
