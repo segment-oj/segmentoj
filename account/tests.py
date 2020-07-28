@@ -3,7 +3,7 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APIClient
 
-from .views import AccountView
+from .views import AccountView, AccountUsernameAccessibilityView
 from .models import User
 
 # Create your tests here.
@@ -117,3 +117,22 @@ class AccountSessionTest(TestCase):
         self.client.force_authenticate(user=user)
         res = self.client.delete(self.base_url)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+
+
+class AccountUsernameAccessibilityTest(TestCase):
+    def setUp(self):
+        self.base_url = "/api/account/username/accessibility/"
+        self.factory = APIRequestFactory()
+        self.view = AccountUsernameAccessibilityView.as_view()
+
+    def testZ_get_accessibility_ok(self):
+        request = self.factory.get(self.base_url)
+        response = self.view(response, username="unittest")
+
+        self.assertEqual(response.status_data, status.HTTP_204_NO_CONTENT)
+
+    def testZ_get_accessibility_ok(self):
+        request = self.factory.get(self.base_url)
+        response = self.view(request, username="admin")
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
