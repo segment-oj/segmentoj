@@ -986,6 +986,19 @@
     - 1
     - 4
 - model: problem.problem
+  pk: 5
+  fields:
+    title: Simple Problem
+    description: "This is description"
+    pid: 5
+    date_added: 2020-07-28 09:03:51.705276+00:00
+    allow_html: false
+    enabled: true
+    tags:
+    - 1
+    - 2
+    - 3
+- model: problem.problem
   pk: 4
   fields:
     title: Long Code Test
