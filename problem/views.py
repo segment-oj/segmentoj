@@ -66,14 +66,10 @@ class ProblemView(APIView):
 
 
 class TagView(APIView):
-    @method_decorator(syllable_required("id", int))
+    @method_decorator(parameter_required("tid"))
     def get(self, request):
         # Get a tag
-
-        data = request.data
-        id = data.get("id")
-
-        tag = get_object_or_404(Tag, id=id)
+        tag = get_object_or_404(Tag, id=tid)
         ts = TagSerializer(tag)
 
         return Response(ts.data, status=status.HTTP_200_OK)
