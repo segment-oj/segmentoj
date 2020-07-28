@@ -20,7 +20,7 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
-import problem
+import problem.views
 from account.views import AccountView, AccountSessionView
 from status.views import StatusView, StatusListCountView, StatusListView
 from judger.views import JudgerStatusView, JudgerStatusDetailView
