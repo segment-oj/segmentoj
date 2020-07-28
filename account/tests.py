@@ -130,6 +130,16 @@ class AccountTest(TestCase):
         target = User.objects.get(id=2)
         self.assertEqual(target.is_active, request_data["is_active"])
 
+    def testJ_change_user_admin(self):
+        request_data = {
+            "is_active": False
+        }
+
+        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        force_authenticate(request, User.objects.get(username="testuser"))
+        res = self.view(request, uid=3)
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
+
 class AccountSessionTest(TestCase):
     fixtures = ["testdatabase.yaml"]
 
