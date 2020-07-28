@@ -67,7 +67,7 @@ class ProblemView(APIView):
 
 class TagView(APIView):
     @method_decorator(parameter_required("tid"))
-    def get(self, request):
+    def get(self, request, tid):
         # Get a tag
         tag = get_object_or_404(Tag, id=tid)
         ts = TagSerializer(tag)
@@ -84,14 +84,13 @@ class TagView(APIView):
 
         return Response({"res": {"id": tag.id}}, status=status.HTTP_201_CREATED)
 
-    @method_decorator(syllable_required("id", int))
+    @method_decorator(parameter_required("tid"))
     @method_decorator(permission_required("problem.delete_tag", raise_exception=True))
-    def delete(self, request):
+    def delete(self, request, tid):
         # delete a tag
         data = request.data
-        id = data.get("id")
 
-        tag = get_object_or_404(Tag, id=id)
+        tag = get_object_or_404(Tag, id=tid)
         tag.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
