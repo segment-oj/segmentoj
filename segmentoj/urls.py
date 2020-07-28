@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 import problem.views
-from account.views import AccountView, AccountSessionView
+from account.views import AccountView, AccountSessionView, AccountUsernameAccessibilityView
 from status.views import StatusView, StatusListCountView, StatusListView
 from judger.views import JudgerStatusView, JudgerStatusDetailView
 
@@ -33,6 +33,7 @@ urlpatterns = [
     path("api/account", AccountView.as_view()),
     path("api/account/<int:uid>", AccountView.as_view()),
     path("api/account/session", AccountSessionView.as_view()),
+    path("api/account/username/accessibility/<str:username>", AccountUsernameAccessibilityView.as_view()),
     # Problem
     path("api/problem", problem.views.ProblemView.as_view()),
     path("api/problem/<int:pid>", problem.views.ProblemView.as_view()),
