@@ -18,6 +18,9 @@ class Problem(models.Model):
 	enabled = models.BooleanField(default=True)
 	tags = models.ManyToManyField(Tag, blank=True)
 
+    time_limit = models.IntegerField(default=1000)
+    memory_limit = models.IntegerField(default=128000)
+
 	class Meta:
 		permissions = ( # (permission name, promission explaination)
 			('view_hidden', 'Can view hidden problem'),
