@@ -20,6 +20,7 @@ class AccountSerializer(serializers.ModelSerializer):
             "is_superuser",
             "date_joined",
             "is_active",
+            "last_login"
         ]
-        read_only_fields = ["id", "email", "solved", "submit_time"]
+        read_only_fields = ["id", "email", "solved", "submit_time", "date_joined", "last_login"]
 

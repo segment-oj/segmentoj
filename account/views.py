@@ -100,6 +100,26 @@ class AccountView(APIView):
                 {"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT
             )
 
+    @method_decorator(parameter_required("uid"))
+    def patch(self, request, uid):
+        data = request.data
+        user = get_object_or_404(User, id=uid)
+        if not request.user.has_perm("account.change_user"):
+            if request.user.id != user.id:
+                return Response({
+                    "detail": "You have not premission to change this user"
+                }, status=status.HTTP_403_FORBIDDEN)
+            
+            data.pop("is_active", None)
+            data.pop("is_staff", None)
+            data.pop("is_superuser", None)
+
+        us = AccountSerializer(user, data=data, partial=True)
+        us.is_valid(raise_exception=True)
+        us.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 
 class AccountUsernameAccessibilityView(APIView):
     @method_decorator(parameter_required("username"))
