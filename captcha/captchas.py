@@ -38,5 +38,5 @@ def check(key, ans):
 			s.delete()
 			return True
 		else:
-			s.delete();
+			s.delete()
 			return False
