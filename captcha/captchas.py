@@ -3,7 +3,7 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 import os
 
-from captcha.tools import GenCaptcha, settimelater
+from captcha.tools import GenCaptcha
 from captcha.models import CaptchaStore
 
 def setcaptcha(key):
