@@ -79,14 +79,10 @@ class AccountView(APIView):
             )
 
         try:
-            user = User.objects.create_user(
-                username=username, password=password, email=email
-            )
+            user = User.objects.create_user(username=username, password=password, email=email)
         except IntegrityError:
             # failed, probably because username already exits
-            return Response(
-                {"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT
-            )
+            return Response({"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT)
 
         if user:  # Success
             user.save()  # Save user
@@ -96,9 +92,7 @@ class AccountView(APIView):
                 status=status.HTTP_201_CREATED,
             )
         else:  # failed, probably because username already exits
-            return Response(
-                {"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT
-            )
+            return Response({"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT)
 
     @method_decorator(parameter_required("uid"))
     def patch(self, request, uid):
