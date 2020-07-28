@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from rest_framework import status
-from rest_framework.test import APIRequestFactory, APIClient
+from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
 
 from .views import AccountView, AccountUsernameAccessibilityView
 from .models import User
@@ -90,7 +90,45 @@ class AccountTest(TestCase):
         request = self.factory.get(self.base_url, format="json")
         res = self.view(request)
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
+    
+    def testH_change_user_admin(self):
+        request_data = {
+            "username": "testusernewname"
+        }
 
+        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        force_authenticate(request, User.objects.get(username="admin"))
+        res = self.view(request, uid=2)
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+
+        target = User.objects.get(id=2)
+        self.assertEqual(target.username, request_data["username"])
+
+    def testI_change_user_own(self):
+        request_data = {
+            "username": "zhangtianlinewname"
+        }
+
+        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        force_authenticate(request, User.objects.get(username="zhangtianli"))
+        res = self.view(request, uid=3)
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+
+        target = User.objects.get(id=3)
+        self.assertEqual(target.username, request_data["username"])
+    
+    def testJ_change_user_admin(self):
+        request_data = {
+            "is_active": False
+        }
+
+        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        force_authenticate(request, User.objects.get(username="admin"))
+        res = self.view(request, uid=2)
+        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+
+        target = User.objects.get(id=2)
+        self.assertEqual(target.is_active, request_data["is_active"])
 
 class AccountSessionTest(TestCase):
     fixtures = ["testdatabase.yaml"]
