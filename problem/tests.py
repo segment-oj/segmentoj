@@ -26,6 +26,8 @@ class ProblemViewTest(TestCase):
             "allow_html": False,
             "enabled": True,
             "tags": [1, 2, 3],
+            "memory_limit": 128000,
+            "time_limit": 1000
         }
 
         request = self.factory.get(self.base_url)
@@ -41,6 +43,8 @@ class ProblemViewTest(TestCase):
         self.assertEqual(data.get("allow_html"), ac_data["allow_html"])
         self.assertEqual(data.get("enabled"), ac_data["enabled"])
         self.assertEqual(data.get("tags"), ac_data["tags"])
+        self.assertEqual(data.get("memory_limit"), ac_data["memory_limit"])
+        self.assertEqual(data.get("time_limit"), ac_data["time_limit"])
 
     def testX_post_new_problem(self):
         request_data = {
