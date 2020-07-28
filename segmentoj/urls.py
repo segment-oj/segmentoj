@@ -20,6 +20,7 @@ from . import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+import problem
 from account.views import AccountView, AccountSessionView
 from status.views import StatusView, StatusListCountView, StatusListView
 from judger.views import JudgerStatusView, JudgerStatusDetailView
@@ -33,7 +34,11 @@ urlpatterns = [
     path("api/account/<int:uid>", AccountView.as_view()),
     path("api/account/session", AccountSessionView.as_view()),
     # Problem
-    path("api/problem/", include("problem.urls")),
+    path("api/problem", problem.views.ProblemView.as_view()),
+    path("api/problem/<int:pid>", problem.views.ProblemView.as_view()),
+    path("api/problem/tag", problem.views.TagView.as_view()),
+    path("api/problem/list", problem.views.ProblemListView.as_view()),
+    path("api/problem/list/count", problem.views.ProblemListCountView.as_view()),
     # Status
     path("api/status", StatusView.as_view()),
     path("api/status/<int:sid>", StatusView.as_view()),
@@ -44,7 +49,9 @@ urlpatterns = [
     path("api/judger/status/<int:sid>", JudgerStatusView.as_view()),
     path("api/judger/status/detail", JudgerStatusDetailView.as_view()),
     path("api/judger/status/detail/<int:sid>", JudgerStatusDetailView.as_view()),
-    path("api/judger/status/detail/<int:sid>/<int:cid>", JudgerStatusDetailView.as_view()),
+    path(
+        "api/judger/status/detail/<int:sid>/<int:cid>", JudgerStatusDetailView.as_view()
+    ),
 ]
 
 if settings.DEBUG:
