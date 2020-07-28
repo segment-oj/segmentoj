@@ -130,7 +130,7 @@ class AccountTest(TestCase):
         target = User.objects.get(id=2)
         self.assertEqual(target.is_active, request_data["is_active"])
 
-    def testJ_change_user_not_admin(self):
+    def testK_change_user_not_admin(self):
         request_data = {
             "is_active": False
         }
@@ -140,7 +140,7 @@ class AccountTest(TestCase):
         res = self.view(request, uid=3)
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
-    def testJ_change_not_admin(self):
+    def testL0_change_not_admin(self):
         request_data = {
             "is_active": False
         }
