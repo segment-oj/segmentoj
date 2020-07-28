@@ -27,7 +27,7 @@ class ProblemView(APIView):
             )
 
         ps = ProblemSerializer(problem)
-        return Response({"res": ps.get_problem()}, status=status.HTTP_200_OK)
+        return Response({"res": ps.data}, status=status.HTTP_200_OK)
 
     @method_decorator(permission_required("problem.add_problem", raise_exception=True))
     def post(self, request):
