@@ -72,7 +72,7 @@ class TagView(APIView):
         tag = get_object_or_404(Tag, id=tid)
         ts = TagSerializer(tag)
 
-        return Response(ts.data, status=status.HTTP_200_OK)
+        return Response({"res": ts.data}, status=status.HTTP_200_OK)
 
     @method_decorator(permission_required("problem.add_tag", raise_exception=True))
     def post(self, request):
