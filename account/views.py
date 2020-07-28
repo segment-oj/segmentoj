@@ -100,3 +100,14 @@ class AccountView(APIView):
                 {"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT
             )
 
+
+class AccountUsernameAccessibilityView(APIView):
+    @method_decorator(parameter_required("username"))
+    def get(self, request, username):
+        account_filter = {"username": username}
+
+        queryset = User.objects.filter(**account_filter)
+        if queryset.count() == 0:
+            return Response(status=status.HTTP_204_NO_CONTENT)
+
+        return Response(status=status.HTTP_409_CONFLICT)
