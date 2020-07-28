@@ -5,10 +5,13 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 
 
 from .views import ProblemView
+
 # Create your tests here.
 
+
 class ProblemViewTest(TestCase):
-    
+    fixtures = ["testdatabase.yaml"]
+
     def setUp(self):
         self.base_url = "/api/problem/"
         self.factory = APIRequestFactory()
@@ -21,7 +24,7 @@ class ProblemViewTest(TestCase):
             "pid": 5,
             "allow_html": False,
             "enabled": True,
-            "tags": [1, 2, 3]
+            "tags": [1, 2, 3],
         }
 
         request = self.factory.get(self.base_url)
