@@ -9,7 +9,7 @@ def captcha_required():
         def _wrapped_view(request, *args, **kwargs):
             data = request.data
 
-            captcha_key = data.get("cpatcha_kay")
+            captcha_key = data.get("cpatcha_key")
             captcha_asnwer = data.get("captcha_answer")
 
             if captcha_key == None or captcha_asnwer == None:
