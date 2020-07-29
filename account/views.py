@@ -11,6 +11,7 @@ from rest_framework import status
 
 from segmentoj import tools
 from segmentoj.decorator import syllable_required, parameter_required
+from captcha.decorator import captcha_required
 from account.models import User
 from account.serializers import AccountSerializer
 
@@ -66,6 +67,7 @@ class AccountView(APIView):
     @method_decorator(syllable_required("username", str))
     @method_decorator(syllable_required("password", str))
     @method_decorator(syllable_required("email", str))
+    @method_decorator(captcha_required())
     def post(self, request):
         username = request.data.get("username")
         password = request.data.get("password")
