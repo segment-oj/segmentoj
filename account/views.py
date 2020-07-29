@@ -1,6 +1,7 @@
 from django.contrib import auth
 from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
+from django.conf import settings
 
 from django.utils.decorators import method_decorator
 
@@ -12,6 +13,8 @@ from segmentoj import tools
 from segmentoj.decorator import syllable_required, parameter_required
 from account.models import User
 from account.serializers import AccountSerializer
+
+import os.path
 
 # Create your views here.
 class AccountSessionView(APIView):
@@ -125,3 +128,16 @@ class AccountUsernameAccessibilityView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(status=status.HTTP_409_CONFLICT)
+
+class AccountAvatarView(APIView):
+
+    def get(self, request, uid):
+        avatar_path = os.path.join(settings.MEDIA_ROOT, "avatar", "{uid}.png".format(uid=uid))
+
+        if not os.path.isfile(avatar_path):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        avatar_uri = os.path.join(settings.MEDIA_URL, "avatar", "{uid}.png".format(uid=uid))
+        return Response({
+            "res": avatar_uri
+        }, status=status.HTTP_200_OK)
