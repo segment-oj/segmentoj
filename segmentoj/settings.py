@@ -139,26 +139,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads").replace("\\", "/")
 MEDIA_URL = "/media/"  # DON'T CHANGE THIS
 
-# CAPTCHA settings
-# The height of each captcha pic
-CAPTCHA_HEIGHT = 40
-# The width of each captcha pic
-CAPTCHA_WIDTH = 130
-# The length of each captcha pic
-CAPTCHA_LENGTH = 4
-# font size on captcha
-# you may change this if modified height/width
-# try it until you find the best value
-CAPTCHA_FONTSIZE = 30
-# the font file of font
-CAPTCHA_FONTTYPE = "/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf"
-# The number of dots on the pic to interfare
-CAPTCHA_DOTNUM = 100
-# The number of lines on the pic to interfare
-CAPTCHA_LINENUM = 4
-# how long a captcha expire (min)
-CAPTCHA_AGE = 5
-
 # CORS settings
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
