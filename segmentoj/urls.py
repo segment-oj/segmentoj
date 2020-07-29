@@ -24,6 +24,7 @@ import problem.views
 from account.views import AccountView, AccountSessionView, AccountUsernameAccessibilityView
 from status.views import StatusView, StatusListCountView, StatusListView
 from judger.views import JudgerStatusView, JudgerStatusDetailView
+from captcha.views import getcaptcha
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -51,9 +52,9 @@ urlpatterns = [
     path("api/judger/status/<int:sid>", JudgerStatusView.as_view()),
     path("api/judger/status/detail", JudgerStatusDetailView.as_view()),
     path("api/judger/status/detail/<int:sid>", JudgerStatusDetailView.as_view()),
-    path(
-        "api/judger/status/detail/<int:sid>/<int:cid>", JudgerStatusDetailView.as_view()
-    ),
+    path("api/judger/status/detail/<int:sid>/<int:cid>", JudgerStatusDetailView.as_view()),
+    # Captcha
+    path("api/captcha/<int:key>", getcaptcha)
 ]
 
 if settings.DEBUG:
