@@ -17,11 +17,10 @@ def setcaptcha(key):
 		# try to get if already there
 		s = CaptchaStore.objects.get(key=key)
 		s.answer = ans
-		s.expire_time = settimelater()
 		s.save()
 	except ObjectDoesNotExist:
 		# not exist, create new
-		s = CaptchaStore(key=key, answer=ans, expire_time=settimelater())
+		s = CaptchaStore(key=key, answer=ans)
 		s.save()
 	
 	return ans
