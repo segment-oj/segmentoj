@@ -1,6 +1,5 @@
 # generating captcha
 
-from django.apps import apps
 from django.utils import timezone
 import datetime
 import random
@@ -100,9 +99,7 @@ class GenCaptcha:
         ans = ans.lower()
         return ans
 
-def settimelater(d=None):
-    if d == None:
-        d = apps.get_app_config('captcha').age
+def settimelater(d=-CaptchaConfig.age):
 
     nowtime = timezone.now()
     res = nowtime + datetime.timedelta(minutes=5)
