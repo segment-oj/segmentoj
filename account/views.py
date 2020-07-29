@@ -101,7 +101,7 @@ class AccountView(APIView):
         if not request.user.has_perm("account.change_user"):
             if request.user.id != user.id:
                 return Response({
-                    "detail": "You have not premission to change this user"
+                    "detail": "You have no premission to change this user"
                 }, status=status.HTTP_403_FORBIDDEN)
             
             data.pop("is_active", None)
