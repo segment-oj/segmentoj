@@ -141,21 +141,21 @@ MEDIA_URL = "/media/"  # DON'T CHANGE THIS
 
 # CAPTCHA settings
 # The height of each captcha pic
-CAPTCHA_HEIGHT = 50
+CAPTCHA_HEIGHT = 40
 # The width of each captcha pic
-CAPTCHA_WIDTH = 200
+CAPTCHA_WIDTH = 130
 # The length of each captcha pic
-CAPTCHA_LENGTH = 6
+CAPTCHA_LENGTH = 4
 # font size on captcha
 # you may change this if modified height/width
 # try it until you find the best value
-CAPTCHA_FONTSIZE = 36
+CAPTCHA_FONTSIZE = 30
 # the font file of font
-CAPTCHA_FONTTYPE = "arial.ttf"
+CAPTCHA_FONTTYPE = "/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf"
 # The number of dots on the pic to interfare
-CAPTCHA_DOTNUM = 50
+CAPTCHA_DOTNUM = 100
 # The number of lines on the pic to interfare
-CAPTCHA_LINENUM = 5
+CAPTCHA_LINENUM = 4
 # how long a captcha expire (min)
 CAPTCHA_AGE = 5
 
