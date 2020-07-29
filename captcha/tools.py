@@ -37,7 +37,7 @@ class GenCaptcha:
 		return random_char
 
 	# draw random lines to interfere
-	# @parm -> draw: PIL ImageDraw Object
+	# @param -> draw: PIL ImageDraw Object
 	# @return -> None
 	def drawLine(self, draw):
 		for i in range(self.line_number):
@@ -48,7 +48,7 @@ class GenCaptcha:
 			draw.line((x1, y1, x2, y2), fill = self.getRandomColor())
 	
 	# draw random dots to interfere
-	# @parm -> draw: PIL ImageDraw Object
+	# @param -> draw: PIL ImageDraw Object
 	# @return -> None
 	def drawPoint(self, draw):
 		for i in range(self.dot_number):
@@ -57,7 +57,7 @@ class GenCaptcha:
 			draw.point((x,y), fill = self.getRandomColor())
 
 	# create random picture
-	# @parm -> img save path
+	# @param -> img save path
 	# @return -> answer
 	def createImg(self, path):
 		ans = ""
