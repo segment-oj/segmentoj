@@ -16,8 +16,7 @@ class CaptchaStore(models.Model):
 
 		expired_data = self.objects.filter(added_time__gte=tools.settimelater(timezone.now()))
 		for edata in expired_data:
-			path = os.path.join(settings.BASE_DIR, \
-				"uploads", "captcha", "{name}.png".format(name=edata.key))
+			path = os.path.join(settings.BASE_DIR, "uploads", "captcha", "{name}.png".format(name=edata.key))
 			os.remove(path)
 
 			edata.delete()
