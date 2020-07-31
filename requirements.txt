@@ -9,6 +9,7 @@ Django==3.1rc1
 django-cors-headers==3.4.0
 django-filter==2.3.0
 djangorestframework==3.11.0
+lazy-object-proxy==1.4.3
 Markdown==3.2.2
 mccabe==0.6.1
 pathspec==0.8.0
@@ -18,3 +19,6 @@ PyYAML==5.3.1
 regex==2020.7.14
 six==1.15.0
 sqlparse==0.3.1
+toml==0.10.1
+typed-ast==1.4.1
+wrapt==1.12.1
