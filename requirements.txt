@@ -9,7 +9,7 @@ Django==3.1rc1
 django-cors-headers==3.4.0
 django-filter==2.3.0
 djangorestframework==3.11.0
-lazy-object-proxy==1.5.1
+lazy-object-proxy==1.4.3
 Markdown==3.2.2
 mccabe==0.6.1
 pathspec==0.8.0
