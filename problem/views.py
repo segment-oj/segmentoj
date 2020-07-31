@@ -40,27 +40,22 @@ class ProblemView(APIView):
         ps.save()
         return Response(status=status.HTTP_201_CREATED)
 
-    @method_decorator(syllable_required("pid", int))
-    @method_decorator(
-        permission_required("problem.change_problem", raise_exception=True)
-    )
-    def patch(slef, request):
+    @method_decorator(parameter_required("pid"))
+    @method_decorator(permission_required("problem.change_problem", raise_exception=True))
+    def patch(self, request, pid):
         data = request.data
-        id = data.get("pid")
 
-        problem = get_object_or_404(Problem, pid=id)
+        problem = get_object_or_404(Problem, pid=pid)
         ps = ProblemSerializer(problem, data=data, partial=True)
         ps.is_valid(raise_exception=True)
         ps.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-    @method_decorator(syllable_required("pid", int))
     @method_decorator(permission_required("problem.delete_problem"))
-    def delete(self, request):
+    def delete(self, request, pid):
         data = request.data
-        id = data.get("pid")
 
-        problem = get_object_or_404(Problem, pid=id)
+        problem = get_object_or_404(Problem, pid=pid)
         problem.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 

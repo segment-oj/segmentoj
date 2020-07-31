@@ -3,7 +3,7 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, force_authenticate
 
-
+from .models import Problem
 from .views import ProblemView, TagView
 from account.models import User
 
@@ -60,6 +60,31 @@ class ProblemViewTest(TestCase):
         force_authenticate(request, User.objects.get(username="admin"))
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def testW_change_problem(self):
+        request_data = {
+            "title": "Not Hard Problem",
+            "description": "This is description",
+            "pid": 8,
+            "allow_html": True,
+            "tags": [4, 3, 1]
+        }
+
+        ac_data = {
+            "enabled": True
+        }
+
+        request = self.factory.patch(self.base_url, data=request_data)
+        force_authenticate(request, User.objects.get(username="admin"))
+        response = self.view(request, pid=5)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        target = Problem.objects.get(pid=8)
+        self.assertEqual(target.pid, request_data["pid"])
+        self.assertEqual(target.description, request_data["description"])
+        self.assertEqual(target.title, request_data["title"])
+        self.assertEqual(target.allow_html, request_data["allow_html"])
+        self.assertEqual(target.enabled, ac_data["enabled"])
 
 
 class TagViewTest(TestCase):
