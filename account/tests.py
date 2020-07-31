@@ -5,6 +5,7 @@ from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
 
 from .views import AccountView, AccountUsernameAccessibilityView
 from .models import User
+from captcha.models import CaptchaStore
 
 # Create your tests here.
 class AccountTest(TestCase):
@@ -22,7 +23,12 @@ class AccountTest(TestCase):
             "username": "unittesuser01",
             "email": "unittesuser01@soj.ac.cn",
             "password": "unittest",
+            "captcha_key": 1234,
+            "captcha_answer": "unit"
         }
+
+        c = CaptchaStore(key=request_data["captcha_key"], answer=request_data["captcha_answer"])
+        c.save()
 
         request = self.factory.post(self.base_url, data=request_data, format="json")
         res = self.view(request)
@@ -67,10 +73,18 @@ class AccountTest(TestCase):
             "username": "unittesuser02",
             "email": "unittesuser02@soj.ac.cn",
             "password": "unittest",
+            "captcha_key": 4456,
+            "captcha_answer": "ut2x"
         }
+
+        c = CaptchaStore(key=request_data["captcha_key"], answer=request_data["captcha_answer"])
+        c.save()
 
         request = self.factory.post(self.base_url, data=request_data, format="json")
         self.view(request)
+
+        c = CaptchaStore(key=request_data["captcha_key"], answer=request_data["captcha_answer"])
+        c.save()
 
         request = self.factory.post(self.base_url, data=request_data, format="json")
         res = self.view(request)
