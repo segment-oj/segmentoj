@@ -6,7 +6,7 @@ import captcha.tools as tools
 
 # Create your models here.
 class CaptchaStore(models.Model):
-	key = models.IntegerField()
+	key = models.IntegerField(unique=True)
 	answer = models.CharField(max_length=10)
 	added_time = models.DateTimeField(auto_now=True)
 
@@ -17,6 +17,9 @@ class CaptchaStore(models.Model):
 		expired_data = self.objects.filter(added_time__gte=tools.settimelater(timezone.now()))
 		for edata in expired_data:
 			path = os.path.join(settings.BASE_DIR, "uploads", "captcha", "{name}.png".format(name=edata.key))
-			os.remove(path)
+			try:
+				os.remove(path)
+			except FileNotFoundError:
+				pass
 
 			edata.delete()
