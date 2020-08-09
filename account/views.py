@@ -4,13 +4,14 @@ from django.db.utils import IntegrityError
 from django.conf import settings
 
 from django.utils.decorators import method_decorator
+from django.conf import settings
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
 from segmentoj import tools
-from segmentoj.decorator import syllable_required, parameter_required
+from segmentoj.decorator import syllable_required, parameter_required, login_required
 from captcha.decorator import captcha_required
 from account.models import User
 from account.serializers import AccountSerializer
@@ -143,3 +144,32 @@ class AccountAvatarView(APIView):
         return Response({
             "res": avatar_uri
         }, status=status.HTTP_200_OK)
+
+    @method_decorator(login_required())
+    @method_decorator(captcha_required())
+    def put(self, request):
+        uid = request.user.id
+        avatar_file = request.FILES.get("avatar")
+
+        if not avatar_file:
+            return Response({
+                "detail": "avatar img file missing"
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+        if avatar_file.size > 5120: # 5M
+            return Response({
+                "detail": "avatar img too large"
+            })
+        
+        filepath = os.path.join(settings.MEDIA_ROOT, "avatar", "{uid}.png".format(uid=uid))
+        try:
+            with open(filepath, "wb+") as f:
+                for chunk in avatar_file.chunks(): 
+                    f.write(chunk)
+        except Exception as e:
+            return Response({
+                "detail": "Failed to save img"
+            }, status=status.)
+
+
+
