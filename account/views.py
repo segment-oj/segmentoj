@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
 from django.conf import settings
 
-from django.utils.decorators import method_decorator
+from django.utils.decorators import method_decorator, permission_required
 from django.conf import settings
 
 from rest_framework.response import Response
@@ -107,7 +107,7 @@ class AccountView(APIView):
         if not request.user.has_perm("account.change_user"):
             if request.user.id != user.id:
                 return Response({
-                    "detail": "You have no premission to change this user"
+                    "detail": "You have no permission to change this user"
                 }, status=status.HTTP_403_FORBIDDEN)
             
             data.pop("is_active", None)
@@ -171,5 +171,13 @@ class AccountAvatarView(APIView):
                 "detail": "Failed to save img"
             }, status=status.HTTP_201_CREATED)
 
+    @method_decorator(parameter_required("uid"))
+    @method_decorator(permission_required("account.edit_user", raise_exception=True))
+    def delete(self, request, uid):
+        avatar_path = os.path.join(settings.MEDIA_ROOT, "avatar", "{uid}.png".format(uid=uid))
 
-
+        if not os.path.isfile(avatar_path):
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        
+        os.remove(avatar_path)
+        return Response(status=status.HTTP_200_OK)
