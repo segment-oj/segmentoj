@@ -169,7 +169,7 @@ class AccountAvatarView(APIView):
         except Exception as e:
             return Response({
                 "detail": "Failed to save img"
-            }, status=status.)
+            }, status=status.HTTP_201_CREATED)
 
 
 
