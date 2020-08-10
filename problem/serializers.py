@@ -21,19 +21,19 @@ class ProblemSerializer(serializers.ModelSerializer):
         ]
 
         depth = 0
-        read_only_fields = ['id', 'date_added']
+        read_only_fields = ["id", "date_added"]
 
 class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
-        fields = '__all__'
-        read_only_fields = ['id']
+        fields = "__all__"
+        read_only_fields = ["id"]
 
 class ProblemListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Problem
-        fields = ['id', 'pid', 'title', 'enabled']
+        fields = ["id", "pid", "title", "enabled", "tags"]
         depth = 0
-        read_only_fields = ['id', 'date_added']
+        read_only_fields = ["id"]
