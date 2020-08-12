@@ -3,12 +3,12 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
 
-from .views import AccountView, AccountUsernameAccessibilityView
+from .views import AccountView, AccountUsernameAccessibilityView, AccountPasswordView
 from .models import User
 from captcha.models import CaptchaStore
 
 # Create your tests here.
-class AccountTest(TestCase):
+class AccountViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
 
     # setup test case
@@ -171,7 +171,7 @@ class AccountTest(TestCase):
         target = User.objects.get(id=2)
         self.assertEqual(target.is_active, ac_data["is_active"])
 
-class AccountSessionTest(TestCase):
+class AccountSessionViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
 
     def setUp(self):
@@ -197,21 +197,46 @@ class AccountSessionTest(TestCase):
         res = self.client.delete(self.base_url)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
 
+class AccountPasswordViewTest(TestCase):
+    fixtures = ["testdatabase.yaml"]
 
-class AccountUsernameAccessibilityTest(TestCase):
+    def setUp(self):
+        self.base_url = "/api/account/password"
+        self.client = APIClient()
+        self.client.force_authenticate(user=User.objects.get(username="admin"))
+
+    def testA_verify_password_ok(self):
+        request_data = {
+            "password": "123456"
+        }
+
+        response = self.client.post(self.base_url, request_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+
+    def testB_verify_password_wrong(self):
+        request_data = {
+            "password": "wrong password"
+        }
+
+        response = self.client.post(self.base_url, request_data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+class AccountUsernameAccessibilityViewTest(TestCase):
+    fixtures = ["testdatabase.yaml"]
+
     def setUp(self):
         self.base_url = "/api/account/username/accessibility/"
         self.factory = APIRequestFactory()
         self.view = AccountUsernameAccessibilityView.as_view()
 
-    def testZ_get_accessibility_ok(self):
+    def testZ_get_accessibility_fail(self):
         request = self.factory.get(self.base_url)
-        response = self.view(response, username="unittest")
+        response = self.view(request, username="unittest")
 
-        self.assertEqual(response.status_data, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-    def testZ_get_accessibility_ok(self):
+    def testY_get_accessibility_ok(self):
         request = self.factory.get(self.base_url)
         response = self.view(request, username="admin")
 
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_409_CONFLICT)
