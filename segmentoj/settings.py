@@ -151,5 +151,13 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.ScopedRateThrottle",  # use throttle_scope = 'xxx'
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 5,
+    "PAGE_SIZE": 0,
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_USE_TLS = True
+EMAIL_HOST = os.environ.get("BACKEND_EMAIL_HOST")
+EMAIL_PORT = int(os.environ.get("BACKEND_EMAIL_PORT")) if os.environ.get("BACKEND_EMAIL_PORT") else 25
+EMAIL_HOST_USER = os.environ.get("BACKEND_EMAIL_USERNAME")
+EMAIL_HOST_PASSWORD = os.environ.get("BACKEND_EMAIL_PASSWORD")
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
