@@ -3,8 +3,10 @@ from django.shortcuts import get_object_or_404
 from django.db.utils import IntegrityError
 from django.conf import settings
 
-from django.utils.decorators import method_decorator, permission_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import permission_required
 from django.conf import settings
+from django.utils import timezone
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -119,6 +121,24 @@ class AccountView(APIView):
         us.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class AccountPasswordView(APIView):
+    @method_decorator(login_required())
+    @method_decorator(syllable_required("password", str))
+    def post(self, request):
+        # Verify
+        data = request.data
+        user = request.user
+        pwd = data.get("password")
+        if user.check_password(pwd):
+            request.session["password_verified"] = True
+            return Response({
+                "detail": "Verify Password OK."
+            }, status=status.HTTP_201_CREATED)
+
+        return Response({
+            "detail": "Password incorrect!"
+        }, status=status.HTTP_403_FORBIDDEN)
+        
 
 
 class AccountUsernameAccessibilityView(APIView):
