@@ -66,3 +66,11 @@ local_tools/
 
 # Backup
 *.bak
+*.*~
+
+# Scripts
+write_*
+
+# Server
+*.sock
+*.pid
