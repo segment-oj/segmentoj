@@ -15,8 +15,9 @@ from rest_framework import status
 from segmentoj import tools
 from segmentoj.decorator import syllable_required, parameter_required, login_required
 from captcha.decorator import captcha_required
-from account.models import User
-from account.serializers import AccountSerializer
+from .models import User
+from .serializers import AccountSerializer
+from .decorator import password_verify_required
 
 import os.path
 
@@ -138,9 +139,20 @@ class AccountPasswordView(APIView):
         return Response({
             "detail": "Password incorrect!"
         }, status=status.HTTP_403_FORBIDDEN)
-        
 
+    @method_decorator(login_required())
+    @method_decorator(syllable_required("password", str))
+    @method_decorator(password_verify_required())
+    def patch(self, request):
+        data = request.data
+        user = request.user
+        pwd = data.get("password")
+        user.set_password(pwd)
+        user.save()
 
+        return Response({
+            "detail": "Success"
+        }, status=status.HTTP_204_NO_CONTENT)
 class AccountUsernameAccessibilityView(APIView):
     @method_decorator(parameter_required("username"))
     def get(self, request, username):
