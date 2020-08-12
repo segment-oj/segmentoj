@@ -205,7 +205,7 @@ class AccountPasswordViewTest(TestCase):
         self.client = APIClient()
         self.client.force_authenticate(user=User.objects.get(username="admin"))
 
-    def testA_verify_password_ok(self):
+    def testZ_verify_password_ok(self):
         request_data = {
             "password": "123456"
         }
@@ -213,13 +213,30 @@ class AccountPasswordViewTest(TestCase):
         response = self.client.post(self.base_url, request_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
-    def testB_verify_password_wrong(self):
+    def testY_verify_password_wrong(self):
         request_data = {
             "password": "wrong password"
         }
 
         response = self.client.post(self.base_url, request_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+    
+    def testX_change_password(self):
+        request_data = {
+            "password": "123456"
+        }
+
+        self.client.post(self.base_url, request_data, format='json')
+
+        request_data = {
+            "password": "new password"
+        }
+
+        response = self.client.patch(self.base_url, request_data, format="json")
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        target = User.objects.get(username="admin")
+        self.assertTrue(target.check_password(request_data["password"]))
 
 class AccountUsernameAccessibilityViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
