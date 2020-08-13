@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APIRequestFactory, force_authenticate
 
 from .models import Problem
-from .views import ProblemView, TagView
+from .views import ProblemView, TagView, TagListView
 from account.models import User
 
 # Create your tests here.
@@ -112,3 +112,17 @@ class TagViewTest(TestCase):
         self.assertEqual(data.get("id"), ac_data["id"])
         self.assertEqual(data.get("content"), ac_data["content"])
         self.assertEqual(data.get("color"), ac_data["color"])
+
+class TagListViewTest(TestCase):
+    fixtures = ["testdatabase.yaml"]
+
+    def setUp(self):
+        self.base_url = "/api/problem/tag/list"
+        self.factory = APIRequestFactory()
+        self.view = TagListView.as_view()
+
+    def testA_get_list(self):
+        request = self.factory.get(self.base_url)
+        response = self.view(request)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        
