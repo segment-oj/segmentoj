@@ -8,6 +8,8 @@ class User(AbstractUser):
     solved = models.IntegerField(default=0)
     submit_time = models.IntegerField(default=0)
 
+    list_column = models.IntegerField(default=50)
+
     first_name = models.NOT_PROVIDED # delete unused feild
     last_name = models.NOT_PROVIDED # delete unused feild
 
