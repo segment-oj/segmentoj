@@ -13,5 +13,7 @@ class User(AbstractUser):
 
     is_judger = models.BooleanField(default=False)
 
+    email_verified = models.BooleanField(default=False)
+
     def __str__(self):
         return self.username
