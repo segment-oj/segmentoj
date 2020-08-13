@@ -3,7 +3,12 @@ from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
 
-from .views import AccountView, AccountUsernameAccessibilityView, AccountPasswordView
+from .views import (
+    AccountView,
+    AccountIntroductionView,
+    AccountUsernameAccessibilityView,
+    AccountPasswordView,
+)
 from .models import User
 from captcha.models import CaptchaStore
 
@@ -40,7 +45,6 @@ class AccountViewTest(TestCase):
         user_data = {
             "id": 1,
             "username": "admin",
-            "introduction": "# Hello World!",
             "email": "admin@soj.ac.cn",
             "lang": 0,
             "is_staff": True,
@@ -57,7 +61,6 @@ class AccountViewTest(TestCase):
 
         self.assertEqual(res_data.get("id"), user_data["id"])
         self.assertEqual(res_data.get("username"), user_data["username"])
-        self.assertEqual(res_data.get("introduction"), user_data["introduction"])
         self.assertEqual(res_data.get("lang"), user_data["lang"])
         self.assertEqual(res_data.get("is_staff"), user_data["is_staff"])
         self.assertEqual(res_data.get("is_active"), user_data["is_active"])
@@ -170,6 +173,68 @@ class AccountViewTest(TestCase):
 
         target = User.objects.get(id=2)
         self.assertEqual(target.is_active, ac_data["is_active"])
+
+class AccountIntroductionViewTest(TestCase):
+    fixtures = ["testdatabase.yaml"]
+
+    def setUp(self):
+        self.base_url = "/api/account/{uid}/introduction"
+        self.factory = APIRequestFactory()
+        self.view = AccountIntroductionView.as_view()
+
+    def testZ_get_user_introduction(self):
+        ac_data = {
+            "introduction": "# Hello World!",
+        }
+
+        request = self.factory.get(self.base_url.format(uid=1))
+        response = self.view(request, uid=1)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.data.get("res")
+        self.assertIsNotNone(data)
+
+        self.assertEqual(data.get("introduction"), ac_data["introduction"])
+
+    def testY_admin_patch_own_introduction(self):
+        request_data = {
+            "introduction": "Modified!",
+        }
+
+        request = self.factory.patch(self.base_url.format(uid=1), data=request_data, format="json")
+        force_authenticate(request, User.objects.get(username="admin"))
+        response = self.view(request, uid=1)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def testX_admin_patch_other_introduction(self):
+        request_data = {
+            "introduction": "Modified!",
+        }
+
+        request = self.factory.patch(self.base_url.format(uid=2), data=request_data, format="json")
+        force_authenticate(request, User.objects.get(username="admin"))
+        response = self.view(request, uid=2)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def testW_user_patch_own_introduction(self):
+        request_data = {
+            "introduction": "Modified!",
+        }
+
+        request = self.factory.patch(self.base_url.format(uid=2), data=request_data, format="json")
+        force_authenticate(request, User.objects.get(username="testuser"))
+        response = self.view(request, uid=2)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def testV_user_patch_other_introduction_failed(self):
+        request_data = {
+            "introduction": "Modified!",
+        }
+
+        request = self.factory.patch(self.base_url.format(uid=1), data=request_data, format="json")
+        force_authenticate(request, User.objects.get(username="testuser"))
+        response = self.view(request, uid=1)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
 class AccountSessionViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]

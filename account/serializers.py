@@ -11,7 +11,6 @@ class AccountSerializer(serializers.ModelSerializer):
         fields = [
             "id",
             "username",
-            "introduction",
             "lang",
             "solved",
             "submit_time",
@@ -26,3 +25,12 @@ class AccountSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ["id", "solved", "submit_time", "date_joined", "last_login", "email", "email_verified"]
 
+class AccountIntroductionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        depth = 0
+        fields = [
+            "id",
+            "introduction"
+        ]
+        read_only_fields = ["id"]
