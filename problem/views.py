@@ -143,3 +143,14 @@ class ProblemListCountView(APIView):
         res = queryset.count()
         return Response({"res": res}, status=status.HTTP_200_OK)
 
+class TagListView(APIView):
+
+    def get(self, request):
+        queryset = Tag.objects.all()
+        ts = TagSerializer(queryset, many=True)
+
+        return Response({
+            "detail": "Success",
+            "count": queryset.count(),
+            "res": ts.data
+        }, status=status.HTTP_200_OK)
