@@ -23,9 +23,10 @@ from django.conf import settings
 import problem.views
 from account.views import (
     AccountView, 
+    AccountIntroductionView,
     AccountSessionView, 
     AccountUsernameAccessibilityView,
-    AccountAvatarView, 
+    AccountAvatarView,
     AccountPasswordView,
     AccountEmailView
 )
@@ -40,6 +41,7 @@ urlpatterns = [
     # Account
     path("api/account", AccountView.as_view()),
     path("api/account/<int:uid>", AccountView.as_view()),
+    path("api/account/<int:uid>/introduction", AccountIntroductionView.as_view()),
     path("api/account/session", AccountSessionView.as_view()),
     path("api/account/username/accessibility/<str:username>", AccountUsernameAccessibilityView.as_view()),
     path("api/account/password", AccountPasswordView.as_view()),

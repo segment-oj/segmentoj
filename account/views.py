@@ -19,7 +19,7 @@ from segmentoj import tools
 from segmentoj.decorator import syllable_required, parameter_required, login_required
 from captcha.decorator import captcha_required
 from .models import User
-from .serializers import AccountSerializer
+from .serializers import AccountSerializer, AccountIntroductionSerializer
 from .decorator import password_verify_required
 
 import os.path
@@ -61,10 +61,36 @@ class AccountSessionView(APIView):
         auth.logout(request)
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+class AccountIntroductionView(APIView):
+
+    # Get User Introduction
+    @method_decorator(parameter_required("uid"))
+    def get(self, request, uid):
+        user = get_object_or_404(User, id=uid)
+        us = AccountIntroductionSerializer(user)
+        return Response({"res": us.data}, status=status.HTTP_200_OK)
+
+    @method_decorator(parameter_required("uid"))
+    def patch(self, request, uid):
+        if not request.user.has_perm("account.change_user"):
+            if request.user.id != uid:
+                return Response({
+                    "detail": "You have no permission to change this user"
+                }, status=status.HTTP_403_FORBIDDEN)
+
+        data = request.data
+        user = get_object_or_404(User, id=uid)
+        us = AccountIntroductionSerializer(user, data=data, partial=True)
+        us.is_valid(raise_exception=True)
+        us.save()
+
+        return Response({
+            "detail": "Success"
+        }, status=status.HTTP_204_NO_CONTENT)
 
 class AccountView(APIView):
 
-    # Get User Infomation
+    # Get User Infomation Except Introduction
     @method_decorator(parameter_required("uid"))
     def get(self, request, uid):
         user = get_object_or_404(User, id=uid)
@@ -157,6 +183,7 @@ class AccountPasswordView(APIView):
         return Response({
             "detail": "Success"
         }, status=status.HTTP_204_NO_CONTENT)
+
 class AccountUsernameAccessibilityView(APIView):
     @method_decorator(parameter_required("username"))
     def get(self, request, username):
@@ -226,7 +253,7 @@ class AccountEmailView(APIView):
             "res": request.user.email
         })
 
-    # @method_decorator(login_required())
+    @method_decorator(login_required())
     def post(self, request, vid=None):
         signer = TimestampSigner()
         user = request.user
