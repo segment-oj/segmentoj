@@ -48,6 +48,8 @@ class StatusView(APIView):
         ss = StatusSerializer(data=data)
         ss.is_valid(raise_exception=True)
         ss.save()
+
+        request.user.submit_time += 1
         return Response(status=status.HTTP_201_CREATED)
 
 
