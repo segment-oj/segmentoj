@@ -161,3 +161,11 @@ EMAIL_PORT = int(os.environ.get("BACKEND_EMAIL_PORT")) if os.environ.get("BACKEN
 EMAIL_HOST_USER = os.environ.get("BACKEND_EMAIL_USERNAME")
 EMAIL_HOST_PASSWORD = os.environ.get("BACKEND_EMAIL_PASSWORD")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+VERIFY_EMAIL_TEMPLATE_TITLE = "[SegmentOJ] Email Verify"
+VERIFY_EMAIL_TEMPLATE_CONTENT = """Hi, {username}<br/>
+It seems that you have just requested an email verify!<br/>
+<strong>You code is:</strong> <code>{signature}</code><br/>
+Please use it in 0 minutes.<br/>
+"""
+VERIFY_EMAIL_MAX_AGE = 0

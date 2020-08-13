@@ -21,7 +21,14 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 import problem.views
-from account.views import AccountView, AccountSessionView, AccountUsernameAccessibilityView, AccountAvatarView, AccountPasswordView
+from account.views import (
+    AccountView, 
+    AccountSessionView, 
+    AccountUsernameAccessibilityView,
+    AccountAvatarView, 
+    AccountPasswordView,
+    AccountEmailView
+)
 from status.views import StatusView, StatusListCountView, StatusListView
 from judger.views import JudgerStatusView, JudgerStatusDetailView
 from captcha.views import getcaptcha
@@ -36,6 +43,8 @@ urlpatterns = [
     path("api/account/session", AccountSessionView.as_view()),
     path("api/account/username/accessibility/<str:username>", AccountUsernameAccessibilityView.as_view()),
     path("api/account/password", AccountPasswordView.as_view()),
+    path("api/account/email", AccountEmailView.as_view()),
+    path("api/account/email/<str:vid>", AccountEmailView.as_view()),
     # Avatar
     path("api/account/avatar/<int:uid>", AccountAvatarView.as_view()),
     # Problem
