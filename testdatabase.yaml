@@ -719,13 +719,11 @@
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
     last_login: 2020-07-24 11:21:45.505376+00:00
     is_superuser: true
-    first_name: ''
-    last_name: ''
     is_staff: true
     is_active: true
     date_joined: 2020-07-23 08:50:19.189400+00:00
     username: admin
-    email: admin@soj.ac.cn
+    email: fisher@mail.fishergzez.tk
     introduction: '# Hello World!'
     lang: 0
     solved: 0
@@ -739,8 +737,6 @@
     password: pbkdf2_sha256$216000$4eGXHFWI9AeV$FSG09P7/8q+pPs1UkwMaBBNW0uqSH3Tb8dSqzrhuSQQ=
     last_login: null
     is_superuser: false
-    first_name: ''
-    last_name: ''
     is_staff: false
     is_active: true
     date_joined: 2020-07-23 09:29:41.657217+00:00
@@ -759,8 +755,6 @@
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
     last_login: 2020-07-24 02:47:54+00:00
     is_superuser: false
-    first_name: ''
-    last_name: ''
     is_staff: true
     is_active: true
     date_joined: 2020-07-23 10:19:46+00:00
@@ -780,8 +774,6 @@
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
     last_login: 2020-07-24 00:54:12+00:00
     is_superuser: false
-    first_name: ''
-    last_name: ''
     is_staff: true
     is_active: true
     date_joined: 2020-07-24 00:51:40+00:00
@@ -801,8 +793,6 @@
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
     last_login: 2020-07-24 02:49:37+00:00
     is_superuser: false
-    first_name: ''
-    last_name: ''
     is_staff: false
     is_active: true
     date_joined: 2020-07-24 02:49:22+00:00
@@ -821,8 +811,6 @@
     password: pbkdf2_sha256$216000$ftw2RaSKYrvR$IVfkG6VWnZfOC/NGNJVsMcox/UwMUklO7lDDbmgbvig=
     last_login: null
     is_superuser: false
-    first_name: ''
-    last_name: ''
     is_staff: false
     is_active: true
     date_joined: 2020-07-24 11:21:29+00:00
