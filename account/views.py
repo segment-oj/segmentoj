@@ -23,7 +23,7 @@ from .serializers import AccountSerializer
 from .decorator import password_verify_required
 
 import os.path
-import secrets
+import base64
 
 # Create your views here.
 class AccountSessionView(APIView):
@@ -233,6 +233,8 @@ class AccountEmailView(APIView):
         if vid == None:
             # send mail
             signature = signer.sign(user.username)
+            signature = base64.urlsafe_b64encode(signature.encode())
+            signature = signature.decode()
             user.email_user(settings.VERIFY_EMAIL_TEMPLATE_TITLE, 
                             settings.VERIFY_EMAIL_TEMPLATE_CONTENT.format(username=user.username, signature=signature),
                             html_message=settings.VERIFY_EMAIL_TEMPLATE_CONTENT.format(username=user.username, signature=signature),)
@@ -240,6 +242,8 @@ class AccountEmailView(APIView):
                 "detail": "Email sent"
             }, status=status.HTTP_202_ACCEPTED)
 
+        vid = base64.urlsafe_b64decode(vid.encode())
+        vid = vid.decode()
         try:
             value = signer.unsign(vid, max_age=timedelta(minutes=settings.VERIFY_EMAIL_MAX_AGE))
         except SignatureExpired:

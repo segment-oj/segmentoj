@@ -166,6 +166,6 @@ VERIFY_EMAIL_TEMPLATE_TITLE = "[SegmentOJ] Email Verify"
 VERIFY_EMAIL_TEMPLATE_CONTENT = """Hi, {username}<br/>
 It seems that you have just requested an email verify!<br/>
 <strong>You code is:</strong> <code>{signature}</code><br/>
-Please use it in 0 minutes.<br/>
+Please use it in 20 minutes.<br/>
 """
-VERIFY_EMAIL_MAX_AGE = 0
+VERIFY_EMAIL_MAX_AGE = 20
