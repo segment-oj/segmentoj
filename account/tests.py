@@ -169,7 +169,7 @@ class AccountViewTest(TestCase):
         request = self.factory.patch(self.base_url, data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="testuser"))
         res = self.view(request, uid=2)
-        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
         target = User.objects.get(id=2)
         self.assertEqual(target.is_active, ac_data["is_active"])
