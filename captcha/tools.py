@@ -3,6 +3,7 @@
 from django.utils import timezone
 import datetime
 import random
+import math
 from PIL import Image, ImageDraw, ImageFont
 
 from .apps import CaptchaConfig
@@ -33,8 +34,15 @@ class GenCaptcha:
     def getRandomChar(self):
         random_num = str(random.randint(0, 9))       # numbers
         random_lower = chr(random.randint(97, 122))  # lower case letters
-        random_upper = chr(random.randint(65, 90))   # upper case letters 
+        random_upper = chr(random.randint(65, 90))   # upper case letters
+
+        while random_lower == 'o':
+            random_lower = chr(random.randint(97, 122))
+        while random_upper == 'O':
+            random_upper = chr(random.randint(65, 90))
+
         random_char = random.choice([random_num, random_lower, random_upper])
+
         return random_char
 
     # draw random lines to interfere
@@ -56,6 +64,30 @@ class GenCaptcha:
             x = random.randint(0, self.width)
             y = random.randint(0, self.height)
             draw.point((x,y), fill = self.getRandomColor())
+
+    def checkSimilarity(self, color1, color2):
+        r1 = color1[0]
+        g1 = color1[1]
+        b1 = color1[2]
+
+        r2 = color2[0]
+        g2 = color2[1]
+        b2 = color2[2]
+
+        r3 = (r1 - r2) / 256
+        g3 = (g1 - g2) / 256
+        b3 = (b1 - b2) / 256
+
+        color_diff = math.sqrt(r3 ** 2 + g3 ** 2 + b3 ** 2)
+
+        bright1 = ((r1 * 299) + (g1 * 587) + (b1 * 114))
+        bright2 = ((r2 * 299) + (g2 * 587) + (b2 * 114))
+
+        bright_diff = abs(bright1 - bright2)
+
+        if color_diff < 0.7 or bright_diff < 100 * 255:
+            return True
+        return False
 
     # create random picture
     # @param -> img save path
@@ -79,7 +111,7 @@ class GenCaptcha:
             random_txt = self.getRandomChar()
             txt_color = self.getRandomColor()
             # avoid the text color is same to background color
-            while txt_color == bg_color:
+            while self.checkSimilarity(bg_color, txt_color):
                 txt_color = self.getRandomColor()
             
             # draw text
