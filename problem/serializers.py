@@ -6,6 +6,7 @@ from problem.models import Problem, Tag
 from segmentoj import tools
 
 class ProblemSerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Problem
         fields = [
@@ -22,6 +23,21 @@ class ProblemSerializer(serializers.ModelSerializer):
 
         depth = 0
         read_only_fields = ["id", "date_added"]
+        extra_kwargs = {
+            "description": {"write_only": True},
+        }
+
+class ProblemDescriptionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Problem
+        fields = [
+            "pid", 
+            "description", 
+        ]
+
+        depth = 0
+        read_only_fields = ["id"]
 
 class TagSerializer(serializers.ModelSerializer):
 

@@ -52,6 +52,7 @@ urlpatterns = [
     # Problem
     path("api/problem", problem.views.ProblemView.as_view()),
     path("api/problem/<int:pid>", problem.views.ProblemView.as_view()),
+    path("api/problem/<int:pid>/description", problem.views.ProblemDescriptionView.as_view()),
     path("api/problem/tag", problem.views.TagView.as_view()),
     path("api/problem/tag/<int:tid>", problem.views.TagView.as_view()),
     path("api/problem/list", problem.views.ProblemListView.as_view()),

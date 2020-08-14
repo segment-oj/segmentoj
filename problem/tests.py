@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APIRequestFactory, force_authenticate
 
 from .models import Problem
-from .views import ProblemView, TagView, TagListView
+from .views import ProblemView, ProblemDescriptionView, TagView, TagListView
 from account.models import User
 
 # Create your tests here.
@@ -21,7 +21,6 @@ class ProblemViewTest(TestCase):
     def testZ_get_problem(self):
         ac_data = {
             "title": "Simple Problem",
-            "description": "This is description",
             "pid": 5,
             "allow_html": False,
             "enabled": True,
@@ -38,7 +37,6 @@ class ProblemViewTest(TestCase):
         self.assertIsNotNone(data)
 
         self.assertEqual(data.get("title"), ac_data["title"])
-        self.assertEqual(data.get("description"), ac_data["description"])
         self.assertEqual(data.get("pid"), ac_data["pid"])
         self.assertEqual(data.get("allow_html"), ac_data["allow_html"])
         self.assertEqual(data.get("enabled"), ac_data["enabled"])
@@ -85,6 +83,28 @@ class ProblemViewTest(TestCase):
         self.assertEqual(target.title, request_data["title"])
         self.assertEqual(target.allow_html, request_data["allow_html"])
         self.assertEqual(target.enabled, ac_data["enabled"])
+
+
+class ProblemDescriptionViewTest(TestCase):
+    fixtures = ["testdatabase.yaml"]
+
+    def setUp(self):
+        self.base_url = "/api/problem/{pid}/description"
+        self.factory = APIRequestFactory()
+        self.view = ProblemDescriptionView.as_view()
+
+    def testZ_get_problem_description(self):
+        ac_data = {
+            "description": "This is description"
+        }
+
+        request = self.factory.get(self.base_url.format(pid=5))
+        response = self.view(request, pid=5)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.data.get("res")
+        self.assertIsNotNone(data)
+        self.assertEqual(data.get("description"), ac_data["description"])
 
 
 class TagViewTest(TestCase):
