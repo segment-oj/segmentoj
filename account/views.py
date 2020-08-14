@@ -137,15 +137,31 @@ class AccountView(APIView):
     def patch(self, request, uid):
         data = request.data
         user = get_object_or_404(User, id=uid)
+
         if not request.user.has_perm("account.change_user"):
             if request.user.id != user.id:
                 return Response({
                     "detail": "You have no permission to change this user"
                 }, status=status.HTTP_403_FORBIDDEN)
-            
-            data.pop("is_active", None)
-            data.pop("is_staff", None)
-            data.pop("is_superuser", None)
+
+            request_is_active = data.get("is_active")
+            request_is_staff = data.get("is_staff")
+            request_is_superuser = data.get("is_superuser")
+
+            if request_is_active != None and request_is_active != user.is_active:
+                return Response({
+                    "detail": "You have no permission to change this user"
+                }, status=status.HTTP_403_FORBIDDEN)
+
+            if request_is_staff != None and request_is_staff != user.is_active:
+                return Response({
+                    "detail": "You have no permission to change this user"
+                }, status=status.HTTP_403_FORBIDDEN)
+
+            if request_is_superuser != None and request_is_superuser != user.is_superuser:
+                return Response({
+                    "detail": "You have no permission to change this user"
+                }, status=status.HTTP_403_FORBIDDEN)
 
         us = AccountSerializer(user, data=data, partial=True)
         us.is_valid(raise_exception=True)
