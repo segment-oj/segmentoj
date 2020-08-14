@@ -10,14 +10,14 @@ class ProblemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
         fields = [
-            "pid", 
-            "date_added", 
-            "title", 
-            "description",
-            "allow_html", 
-            "tags", 
-            "enabled", 
-            "memory_limit", 
+            "pid",
+            "date_added",
+            "title",
+            "description"
+            "allow_html",
+            "tags",
+            "enabled",
+            "memory_limit",
             "time_limit",
         ]
 
@@ -32,8 +32,8 @@ class ProblemDescriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
         fields = [
-            "pid", 
-            "description", 
+            "pid",
+            "description",
         ]
 
         depth = 0
