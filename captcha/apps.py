@@ -1,5 +1,7 @@
 from django.apps import AppConfig
+from django.conf import settings
 
+import os.path
 
 class CaptchaConfig(AppConfig):
     name = 'captcha'
@@ -16,7 +18,7 @@ class CaptchaConfig(AppConfig):
     # try it until you find the best value
     font_size = 30
     # the font file of font
-    font_family = "/usr/share/fonts/truetype/noto/NotoMono-Regular.ttf"
+    font_family = os.path.join(settings.BASE_DIR, "captcha", "FiraCode-Regular.ttf")
     # The number of dots on the pic to interfare
     dot_number = 100
     # The number of lines on the pic to interfare
