@@ -10,21 +10,25 @@ from rest_framework.pagination import LimitOffsetPagination
 
 from segmentoj import tools
 from problem.models import Problem, Tag
-from .serializers import ProblemSerializer, ProblemListSerializer, TagSerializer
-from segmentoj.decorator import syllable_required, parameter_required
+from .serializers import (
+    ProblemSerializer,
+    ProblemDescriptionSerializer,
+    ProblemListSerializer,
+    TagSerializer,
+)
+from segmentoj.decorator import (
+    parameter_required,
+)
 from status.models import Status
+from .decorator import view_hidden_problem_permission_required
 
 
 class ProblemView(APIView):
     @method_decorator(parameter_required("pid"))
+    @method_decorator(view_hidden_problem_permission_required())
     def get(self, request, pid):
         # Get the content of a problem
         problem = get_object_or_404(Problem, pid=pid)
-
-        if not problem.enabled and not request.user.has_perm("problem.view_hidden"):
-            return Response(
-                {"detail": "Problem is hidden."}, status=status.HTTP_403_FORBIDDEN
-            )
 
         ps = ProblemSerializer(problem)
         return Response({"res": ps.data}, status=status.HTTP_200_OK)
@@ -58,6 +62,16 @@ class ProblemView(APIView):
         problem = get_object_or_404(Problem, pid=pid)
         problem.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class ProblemDescriptionView(APIView):
+    @method_decorator(parameter_required("pid"))
+    @method_decorator(view_hidden_problem_permission_required())
+    def get(self, request, pid):
+        problem = get_object_or_404(Problem, pid=pid)
+
+        pds = ProblemDescriptionSerializer(problem)
+        return Response({"res": pds.data}, status=status.HTTP_200_OK)
 
 
 class TagView(APIView):
@@ -125,7 +139,6 @@ class ProblemListView(APIView):
             {"count": queryset.count(), "res": [process_data(x) for x in ps.data]},
             status=status.HTTP_200_OK,
         )
-
 
 class ProblemListCountView(APIView):
     def get(self, request):
