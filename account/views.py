@@ -148,23 +148,20 @@ class AccountView(APIView):
             request_is_staff = data.get("is_staff")
             request_is_superuser = data.get("is_superuser")
 
-            if request_is_active != None:
-                if request_is_active != user.is_active:
-                    return Response({
-                        "detail": "You have no permission to change this user"
-                    }, status=status.HTTP_403_FORBIDDEN)
+            if request_is_active != None and request_is_active != user.is_active:
+                return Response({
+                    "detail": "You have no permission to change this user"
+                }, status=status.HTTP_403_FORBIDDEN)
 
-            if request_is_staff != None:
-                if request_is_staff != user.is_active:
-                    return Response({
-                        "detail": "You have no permission to change this user"
-                    }, status=status.HTTP_403_FORBIDDEN)
+            if request_is_staff != None and request_is_staff != user.is_active:
+                return Response({
+                    "detail": "You have no permission to change this user"
+                }, status=status.HTTP_403_FORBIDDEN)
 
-            if request_is_superuser != None:
-                if request_is_superuser != user.is_active:
-                    return Response({
-                        "detail": "You have no permission to change this user"
-                    }, status=status.HTTP_403_FORBIDDEN)
+            if request_is_superuser != None and request_is_superuser != user.is_superuser:
+                return Response({
+                    "detail": "You have no permission to change this user"
+                }, status=status.HTTP_403_FORBIDDEN)
 
         us = AccountSerializer(user, data=data, partial=True)
         us.is_valid(raise_exception=True)
