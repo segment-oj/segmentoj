@@ -242,7 +242,13 @@ class AccountEmailView(APIView):
                 "detail": "Email sent"
             }, status=status.HTTP_202_ACCEPTED)
 
-        vid = base64.urlsafe_b64decode(vid.encode())
+        try:
+            vid = base64.urlsafe_b64decode(vid.encode())
+        except:
+            return Response({
+                "detail": "Unable to decode base64"
+            }, status=status.HTTP_400_BAD_REQUEST)
+        
         vid = vid.decode()
         try:
             value = signer.unsign(vid, max_age=timedelta(minutes=settings.VERIFY_EMAIL_MAX_AGE))
