@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 from problem.models import Problem
 
 
-def enabled_required():
+def view_hidden_problem_permission_required():
     def decorator(func):
         def _wrapped_view(request, pid, *args, **kwargs):
             problem = get_object_or_404(Problem, pid=pid)
