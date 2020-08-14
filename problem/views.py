@@ -16,20 +16,20 @@ from .serializers import (
     ProblemListSerializer,
     TagSerializer,
 )
-from segmentoj.decorator import syllable_required, parameter_required
+from segmentoj.decorator import (
+    syllable_required, 
+    parameter_required,
+)
 from status.models import Status
+from .decorator import enabled_required
 
 
 class ProblemView(APIView):
     @method_decorator(parameter_required("pid"))
+    @method_decorator(enabled_required())
     def get(self, request, pid):
         # Get the content of a problem
         problem = get_object_or_404(Problem, pid=pid)
-
-        if not problem.enabled and not request.user.has_perm("problem.view_hidden"):
-            return Response(
-                {"detail": "Problem is hidden."}, status=status.HTTP_403_FORBIDDEN
-            )
 
         ps = ProblemSerializer(problem)
         return Response({"res": ps.data}, status=status.HTTP_200_OK)
@@ -67,13 +67,9 @@ class ProblemView(APIView):
 
 class ProblemDescriptionView(APIView):
     @method_decorator(parameter_required("pid"))
+    @method_decorator(enabled_required())
     def get(self, request, pid):
         problem = get_object_or_404(Problem, pid=pid)
-
-        if not problem.enabled and not request.user.has_perm("problem.view_hidden"):
-            return Response(
-                {"detail": "Problem is hidden."}, status=status.HTTP_403_FORBIDDEN
-            )
 
         pds = ProblemDescriptionSerializer(problem)
         return Response({"res": pds.data}, status=status.HTTP_200_OK)
