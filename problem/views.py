@@ -163,7 +163,6 @@ class TagListView(APIView):
         ts = TagSerializer(queryset, many=True)
 
         return Response({
-            "detail": "Success",
             "count": queryset.count(),
             "res": ts.data
         }, status=status.HTTP_200_OK)

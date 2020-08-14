@@ -32,12 +32,10 @@ class ProblemDescriptionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
         fields = [
-            "pid",
             "description",
         ]
 
         depth = 0
-        read_only_fields = ["id"]
 
 class TagSerializer(serializers.ModelSerializer):
 
