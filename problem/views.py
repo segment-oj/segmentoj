@@ -17,7 +17,6 @@ from .serializers import (
     TagSerializer,
 )
 from segmentoj.decorator import (
-    syllable_required,
     parameter_required,
 )
 from status.models import Status
