@@ -12,6 +12,7 @@ class AccountSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "lang",
+            "editor_theme",
             "solved",
             "submit_time",
             "email",
@@ -23,7 +24,15 @@ class AccountSerializer(serializers.ModelSerializer):
             "email_verified",
             "list_column"
         ]
-        read_only_fields = ["id", "solved", "submit_time", "date_joined", "last_login", "email", "email_verified"]
+        read_only_fields = [
+            "id",
+            "solved",
+            "submit_time",
+            "date_joined",
+            "last_login",
+            "email",
+            "email_verified"
+        ]
 
 class AccountIntroductionSerializer(serializers.ModelSerializer):
     class Meta:
