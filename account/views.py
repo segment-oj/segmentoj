@@ -153,7 +153,7 @@ class AccountView(APIView):
                     "detail": "You have no permission to change this user"
                 }, status=status.HTTP_403_FORBIDDEN)
 
-            if request_is_staff != None and request_is_staff != user.is_active:
+            if request_is_staff != None and request_is_staff != user.is_staff:
                 return Response({
                     "detail": "You have no permission to change this user"
                 }, status=status.HTTP_403_FORBIDDEN)
