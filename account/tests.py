@@ -114,7 +114,9 @@ class AccountViewTest(TestCase):
     
     def testH_change_user_admin(self):
         request_data = {
-            "username": "testusernewname"
+            "username": "testusernewname",
+            "is_superuser": True,
+            "is_staff": True
         }
 
         request = self.factory.patch(self.base_url, data=request_data, format="json")
@@ -124,6 +126,8 @@ class AccountViewTest(TestCase):
 
         target = User.objects.get(id=2)
         self.assertEqual(target.username, request_data["username"])
+        self.assertEqual(target.is_superuser, request_data["is_superuser"])
+        self.assertEqual(target.is_staff, request_data["is_staff"])
 
     def testI_change_user_own(self):
         request_data = {
