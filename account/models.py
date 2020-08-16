@@ -10,8 +10,6 @@ class User(AbstractUser):
 
     list_column = models.IntegerField(default=50)
 
-    editor_theme = models.IntegerField(default=0)
-
     first_name = models.NOT_PROVIDED # delete unused feild
     last_name = models.NOT_PROVIDED # delete unused feild
 
