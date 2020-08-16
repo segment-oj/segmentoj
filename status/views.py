@@ -57,6 +57,11 @@ class StatusListView(APIView):
     def get(self, request):
         # Status List
 
+        def process(x):
+            problem = Problem.objects.get(id=x["problem"])
+            x["problem"] = problem.pid
+            return x
+
         status_filter = {}
         data = request.GET
 
@@ -69,7 +74,7 @@ class StatusListView(APIView):
         statuses = pg.paginate_queryset(queryset=queryset, request=request, view=self)
 
         ss = StatusListSerializer(statuses, many=True)
-        return Response({"res": ss.data}, status=status.HTTP_200_OK)
+        return Response({"res": [process(x) for x in ss.data]}, status=status.HTTP_200_OK)
 
 
 class StatusListCountView(APIView):
