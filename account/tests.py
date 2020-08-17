@@ -50,6 +50,8 @@ class AccountViewTest(TestCase):
             "is_staff": True,
             "is_active": True,
             "is_superuser": True,
+            "list_column": 50,
+            "editor_theme": 0
         }
 
         request = self.factory.get(self.base_url)
@@ -65,6 +67,8 @@ class AccountViewTest(TestCase):
         self.assertEqual(res_data.get("is_staff"), user_data["is_staff"])
         self.assertEqual(res_data.get("is_active"), user_data["is_active"])
         self.assertEqual(res_data.get("is_superuser"), user_data["is_superuser"])
+        self.assertEqual(res_data.get("list_column"), user_data["list_column"])
+        self.assertEqual(res_data.get("editor_theme"), user_data["editor_theme"])
 
     def testC_get_404_user(self):
         request = self.factory.get(self.base_url)
@@ -110,7 +114,9 @@ class AccountViewTest(TestCase):
     
     def testH_change_user_admin(self):
         request_data = {
-            "username": "testusernewname"
+            "username": "testusernewname",
+            "is_superuser": True,
+            "is_staff": True
         }
 
         request = self.factory.patch(self.base_url, data=request_data, format="json")
@@ -120,10 +126,15 @@ class AccountViewTest(TestCase):
 
         target = User.objects.get(id=2)
         self.assertEqual(target.username, request_data["username"])
+        self.assertEqual(target.is_superuser, request_data["is_superuser"])
+        self.assertEqual(target.is_staff, request_data["is_staff"])
 
     def testI_change_user_own(self):
         request_data = {
-            "username": "zhangtianlinewname"
+            "username": "zhangtianlinewname",
+            "lang": 5,
+            "list_column": 100,
+            "editor_theme": 2
         }
 
         request = self.factory.patch(self.base_url, data=request_data, format="json")
@@ -133,6 +144,9 @@ class AccountViewTest(TestCase):
 
         target = User.objects.get(id=3)
         self.assertEqual(target.username, request_data["username"])
+        self.assertEqual(target.lang, request_data["lang"])
+        self.assertEqual(target.list_column, request_data["list_column"])
+        self.assertEqual(target.editor_theme, request_data["editor_theme"])
     
     def testJ_change_user_admin(self):
         request_data = {
