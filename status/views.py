@@ -74,8 +74,10 @@ class StatusListView(APIView):
         statuses = pg.paginate_queryset(queryset=queryset, request=request, view=self)
 
         ss = StatusListSerializer(statuses, many=True)
-        return Response({"res": [process(x) for x in ss.data]}, status=status.HTTP_200_OK)
-
+        return Response({
+                "count": queryset.count(),
+                "res": [process(x) for x in ss.data]
+            }, status=status.HTTP_200_OK)
 
 class StatusListCountView(APIView):
     def get(self, request):
