@@ -8,6 +8,7 @@ A OnlineJudge using Django and Docker.
 [![Repo Size](https://img.shields.io/github/repo-size/szdytom/segmentoj)](https://github.com/szdytom/segmentoj/)
 [![Python 3](https://pyup.io/repos/github/segment-oj/segmentoj/python-3-shield.svg)](https://pyup.io/repos/github/segment-oj/segmentoj/)
 [![Updates](https://pyup.io/repos/github/segment-oj/segmentoj/shield.svg)](https://pyup.io/repos/github/segment-oj/segmentoj/)
+![visitors](https://visitor-badge.laobi.icu/badge?page_id=segmentoj)
 
 ---
 
