@@ -5,7 +5,7 @@ attrs==19.3.0
 black==19.10b0
 click==7.1.2
 coverage==5.2.1
-Django==3.1
+Django==3.1.1
 django-cors-headers==3.5.0
 django-filter==2.3.0
 djangorestframework==3.11.1
