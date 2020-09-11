@@ -135,10 +135,10 @@ class ProblemListView(APIView):
         problems = pg.paginate_queryset(queryset=queryset, request=request, view=self)
 
         ps = ProblemListSerializer(problems, many=True)
-        return Response(
-            {"count": queryset.count(), "res": [process_data(x) for x in ps.data]},
-            status=status.HTTP_200_OK,
-        )
+        return Response({
+                "count": queryset.count(),
+                "res": [process_data(x) for x in ps.data]
+            }, status=status.HTTP_200_OK)
 
 class ProblemListCountView(APIView):
     def get(self, request):
