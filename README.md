@@ -12,7 +12,7 @@ A OnlineJudge using Django and Docker.
 
 ---
 
-这是Segmentoj的Web端，Segmentoj是前后端分离架构。
+这是SegmentOJ的Web端，SegmentOJ是前后端分离架构。
 
 Python + Django框架，在Linux下可以用Nginx + uwsgi部署。
 
@@ -20,4 +20,3 @@ Python + Django框架，在Linux下可以用Nginx + uwsgi部署。
 
 [SegmentOJ前端](https://github.com/segment-oj/segmentoj-frontend)
 [SegmentOJ沙箱](https://github.com/segment-oj/segment-sandbox)
-[SegmentOJ测评机(V1)](https://github.com/segment-oj/segment-judger-v1)
