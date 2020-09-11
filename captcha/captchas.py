@@ -1,15 +1,19 @@
 # public function to use
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
-import os
+from django.http import HttpResponseBadRequest
+import os.path
 
 from captcha.tools import GenCaptcha
 from captcha.models import CaptchaStore
 
 def setcaptcha(key):
 	g = GenCaptcha()
-	path = os.path.join(settings.BASE_DIR, \
-		"uploads", "captcha", "{name}.png".format(name=key))
+	path_prefix = os.path.join(settings.BASE_DIR, "uploads", "captcha")
+	path = os.path.join(path_prefix, "{name}.png".format(name=key))
+	path = os.path.normpath(path)
+	if not path.startswith(path_prefix):
+		raise HttpResponseBadRequest()
 
 	ans = g.createImg(path)
 
