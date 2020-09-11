@@ -165,7 +165,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 VERIFY_EMAIL_TEMPLATE_TITLE = "[SegmentOJ] Email Verify"
 VERIFY_EMAIL_TEMPLATE_CONTENT = """Hi, {username}<br/>
 It seems that you have just requested an email verify!<br/>
-<strong>You code is:</strong> <code>{signature}</code><br/>
+<strong>Your code is:</strong> <code>{signature}</code><br/>
 Please use it in 20 minutes.<br/>
 """
 VERIFY_EMAIL_MAX_AGE = 20

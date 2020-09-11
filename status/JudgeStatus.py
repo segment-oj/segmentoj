@@ -1,5 +1,5 @@
 JUDGE_STATUS_WAITING = 0  # waiting
-JUDGE_STATUS_COMILING = 1  # compiling
+JUDGE_STATUS_COMPILING = 1  # compiling
 JUDGE_STATUS_JUDGING = 2  # judging
 JUDGE_STATUS_INPROCESS = 3 # doing (but the judger did not return judging or compiling yet)
 JUDGE_STATUS_AC = 10  # Answer Correct
