@@ -28,9 +28,9 @@ class GenCaptchaTest(TestCase):
             g_in_range = g >= 0 and g <= 255
             b_in_range = b >= 0 and b <= 255
 
-            resault = r_in_range and g_in_range and b_in_range
+            result = r_in_range and g_in_range and b_in_range
 
-            self.assertTrue(resault)
+            self.assertTrue(result)
 
     def testY_get_random_char(self):
         for i in range(1, 1000):
@@ -44,9 +44,9 @@ class GenCaptchaTest(TestCase):
 
             is_o = random_char == 'o' or random_char == 'O'
 
-            resault = is_char and not is_o
+            result = is_char and not is_o
 
-            self.assertTrue(resault)
+            self.assertTrue(result)
 
     def testX_check_similarity_false_far(self):
         color1 = (0, 0, 0)
