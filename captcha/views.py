@@ -6,7 +6,7 @@ from .captchas import setcaptcha
 
 # Create your views here.
 def getcaptcha(request, key):
-	if not key.isdigit():
+	if not str(key).isdigit():
 		return Response({
 			"detail": "Only digit is allow in captcha key"
 		}, status=status.HTTP_400_BAD_REQUEST)
