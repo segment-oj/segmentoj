@@ -1,7 +1,7 @@
 from django.test import TestCase
 from captcha.tools import GenCaptcha
 
-from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
+from rest_framework.test import APIRequestFactory, force_authenticate
 from rest_framework import status
 
 from .views import getcaptcha
