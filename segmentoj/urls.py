@@ -22,13 +22,13 @@ from django.conf import settings
 
 import problem.views
 from account.views import (
-    AccountView, 
+    AccountView,
     AccountIntroductionView,
-    AccountSessionView, 
+    AccountSessionView,
     AccountUsernameAccessibilityView,
     AccountAvatarView,
     AccountPasswordView,
-    AccountEmailView
+    AccountEmailView,
 )
 from status.views import StatusView, StatusListCountView, StatusListView
 from judger.views import JudgerStatusView, JudgerStatusDetailView
@@ -55,6 +55,7 @@ urlpatterns = [
     path("api/problem/<int:pid>/description", problem.views.ProblemDescriptionView.as_view()),
     path("api/problem/tag", problem.views.TagView.as_view()),
     path("api/problem/tag/<int:tid>", problem.views.TagView.as_view()),
+    path("api/problem/tag/list", problem.views.TagListView.as_view()),
     path("api/problem/list", problem.views.ProblemListView.as_view()),
     path("api/problem/list/count", problem.views.ProblemListCountView.as_view()),
     # Status
