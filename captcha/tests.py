@@ -1,7 +1,16 @@
 from django.test import TestCase
 from captcha.tools import GenCaptcha
 
+from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
+from rest_framework import status
+
+from .views import getcaptcha
+
+import random
+
 # Create your tests here.
+
+
 class GenCaptchaTest(TestCase):
     # set up test
     def setUp(self):
@@ -10,7 +19,7 @@ class GenCaptchaTest(TestCase):
     def testZ_get_random_color(self):
         for i in range(1, 1000):
             color = self.captcha.getRandomColor()
-            
+
             r = color[0]
             g = color[1]
             b = color[2]
@@ -35,7 +44,7 @@ class GenCaptchaTest(TestCase):
 
             is_o = random_char == 'o' or random_char == 'O'
 
-            resault =  is_char and not is_o
+            resault = is_char and not is_o
 
             self.assertTrue(resault)
 
@@ -61,3 +70,28 @@ class GenCaptchaTest(TestCase):
         color2 = (70, 158, 246)
 
         self.assertTrue(self.captcha.checkSimilarity(color1, color2))
+
+
+class CaptchaViewTest(TestCase):
+    # set up test
+    def setUp(self):
+        self.base_url = "/api/captch/{captcha_key}?sfid={random_number}"
+        self.factory = APIRequestFactory()
+
+    def testZ_get_catpcha(self):
+        random_key = random.randrange(1, 2000000000)
+
+        request = self.factory.get(self.base_url.format(
+            captcha_key=random_key, random_number=random.random()))
+        response = getcaptcha(request, key=random_key)
+
+        self.assertEqual(response.status_code, status.HTTP_302_FOUND)
+
+    def testY_get_captcha(self):
+        random_key = "HACK"
+
+        request = self.factory.get(self.base_url.format(
+            captcha_key=random_key, random_number=random.random()))
+        response = getcaptcha(request, key=random_key)
+
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
