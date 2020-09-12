@@ -13,6 +13,8 @@ from .models import User
 from captcha.models import CaptchaStore
 
 # Create your tests here.
+
+
 class AccountViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
 
@@ -32,10 +34,12 @@ class AccountViewTest(TestCase):
             "captcha_answer": "unit"
         }
 
-        c = CaptchaStore(key=request_data["captcha_key"], answer=request_data["captcha_answer"])
+        c = CaptchaStore(
+            key=request_data["captcha_key"], answer=request_data["captcha_answer"])
         c.save()
 
-        request = self.factory.post(self.base_url, data=request_data, format="json")
+        request = self.factory.post(
+            self.base_url, data=request_data, format="json")
         res = self.view(request)
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         res_json = res.data
@@ -66,9 +70,11 @@ class AccountViewTest(TestCase):
         self.assertEqual(res_data.get("lang"), user_data["lang"])
         self.assertEqual(res_data.get("is_staff"), user_data["is_staff"])
         self.assertEqual(res_data.get("is_active"), user_data["is_active"])
-        self.assertEqual(res_data.get("is_superuser"), user_data["is_superuser"])
+        self.assertEqual(res_data.get("is_superuser"),
+                         user_data["is_superuser"])
         self.assertEqual(res_data.get("list_column"), user_data["list_column"])
-        self.assertEqual(res_data.get("editor_theme"), user_data["editor_theme"])
+        self.assertEqual(res_data.get("editor_theme"),
+                         user_data["editor_theme"])
 
     def testC_get_404_user(self):
         request = self.factory.get(self.base_url)
@@ -84,16 +90,20 @@ class AccountViewTest(TestCase):
             "captcha_answer": "ut2x"
         }
 
-        c = CaptchaStore(key=request_data["captcha_key"], answer=request_data["captcha_answer"])
+        c = CaptchaStore(
+            key=request_data["captcha_key"], answer=request_data["captcha_answer"])
         c.save()
 
-        request = self.factory.post(self.base_url, data=request_data, format="json")
+        request = self.factory.post(
+            self.base_url, data=request_data, format="json")
         self.view(request)
 
-        c = CaptchaStore(key=request_data["captcha_key"], answer=request_data["captcha_answer"])
+        c = CaptchaStore(
+            key=request_data["captcha_key"], answer=request_data["captcha_answer"])
         c.save()
 
-        request = self.factory.post(self.base_url, data=request_data, format="json")
+        request = self.factory.post(
+            self.base_url, data=request_data, format="json")
         res = self.view(request)
         self.assertEqual(res.status_code, status.HTTP_409_CONFLICT)
 
@@ -103,7 +113,8 @@ class AccountViewTest(TestCase):
             "email": "unittesuser03@soj.ac.cn",
         }
 
-        request = self.factory.post(self.base_url, data=request_data, format="json")
+        request = self.factory.post(
+            self.base_url, data=request_data, format="json")
         res = self.view(request)
         self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
 
@@ -111,7 +122,7 @@ class AccountViewTest(TestCase):
         request = self.factory.get(self.base_url, format="json")
         res = self.view(request)
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
-    
+
     def testH_change_user_admin(self):
         request_data = {
             "username": "testusernewname",
@@ -119,7 +130,8 @@ class AccountViewTest(TestCase):
             "is_staff": True
         }
 
-        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        request = self.factory.patch(
+            self.base_url, data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="admin"))
         res = self.view(request, uid=2)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -137,7 +149,8 @@ class AccountViewTest(TestCase):
             "editor_theme": 2
         }
 
-        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        request = self.factory.patch(
+            self.base_url, data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="zhangtianli"))
         res = self.view(request, uid=3)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -147,13 +160,14 @@ class AccountViewTest(TestCase):
         self.assertEqual(target.lang, request_data["lang"])
         self.assertEqual(target.list_column, request_data["list_column"])
         self.assertEqual(target.editor_theme, request_data["editor_theme"])
-    
+
     def testJ_change_user_admin(self):
         request_data = {
             "is_active": False
         }
 
-        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        request = self.factory.patch(
+            self.base_url, data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="admin"))
         res = self.view(request, uid=2)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -166,7 +180,8 @@ class AccountViewTest(TestCase):
             "is_active": False
         }
 
-        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        request = self.factory.patch(
+            self.base_url, data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="testuser"))
         res = self.view(request, uid=3)
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
@@ -180,13 +195,15 @@ class AccountViewTest(TestCase):
             "is_active": True
         }
 
-        request = self.factory.patch(self.base_url, data=request_data, format="json")
+        request = self.factory.patch(
+            self.base_url, data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="testuser"))
         res = self.view(request, uid=2)
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
         target = User.objects.get(id=2)
         self.assertEqual(target.is_active, ac_data["is_active"])
+
 
 class AccountIntroductionViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
@@ -215,7 +232,8 @@ class AccountIntroductionViewTest(TestCase):
             "introduction": "Modified!",
         }
 
-        request = self.factory.patch(self.base_url.format(uid=1), data=request_data, format="json")
+        request = self.factory.patch(self.base_url.format(
+            uid=1), data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="admin"))
         response = self.view(request, uid=1)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -225,7 +243,8 @@ class AccountIntroductionViewTest(TestCase):
             "introduction": "Modified!",
         }
 
-        request = self.factory.patch(self.base_url.format(uid=2), data=request_data, format="json")
+        request = self.factory.patch(self.base_url.format(
+            uid=2), data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="admin"))
         response = self.view(request, uid=2)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -235,7 +254,8 @@ class AccountIntroductionViewTest(TestCase):
             "introduction": "Modified!",
         }
 
-        request = self.factory.patch(self.base_url.format(uid=2), data=request_data, format="json")
+        request = self.factory.patch(self.base_url.format(
+            uid=2), data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="testuser"))
         response = self.view(request, uid=2)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -245,10 +265,12 @@ class AccountIntroductionViewTest(TestCase):
             "introduction": "Modified!",
         }
 
-        request = self.factory.patch(self.base_url.format(uid=1), data=request_data, format="json")
+        request = self.factory.patch(self.base_url.format(
+            uid=1), data=request_data, format="json")
         force_authenticate(request, User.objects.get(username="testuser"))
         response = self.view(request, uid=1)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
 
 class AccountSessionViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
@@ -276,6 +298,7 @@ class AccountSessionViewTest(TestCase):
         res = self.client.delete(self.base_url)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
 
+
 class AccountPasswordViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
 
@@ -299,7 +322,7 @@ class AccountPasswordViewTest(TestCase):
 
         response = self.client.post(self.base_url, request_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-    
+
     def testX_change_password(self):
         request_data = {
             "password": "123456"
@@ -311,11 +334,13 @@ class AccountPasswordViewTest(TestCase):
             "password": "new password"
         }
 
-        response = self.client.patch(self.base_url, request_data, format="json")
+        response = self.client.patch(
+            self.base_url, request_data, format="json")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         target = User.objects.get(username="admin")
         self.assertTrue(target.check_password(request_data["password"]))
+
 
 class AccountUsernameAccessibilityViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
