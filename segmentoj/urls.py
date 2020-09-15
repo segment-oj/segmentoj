@@ -57,12 +57,10 @@ urlpatterns = [
     path("api/problem/tag/<int:tid>", problem.views.TagView.as_view()),
     path("api/problem/tag/list", problem.views.TagListView.as_view()),
     path("api/problem/list", problem.views.ProblemListView.as_view()),
-    path("api/problem/list/count", problem.views.ProblemListCountView.as_view()),
     # Status
     path("api/status", StatusView.as_view()),
     path("api/status/<int:sid>", StatusView.as_view()),
     path("api/status/list", StatusListView.as_view()),
-    path("api/status/list/count", StatusListCountView.as_view()),
     # Judger
     path("api/judger/status", JudgerStatusView.as_view()),
     path("api/judger/status/<int:sid>", JudgerStatusView.as_view()),
