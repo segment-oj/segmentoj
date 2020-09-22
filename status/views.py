@@ -37,7 +37,7 @@ class StatusView(APIView):
 
         data["problem"] = get_object_or_404(Problem, pid=data["problem"]).id
 
-        # Disallow User Provide These Syllables To Get Unjudged AC
+        # Disallow User Provide These Syllables To Get not-judged AC
         data.pop("state", None)
         data.pop("time", None)
         data.pop("memory", None)
@@ -74,10 +74,8 @@ class StatusListView(APIView):
         statuses = pg.paginate_queryset(queryset=queryset, request=request, view=self)
 
         ss = StatusListSerializer(statuses, many=True)
-        return Response({
-                "count": queryset.count(),
-                "res": [process(x) for x in ss.data]
-            }, status=status.HTTP_200_OK)
+        return Response({"count": queryset.count(), "res": [process(x) for x in ss.data]}, status=status.HTTP_200_OK)
+
 
 class StatusListCountView(APIView):
     def get(self, request):
@@ -90,4 +88,3 @@ class StatusListCountView(APIView):
         res = queryset.count()
 
         return Response({"res": res}, status=status.HTTP_200_OK)
-
