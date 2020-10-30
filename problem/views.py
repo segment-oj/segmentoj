@@ -117,7 +117,7 @@ class ProblemListView(APIView):
             else:
                 x["score"] = statusset.aggregate(Max("score"))["score__max"]
 
-            x.pop("id")  # Don't Leake ID in DataBase
+            x.pop("id")  # Don't Leak ID in DataBase
             return x
 
         problem_filter = {}
