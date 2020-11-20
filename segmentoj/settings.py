@@ -41,8 +41,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # API Framework
     "rest_framework",
-    # CORS Control
-    "corsheaders",
     # SegmentOJ Apps
     "account",
     "problem",
@@ -138,13 +136,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # User uploads file placses
 MEDIA_ROOT = os.path.join(BASE_DIR, "uploads").replace("\\", "/")
 MEDIA_URL = "/media/"  # DON'T CHANGE THIS
-
-# CORS settings
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_CREDENTIALS = True
-SESSION_COOKIE_SAMESITE = "none"
-# SESSION_COOKIE_SECURE = True     # ENABLE THIS if you server is based on HTTPS
-SESSION_COOKIE_HTTPONLY = True  # DISABLE THIS ON PRODUCTION
 
 REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_CLASSES": (
