@@ -1,6 +1,5 @@
 # tools
-import re, markdown, html
-
+import re
 
 def isEmail(str):
     p = re.compile(r"^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$")
