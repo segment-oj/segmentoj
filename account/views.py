@@ -18,7 +18,7 @@ from rest_framework import status
 from segmentoj import tools
 from segmentoj.decorator import syllable_required, parameter_required, login_required
 from captcha.decorator import captcha_required
-from .models import User
+from .models import Account
 from .serializers import AccountSerializer, AccountIntroductionSerializer
 from .decorator import password_verify_required
 
@@ -65,7 +65,7 @@ class AccountIntroductionView(APIView):
     # Get User Introduction
     @method_decorator(parameter_required("uid"))
     def get(self, request, uid):
-        user = get_object_or_404(User, id=uid)
+        user = get_object_or_404(Account, id=uid)
         us = AccountIntroductionSerializer(user)
         return Response({"res": us.data}, status=status.HTTP_200_OK)
 
@@ -78,7 +78,7 @@ class AccountIntroductionView(APIView):
                 )
 
         data = request.data
-        user = get_object_or_404(User, id=uid)
+        user = get_object_or_404(Account, id=uid)
         us = AccountIntroductionSerializer(user, data=data, partial=True)
         us.is_valid(raise_exception=True)
         us.save()
@@ -91,7 +91,7 @@ class AccountView(APIView):
     # Get User Infomation Except Introduction
     @method_decorator(parameter_required("uid"))
     def get(self, request, uid):
-        user = get_object_or_404(User, id=uid)
+        user = get_object_or_404(Account, id=uid)
         us = AccountSerializer(user)
         return Response({"res": us.data}, status=status.HTTP_200_OK)
 
@@ -112,7 +112,7 @@ class AccountView(APIView):
             return Response({"detail": "Email is not correct"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            user = User.objects.create_user(username=username, password=password, email=email)
+            user = Account.objects.create_user(username=username, password=password, email=email)
         except IntegrityError:
             # failed, probably because username already exits
             return Response({"detail": "Failed to create user."}, status=status.HTTP_409_CONFLICT)
@@ -130,7 +130,7 @@ class AccountView(APIView):
     @method_decorator(parameter_required("uid"))
     def patch(self, request, uid):
         data = request.data
-        user = get_object_or_404(User, id=uid)
+        user = get_object_or_404(Account, id=uid)
 
         if not request.user.has_perm("account.change_user"):
             if request.user.id != user.id:
@@ -195,7 +195,7 @@ class AccountUsernameAccessibilityView(APIView):
     def get(self, request, username):
         account_filter = {"username": username}
 
-        queryset = User.objects.filter(**account_filter)
+        queryset = Account.objects.filter(**account_filter)
         if queryset.count() == 0:
             return Response(status=status.HTTP_204_NO_CONTENT)
 

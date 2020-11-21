@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APIRequestFactory, force_authenticate
 
 from .views import JudgerStatusView, JudgerStatusDetailView
-from account.models import User
+from account.models import Account
 from status import JudgeLanguage as jl
 from status import JudgeStatus as js
 from status.models import Status
@@ -24,7 +24,7 @@ class JudgerStatusTest(TestCase):
         ac_data = 3
 
         request = self.factory.get(self.base_url)
-        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        force_authenticate(request, user=Account.objects.get(username="ForcesEqual"))
         response = self.view(request)
         self.assertIsNotNone(response)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -40,7 +40,7 @@ class JudgerStatusTest(TestCase):
     
     def testX_get_task_not_judger(self):
         request = self.factory.get(self.base_url)
-        force_authenticate(request, user=User.objects.get(username="admin"))
+        force_authenticate(request, user=Account.objects.get(username="admin"))
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
     
@@ -53,7 +53,7 @@ class JudgerStatusTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url, data=request_data, format="json")
-        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        force_authenticate(request, user=Account.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         
@@ -70,7 +70,7 @@ class JudgerStatusTest(TestCase):
         target.delete()
 
         request = self.factory.get(self.base_url)
-        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        force_authenticate(request, user=Account.objects.get(username="ForcesEqual"))
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
 
@@ -92,7 +92,7 @@ class JudgerStatusDetailTest(TestCase):
         }
 
         request = self.factory.get(self.base_url)
-        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        force_authenticate(request, user=Account.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         
@@ -116,7 +116,7 @@ class JudgerStatusDetailTest(TestCase):
         }
 
         request = self.factory.post(self.base_url, data=request_data, format="json")
-        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        force_authenticate(request, user=Account.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3, cid=1)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         
@@ -129,7 +129,7 @@ class JudgerStatusDetailTest(TestCase):
         }
 
         request = self.factory.post(self.base_url, data=request_data, format="json")
-        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        force_authenticate(request, user=Account.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3, cid=2)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -139,7 +139,7 @@ class JudgerStatusDetailTest(TestCase):
         }
 
         request = self.factory.post(self.base_url, data=request_data, format="json")
-        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        force_authenticate(request, user=Account.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3, cid=3)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -155,6 +155,6 @@ class JudgerStatusDetailTest(TestCase):
         }
 
         request = self.factory.post(self.base_url, data=request_data, format="json")
-        force_authenticate(request, user=User.objects.get(username="ForcesEqual"))
+        force_authenticate(request, user=Account.objects.get(username="ForcesEqual"))
         response = self.view(request, sid=3, cid=3)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)

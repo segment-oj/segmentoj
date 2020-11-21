@@ -337,7 +337,7 @@
   fields:
     app_label: captcha
     model: captchastore
-- model: account.user
+- model: account.account
   pk: 1
   fields:
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
@@ -355,7 +355,7 @@
     is_judger: false
     groups: []
     user_permissions: []
-- model: account.user
+- model: account.account
   pk: 2
   fields:
     password: pbkdf2_sha256$216000$4eGXHFWI9AeV$FSG09P7/8q+pPs1UkwMaBBNW0uqSH3Tb8dSqzrhuSQQ=
@@ -373,7 +373,7 @@
     is_judger: false
     groups: []
     user_permissions: []
-- model: account.user
+- model: account.account
   pk: 3
   fields:
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
@@ -392,7 +392,7 @@
     groups:
     - 1
     user_permissions: []
-- model: account.user
+- model: account.account
   pk: 4
   fields:
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
@@ -411,7 +411,7 @@
     groups:
     - 1
     user_permissions: []
-- model: account.user
+- model: account.account
   pk: 5
   fields:
     password: pbkdf2_sha256$216000$qe7gR6mPvlbx$jqq6flO8IKLUM8xgWmON5n4wHJWrFNBUdbFpa7N1bSQ=
@@ -429,7 +429,7 @@
     is_judger: false
     groups: []
     user_permissions: []
-- model: account.user
+- model: account.account
   pk: 6
   fields:
     password: pbkdf2_sha256$216000$ftw2RaSKYrvR$IVfkG6VWnZfOC/NGNJVsMcox/UwMUklO7lDDbmgbvig=

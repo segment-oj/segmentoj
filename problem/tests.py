@@ -5,7 +5,7 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 
 from .models import Problem
 from .views import ProblemView, ProblemDescriptionView, TagView, TagListView
-from account.models import User
+from account.models import Account
 
 # Create your tests here.
 
@@ -55,7 +55,7 @@ class ProblemViewTest(TestCase):
         }
 
         request = self.factory.post(self.base_url, data=request_data)
-        force_authenticate(request, User.objects.get(username="admin"))
+        force_authenticate(request, Account.objects.get(username="admin"))
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 
@@ -73,7 +73,7 @@ class ProblemViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url, data=request_data)
-        force_authenticate(request, User.objects.get(username="admin"))
+        force_authenticate(request, Account.objects.get(username="admin"))
         response = self.view(request, pid=5)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 

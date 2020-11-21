@@ -1,12 +1,12 @@
 # Serializers
 
 from rest_framework import serializers
-from account.models import User
+from account.models import Account
 
 
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Account
         depth = 0
         fields = [
             "id",
@@ -36,7 +36,7 @@ class AccountSerializer(serializers.ModelSerializer):
 
 class AccountIntroductionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
+        model = Account
         depth = 0
         fields = [
             "id",

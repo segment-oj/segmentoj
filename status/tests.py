@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.test import APIRequestFactory, force_authenticate
 
 from .views import StatusView
-from account.models import User
+from account.models import Account
 
 import status.JudgeLanguage as jl
 import status.JudgeStatus as js
@@ -25,7 +25,7 @@ class StatusTest(TestCase):
             "code": "# This is the code.",
         }
 
-        user = User.objects.get(username="testuser")
+        user = Account.objects.get(username="testuser")
 
         request = self.factory.post(self.base_url, request_data, format="json")
         force_authenticate(request, user)
@@ -81,7 +81,7 @@ class StatusTest(TestCase):
             "code": "# This is the code.",
         }
 
-        user = User.objects.get(username="testuser")
+        user = Account.objects.get(username="testuser")
 
         request = self.factory.post(self.base_url, request_data, format="json")
         force_authenticate(request)  # Clear Session

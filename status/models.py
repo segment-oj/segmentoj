@@ -1,6 +1,6 @@
 from django.db import models
 
-from account.models import User
+from account.models import Account
 from problem.models import Problem
 
 from . import JudgeStatus
@@ -14,7 +14,7 @@ class Status(models.Model):
     memory = models.IntegerField(default=0)
     lang = models.IntegerField(default=0)
 
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(Account, on_delete=models.CASCADE)
     problem = models.ForeignKey(Problem, on_delete=models.CASCADE)
 
     code = models.TextField()

@@ -9,7 +9,7 @@ from .views import (
     AccountUsernameAccessibilityView,
     AccountPasswordView,
 )
-from .models import User
+from .models import Account
 from captcha.models import CaptchaStore
 
 # Create your tests here.
@@ -50,7 +50,7 @@ class AccountViewTest(TestCase):
             "is_staff": True,
             "is_active": True,
             "is_superuser": True,
-            "list_column": 50,
+            "list_column": 20,
             "editor_theme": 0
         }
 
@@ -120,11 +120,11 @@ class AccountViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url, data=request_data, format="json")
-        force_authenticate(request, User.objects.get(username="admin"))
+        force_authenticate(request, Account.objects.get(username="admin"))
         res = self.view(request, uid=2)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
 
-        target = User.objects.get(id=2)
+        target = Account.objects.get(id=2)
         self.assertEqual(target.username, request_data["username"])
         self.assertEqual(target.is_superuser, request_data["is_superuser"])
         self.assertEqual(target.is_staff, request_data["is_staff"])
@@ -138,11 +138,11 @@ class AccountViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url, data=request_data, format="json")
-        force_authenticate(request, User.objects.get(username="zhangtianli"))
+        force_authenticate(request, Account.objects.get(username="zhangtianli"))
         res = self.view(request, uid=3)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
 
-        target = User.objects.get(id=3)
+        target = Account.objects.get(id=3)
         self.assertEqual(target.username, request_data["username"])
         self.assertEqual(target.lang, request_data["lang"])
         self.assertEqual(target.list_column, request_data["list_column"])
@@ -154,11 +154,11 @@ class AccountViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url, data=request_data, format="json")
-        force_authenticate(request, User.objects.get(username="admin"))
+        force_authenticate(request, Account.objects.get(username="admin"))
         res = self.view(request, uid=2)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
 
-        target = User.objects.get(id=2)
+        target = Account.objects.get(id=2)
         self.assertEqual(target.is_active, request_data["is_active"])
 
     def testK_change_user_not_admin(self):
@@ -167,7 +167,7 @@ class AccountViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url, data=request_data, format="json")
-        force_authenticate(request, User.objects.get(username="testuser"))
+        force_authenticate(request, Account.objects.get(username="testuser"))
         res = self.view(request, uid=3)
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -181,11 +181,11 @@ class AccountViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url, data=request_data, format="json")
-        force_authenticate(request, User.objects.get(username="testuser"))
+        force_authenticate(request, Account.objects.get(username="testuser"))
         res = self.view(request, uid=2)
         self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
-        target = User.objects.get(id=2)
+        target = Account.objects.get(id=2)
         self.assertEqual(target.is_active, ac_data["is_active"])
 
 class AccountIntroductionViewTest(TestCase):
@@ -216,7 +216,7 @@ class AccountIntroductionViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url.format(uid=1), data=request_data, format="json")
-        force_authenticate(request, User.objects.get(username="admin"))
+        force_authenticate(request, Account.objects.get(username="admin"))
         response = self.view(request, uid=1)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
@@ -226,7 +226,7 @@ class AccountIntroductionViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url.format(uid=2), data=request_data, format="json")
-        force_authenticate(request, User.objects.get(username="admin"))
+        force_authenticate(request, Account.objects.get(username="admin"))
         response = self.view(request, uid=2)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
@@ -236,7 +236,7 @@ class AccountIntroductionViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url.format(uid=2), data=request_data, format="json")
-        force_authenticate(request, User.objects.get(username="testuser"))
+        force_authenticate(request, Account.objects.get(username="testuser"))
         response = self.view(request, uid=2)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
@@ -246,7 +246,7 @@ class AccountIntroductionViewTest(TestCase):
         }
 
         request = self.factory.patch(self.base_url.format(uid=1), data=request_data, format="json")
-        force_authenticate(request, User.objects.get(username="testuser"))
+        force_authenticate(request, Account.objects.get(username="testuser"))
         response = self.view(request, uid=1)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
@@ -271,7 +271,7 @@ class AccountSessionViewTest(TestCase):
         self.assertEqual(sid_cookie["path"], "/")
 
     def testB_logout_session(self):
-        user = User.objects.get(username="ztl")
+        user = Account.objects.get(username="ztl")
         self.client.force_authenticate(user=user)
         res = self.client.delete(self.base_url)
         self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
@@ -282,7 +282,7 @@ class AccountPasswordViewTest(TestCase):
     def setUp(self):
         self.base_url = "/api/account/password"
         self.client = APIClient()
-        self.client.force_authenticate(user=User.objects.get(username="admin"))
+        self.client.force_authenticate(user=Account.objects.get(username="admin"))
 
     def testZ_verify_password_ok(self):
         request_data = {
@@ -314,7 +314,7 @@ class AccountPasswordViewTest(TestCase):
         response = self.client.patch(self.base_url, request_data, format="json")
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        target = User.objects.get(username="admin")
+        target = Account.objects.get(username="admin")
         self.assertTrue(target.check_password(request_data["password"]))
 
 class AccountUsernameAccessibilityViewTest(TestCase):
