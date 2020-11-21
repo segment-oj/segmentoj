@@ -311,7 +311,7 @@
   pk: 6
   fields:
     app_label: account
-    model: user
+    model: account
 - model: contenttypes.contenttype
   pk: 7
   fields:
