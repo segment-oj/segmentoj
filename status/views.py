@@ -20,6 +20,7 @@ class StatusView(APIView):
     def get(self, request, sid):
         status_element = get_object_or_404(Status, id=sid)
         ss = StatusSerializer(status_element)
+        ss["problem"] = status_element.problem.pid
 
         return Response({"res": ss.data}, status=status.HTTP_200_OK)
 
@@ -37,7 +38,7 @@ class StatusView(APIView):
 
         data["problem"] = get_object_or_404(Problem, pid=data["problem"]).id
 
-        # Disallow User Provide These Syllables To Get not-judged AC
+        # Disallow user-provided-values for these syllables to get not-judged AC
         data.pop("state", None)
         data.pop("time", None)
         data.pop("memory", None)
@@ -50,6 +51,8 @@ class StatusView(APIView):
         ss.save()
 
         request.user.submit_time += 1
+        request.user.save()
+
         return Response(status=status.HTTP_201_CREATED)
 
 

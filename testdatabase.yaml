@@ -1203,6 +1203,34 @@
     memory_limit: 128000
     tags:
     - 1
+  - model: problem.problem
+  pk: 5
+  fields:
+    title: Simple Problem
+    description: "This is description"
+    pid: 5
+    date_added: 2020-07-28 09:03:51.705276+00:00
+    allow_html: false
+    enabled: true
+    time_limit: 1000
+    memory_limit: 128000
+    tags:
+    - 1
+    - 2
+    - 3
+- model: problem.problem
+  pk: 5
+  fields:
+    title: Large PID test
+    description: "No description provided."
+    pid: 105
+    date_added: 2020-11-21 10:25:14.271780+00:00
+    allow_html: false
+    enabled: true
+    time_limit: 1000
+    memory_limit: 128000
+    tags:
+    - 1
 - model: status.status
   pk: 1
   fields:
@@ -1264,7 +1292,7 @@
     memory: 0
     lang: 0
     owner: 2
-    problem: 1
+    problem: 5
     code: "#include <iostream>\r\nusing namespace std;\r\n\r\nint main() {\r\n   \
       \ int a, b;\r\n    cin >> a >> b;\r\n    cout << a + b << endl;\r\n    return\
       \ 0;\r\n}"

@@ -57,9 +57,25 @@ class StatusTest(TestCase):
         self.assertEqual(data.get("code"), ac_data["code"])
         self.assertEqual(data.get("problem"), ac_data["problem"])
         self.assertEqual(data.get("owner"), ac_data["owner"])
+    
+    # Problem 5 has PID of 105 (id != pid)
+    def testC_get_status_problem_has_large_pid(self):
+        ac_data = {
+            "id": 5,
+            "problem": 105,
+        }
+
+        request = self.factory.get(self.base_url, format="json")
+        res = self.view(request, sid=1)
+        self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+        data = res.data["res"]
+
+        self.assertEqual(data.get("id"), ac_data["id"])
+        self.assertEqual(data.get("problem"), ac_data["problem"])
 
     # Try to submit problem without logged in
-    def testC_submit_problem_not_login(self):
+    def testD_submit_problem_not_login(self):
         request_data = {
             "problem": 1,
             "code": "# This is the code.",
