@@ -267,7 +267,7 @@ class AccountSessionViewTest(TestCase):
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         sid_cookie = res.cookies.get("sessionid")
         self.assertIsNotNone(sid_cookie)
-        self.assertEqual(sid_cookie["samesite"], "none")
+        self.assertEqual(sid_cookie["samesite"], "Lax")
         self.assertEqual(sid_cookie["path"], "/")
 
     def testB_logout_session(self):

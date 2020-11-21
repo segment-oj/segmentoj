@@ -95,7 +95,7 @@ class ProblemDescriptionViewTest(TestCase):
 
     def testZ_get_problem_description(self):
         ac_data = {
-            "description": "This is description"
+            "description": "This is description."
         }
 
         request = self.factory.get(self.base_url.format(pid=5))

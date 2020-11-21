@@ -20,9 +20,10 @@ class StatusView(APIView):
     def get(self, request, sid):
         status_element = get_object_or_404(Status, id=sid)
         ss = StatusSerializer(status_element)
-        ss["problem"] = status_element.problem.pid
+        ss_data = ss.data
+        ss_data["problem"] = status_element.problem.pid
 
-        return Response({"res": ss.data}, status=status.HTTP_200_OK)
+        return Response({"res": ss_data}, status=status.HTTP_200_OK)
 
     @method_decorator(syllable_required("problem", int))
     @method_decorator(syllable_required("code", str))

@@ -66,7 +66,7 @@ class StatusTest(TestCase):
         }
 
         request = self.factory.get(self.base_url, format="json")
-        res = self.view(request, sid=1)
+        res = self.view(request, sid=5)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
 
         data = res.data["res"]
