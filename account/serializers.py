@@ -22,7 +22,8 @@ class AccountSerializer(serializers.ModelSerializer):
             "is_active",
             "last_login",
             "email_verified",
-            "list_column"
+            "list_column",
+            "nav_color"
         ]
         read_only_fields = [
             "id",
