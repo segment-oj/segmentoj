@@ -51,7 +51,8 @@ class AccountViewTest(TestCase):
             "is_active": True,
             "is_superuser": True,
             "list_column": 20,
-            "editor_theme": 0
+            "editor_theme": 0,
+            "nav_color": "#000000"
         }
 
         request = self.factory.get(self.base_url)
@@ -69,6 +70,7 @@ class AccountViewTest(TestCase):
         self.assertEqual(res_data.get("is_superuser"), user_data["is_superuser"])
         self.assertEqual(res_data.get("list_column"), user_data["list_column"])
         self.assertEqual(res_data.get("editor_theme"), user_data["editor_theme"])
+        self.assertEqual(res_data.get("nav_color"), user_data["nav_color"])
 
     def testC_get_404_user(self):
         request = self.factory.get(self.base_url)

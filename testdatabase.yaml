@@ -349,6 +349,7 @@
     username: admin
     email: fisher@mail.fishergzez.tk
     introduction: '# Hello World!'
+    nav_color: '#000000'
     lang: 0
     solved: 0
     submit_time: 0
