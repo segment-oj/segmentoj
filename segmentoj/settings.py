@@ -53,7 +53,6 @@ MIDDLEWARE = [
     "segmentoj.middleware.DisableCSRFCheck",  # Disable CSRF chack
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "corsheaders.middleware.CorsMiddleware",  # Control CORS
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
@@ -142,7 +141,7 @@ REST_FRAMEWORK = {
         "rest_framework.throttling.ScopedRateThrottle",  # use throttle_scope = 'xxx'
     ),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.LimitOffsetPagination",
-    "PAGE_SIZE": 0,
+    "PAGE_SIZE": 1,
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
