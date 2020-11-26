@@ -12,8 +12,8 @@ class Account(AbstractUser):
     nav_color = models.TextField(blank=True, null=True)
     editor_theme = models.IntegerField(default=0)
 
-    first_name = None # delete unused feild
-    last_name = None # delete unused feild
+    first_name = None # delete unused field
+    last_name = None # delete unused field
 
     is_judger = models.BooleanField(default=False)
 
