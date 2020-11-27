@@ -30,7 +30,7 @@ from account.views import (
     AccountPasswordView,
     AccountEmailView,
 )
-from status.views import StatusView, StatusListCountView, StatusListView
+from status.views import StatusView, StatusListView
 from judger.views import JudgerStatusView, JudgerStatusDetailView
 from captcha.views import getcaptcha
 

@@ -22,7 +22,7 @@ class Problem(models.Model):
     memory_limit = models.IntegerField(default=128000)
 
     class Meta:
-        permissions = ( # (permission name, promission explaination)
+        permissions = ( # (permission name, promission explanation)
             ('view_hidden', 'Can view hidden problem'),
         )
 

@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "segmentoj.middleware.DisableCSRFCheck",  # Disable CSRF chack
+    "segmentoj.middleware.DisableCSRFCheck",  # Disable CSRF check
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",

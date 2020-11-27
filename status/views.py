@@ -70,7 +70,7 @@ class StatusListView(APIView):
         data = request.GET
 
         if data.get("problem"):
-            status_filter["problem"] = Problem.objects.get(pid=data.get("problem")).id
+            status_filter["problem"] = get_object_or_404(Problem, pid=data.get("problem")).id
 
         queryset = Status.objects.filter(**status_filter).order_by("-add_time")
 
@@ -79,16 +79,3 @@ class StatusListView(APIView):
 
         ss = StatusListSerializer(statuses, many=True)
         return Response({"count": queryset.count(), "res": [process(x) for x in ss.data]}, status=status.HTTP_200_OK)
-
-
-class StatusListCountView(APIView):
-    def get(self, request):
-        # Status List Count
-
-        status_filter = {}
-        data = request.GET
-
-        queryset = Status.objects.filter(**status_filter).order_by("-add_time")
-        res = queryset.count()
-
-        return Response({"res": res}, status=status.HTTP_200_OK)
