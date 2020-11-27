@@ -154,6 +154,7 @@ class ProblemListCountView(APIView):
 
         queryset = Problem.objects.filter(**problem_filter)
         res = queryset.count()
+
         return Response({"res": res}, status=status.HTTP_200_OK)
 
 
