@@ -2,16 +2,20 @@ from rest_framework.response import Response
 from rest_framework import status
 
 
-def password_verify_required(clear_storage=True):
+def password_verification_required():
     def decorator(func):
         def _wrapped_view(request, *args, **kwargs):
-            if not request.session.get("password_verified"):
+            cur_passworld = request.data.get('current_password')
+
+            if not cur_passworld:
                 return Response({
-                    "detail": "Password Verify Required Before Access To This API"
+                    'detail': 'Password verification required before accessing to target API'
                 }, status=status.HTTP_403_FORBIDDEN)
 
-            if clear_storage:
-                request.session["password_verified"] = False
+            if not request.user.check_password(cur_passworld):
+                return Response({
+                    'detail': 'Invalid password.'
+                }, status=status.HTTP_403_FORBIDDEN)
             
             return func(request, *args, **kwargs)
 

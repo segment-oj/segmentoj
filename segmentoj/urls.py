@@ -38,41 +38,41 @@ from judger.views import JudgerStatusView, JudgerStatusDetailView
 from captcha.views import get_captcha
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    path("", views.welcome),
+    path('admin/', admin.site.urls),
+    path('', views.welcome),
     # api
     # Account
-    path("api/account", AccountView.as_view()),
-    path("api/account/<int:uid>", AccountView.as_view()),
-    path("api/account/<int:uid>/introduction", AccountIntroductionView.as_view()),
-    path("api/account/token", TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path("api/account/token/refresh", TokenRefreshView.as_view(), name='token_refresh'),
-    path("api/account/username/accessibility/<str:username>", AccountUsernameAccessibilityView.as_view()),
-    path("api/account/password", AccountPasswordView.as_view()),
-    path("api/account/email", AccountEmailView.as_view()),
-    path("api/account/email/<str:vid>", AccountEmailView.as_view()),
+    path('api/account', AccountView.as_view()),
+    path('api/account/<int:uid>', AccountView.as_view()),
+    path('api/account/<int:uid>/introduction', AccountIntroductionView.as_view()),
+    path('api/account/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/account/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/account/username/accessibility/<str:username>', AccountUsernameAccessibilityView.as_view()),
+    path('api/account/password', AccountPasswordView.as_view()),
+    path('api/account/email', AccountEmailView.as_view()),
+    path('api/account/email/<str:vid>', AccountEmailView.as_view()),
     # Avatar
-    # path("api/account/avatar/<int:uid>", AccountAvatarView.as_view()),
+    # path('api/account/avatar/<int:uid>', AccountAvatarView.as_view()),
     # Problem
-    path("api/problem", problem.views.ProblemView.as_view()),
-    path("api/problem/<int:pid>", problem.views.ProblemView.as_view()),
-    path("api/problem/<int:pid>/description", problem.views.ProblemDescriptionView.as_view()),
-    path("api/problem/list", problem.views.ProblemListView.as_view()),
-    path("api/problem/tag", problem.views.TagView.as_view()),
-    path("api/problem/tag/<int:tid>", problem.views.TagView.as_view()),
-    path("api/problem/tag/list", problem.views.TagListView.as_view()),
+    path('api/problem', problem.views.ProblemView.as_view()),
+    path('api/problem/<int:pid>', problem.views.ProblemView.as_view()),
+    path('api/problem/<int:pid>/description', problem.views.ProblemDescriptionView.as_view()),
+    path('api/problem/list', problem.views.ProblemListView.as_view()),
+    path('api/problem/tag', problem.views.TagView.as_view()),
+    path('api/problem/tag/<int:tid>', problem.views.TagView.as_view()),
+    path('api/problem/tag/list', problem.views.TagListView.as_view()),
     # Status
-    path("api/status", StatusView.as_view()),
-    path("api/status/<int:sid>", StatusView.as_view()),
-    path("api/status/list", StatusListView.as_view()),
+    path('api/status', StatusView.as_view()),
+    path('api/status/<int:sid>', StatusView.as_view()),
+    path('api/status/list', StatusListView.as_view()),
     # Judger
-    path("api/judger/status", JudgerStatusView.as_view()),
-    path("api/judger/status/<int:sid>", JudgerStatusView.as_view()),
-    path("api/judger/status/detail", JudgerStatusDetailView.as_view()),
-    path("api/judger/status/detail/<int:sid>", JudgerStatusDetailView.as_view()),
-    path("api/judger/status/detail/<int:sid>/<int:cid>", JudgerStatusDetailView.as_view()),
+    path('api/judger/status', JudgerStatusView.as_view()),
+    path('api/judger/status/<int:sid>', JudgerStatusView.as_view()),
+    path('api/judger/status/detail', JudgerStatusDetailView.as_view()),
+    path('api/judger/status/detail/<int:sid>', JudgerStatusDetailView.as_view()),
+    path('api/judger/status/detail/<int:sid>/<int:cid>', JudgerStatusDetailView.as_view()),
     # Captcha
-    path("api/captcha/<int:key>", get_captcha),
+    path('api/captcha/<int:key>', get_captcha),
 ]
 
 if settings.DEBUG:
