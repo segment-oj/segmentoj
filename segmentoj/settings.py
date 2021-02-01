@@ -25,14 +25,15 @@ SECRET_KEY = (
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True  # CHANGE HERE ON PRODUCTION
+DEBUG = True  # CHANGE HERE TO 'False' ON PRODUCTION
 
 ALLOWED_HOSTS = ['*']  # CHANGE HERE ON PRODUCTION
 
-
 # Application definition
 
+# DON'T CHANGE THIS unless you know what you are doing!
 INSTALLED_APPS = [
+    # Django default apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -84,7 +85,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'segmentoj.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases

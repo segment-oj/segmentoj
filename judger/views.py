@@ -16,22 +16,22 @@ class JudgerStatusView(APIView):
 
     @method_decorator(judger_account_required())
     def get(self, request):
-        task_filter = {"state": js.JUDGE_STATUS_WAITING}
-        queryset = Status.objects.filter(**task_filter).order_by("id")
+        task_filter = {'state': js.JUDGE_STATUS_WAITING}
+        queryset = Status.objects.filter(**task_filter).order_by('id')
         res_status = queryset.first()
         if res_status == None:
             return Response({
-                "detail": "No waiting tasks"
+                'detail': 'No waiting tasks'
             }, status=status.HTTP_404_NOT_FOUND)
 
         res_status.state = js.JUDGE_STATUS_INPROCESS
 
         return Response({
-            "res": res_status.id
+            'res': res_status.id
         }, status=status.HTTP_200_OK)
     
     @method_decorator(judger_account_required())
-    @method_decorator(parameter_required("sid"))
+    @method_decorator(parameter_required('sid'))
     def patch(self, request, sid):
         data = request.data
         
@@ -47,22 +47,22 @@ class JudgerStatusView(APIView):
 class JudgerStatusDetailView(APIView):
 
     @method_decorator(judger_account_required())
-    @method_decorator(parameter_required("sid"))
+    @method_decorator(parameter_required('sid'))
     def get(self, request, sid, cid=None):
         res_status = Status.objects.get(id=sid)
         ss = StatusSerializer(res_status)
         return Response({
-            "res": ss.data
+            'res': ss.data
         }, status=status.HTTP_200_OK)
 
     @method_decorator(judger_account_required())
-    @method_decorator(parameter_required("sid"))
-    @method_decorator(parameter_required("cid"))
-    @method_decorator(syllable_required("state", int))
+    @method_decorator(parameter_required('sid'))
+    @method_decorator(parameter_required('cid'))
+    @method_decorator(syllable_required('state', int))
     def post(self, request, sid, cid):
         data = request.data
-        data["caseid"] = cid
-        data["main_status"] = sid
+        data['caseid'] = cid
+        data['main_status'] = sid
         res_status = Status.objects.get(id=sid)
         
         try:
