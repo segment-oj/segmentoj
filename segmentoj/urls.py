@@ -21,18 +21,21 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 import problem.views
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 from account.views import (
     AccountView,
     AccountIntroductionView,
-    AccountSessionView,
     AccountUsernameAccessibilityView,
-    AccountAvatarView,
+    # AccountAvatarView,
     AccountPasswordView,
     AccountEmailView,
 )
 from status.views import StatusView, StatusListView
 from judger.views import JudgerStatusView, JudgerStatusDetailView
-from captcha.views import getcaptcha
+from captcha.views import get_captcha
 
 urlpatterns = [
     path("admin/", admin.site.urls),
@@ -42,13 +45,14 @@ urlpatterns = [
     path("api/account", AccountView.as_view()),
     path("api/account/<int:uid>", AccountView.as_view()),
     path("api/account/<int:uid>/introduction", AccountIntroductionView.as_view()),
-    path("api/account/session", AccountSessionView.as_view()),
+    path("api/account/token", TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path("api/account/token/refresh", TokenRefreshView.as_view(), name='token_refresh'),
     path("api/account/username/accessibility/<str:username>", AccountUsernameAccessibilityView.as_view()),
     path("api/account/password", AccountPasswordView.as_view()),
     path("api/account/email", AccountEmailView.as_view()),
     path("api/account/email/<str:vid>", AccountEmailView.as_view()),
     # Avatar
-    path("api/account/avatar/<int:uid>", AccountAvatarView.as_view()),
+    # path("api/account/avatar/<int:uid>", AccountAvatarView.as_view()),
     # Problem
     path("api/problem", problem.views.ProblemView.as_view()),
     path("api/problem/<int:pid>", problem.views.ProblemView.as_view()),
@@ -68,7 +72,7 @@ urlpatterns = [
     path("api/judger/status/detail/<int:sid>", JudgerStatusDetailView.as_view()),
     path("api/judger/status/detail/<int:sid>/<int:cid>", JudgerStatusDetailView.as_view()),
     # Captcha
-    path("api/captcha/<int:key>", getcaptcha),
+    path("api/captcha/<int:key>", get_captcha),
 ]
 
 if settings.DEBUG:

@@ -252,32 +252,6 @@ class AccountIntroductionViewTest(TestCase):
         response = self.view(request, uid=1)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
-class AccountSessionViewTest(TestCase):
-    fixtures = ["testdatabase.yaml"]
-
-    def setUp(self):
-        self.base_url = "/api/account/session"
-        self.client = APIClient()
-
-    def testA_create_session(self):
-        request_data = {
-            "username": "admin",
-            "password": "123456",
-        }
-
-        res = self.client.post(self.base_url, request_data)
-        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
-        sid_cookie = res.cookies.get("sessionid")
-        self.assertIsNotNone(sid_cookie)
-        self.assertEqual(sid_cookie["samesite"], "Lax")
-        self.assertEqual(sid_cookie["path"], "/")
-
-    def testB_logout_session(self):
-        user = Account.objects.get(username="ztl")
-        self.client.force_authenticate(user=user)
-        res = self.client.delete(self.base_url)
-        self.assertEqual(res.status_code, status.HTTP_204_NO_CONTENT)
-
 class AccountPasswordViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
 

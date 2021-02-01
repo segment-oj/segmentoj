@@ -8,7 +8,7 @@ from captcha.tools import GenCaptcha
 from captcha.models import CaptchaStore
 
 
-def setcaptcha(key):
+def set_captcha(key):
     g = GenCaptcha()
     path_prefix = os.path.join(settings.BASE_DIR, "uploads", "captcha")
     path = os.path.join(path_prefix, "{name}.png".format(name=key))

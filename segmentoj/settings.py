@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -83,7 +84,7 @@ WSGI_APPLICATION = "segmentoj.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-# change here if want to change to MySQL
+# CHANGE HERE if want to change to MySQL or other Databases
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -104,16 +105,16 @@ AUTH_PASSWORD_VALIDATORS = [
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
 ]
 
-AUTH_USER_MODEL = "account.Account"
+AUTH_USER_MODEL = 'account.Account'
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = 'en-us'
 
 # Time Zone, CHANGE HERE
-TIME_ZONE = "Asia/Shanghai"
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -133,10 +134,14 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 # SESSION_COOKIE_AGE = 1209600
 
 # User uploads file placses
-MEDIA_ROOT = os.path.join(BASE_DIR, "uploads").replace("\\", "/")
-MEDIA_URL = "/media/"  # DON'T CHANGE THIS
+MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads').replace('\\', '/')
+MEDIA_URL = '/media/'  # DON'T CHANGE THIS
 
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
     "DEFAULT_THROTTLE_CLASSES": (
         "rest_framework.throttling.ScopedRateThrottle",  # use throttle_scope = 'xxx'
     ),
@@ -159,3 +164,7 @@ It seems that you have just requested an email verify!<br/>
 Please use it in 20 minutes.<br/>
 """
 VERIFY_EMAIL_MAX_AGE = 20
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=3)
+}
