@@ -3,8 +3,6 @@ from django.db import models
 from account.models import Account
 from problem.models import Problem
 
-from . import JudgeStatus
-
 # Create your models here.
 class Status(models.Model):
     score = models.IntegerField(default=0)

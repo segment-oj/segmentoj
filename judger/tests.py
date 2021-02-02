@@ -5,7 +5,6 @@ from rest_framework.test import APIRequestFactory, force_authenticate
 
 from .views import JudgerStatusView, JudgerStatusDetailView
 from account.models import Account
-from status import JudgeLanguage as jl
 from status import JudgeStatus as js
 from status.models import Status
 
@@ -87,7 +86,6 @@ class JudgerStatusDetailTest(TestCase):
         ac_data = {
             "code": "#include <cstdio>\r\nusing namespace std;\r\n\r\nint main() {\r\n    int a, b;\r\n    scanf(\"%d %d\", &a, &b);\r\n    printf(\"%d\\n\", a + b);\r\n    return 0;\r\n}",
             "problem": 1,
-            "lang": jl.JUDGE_LANGUAGE_CPP,
             "id": 3
         }
 
@@ -100,7 +98,6 @@ class JudgerStatusDetailTest(TestCase):
         self.assertIsNotNone(data)
         self.assertEqual(data.get("code"), ac_data["code"])
         self.assertEqual(data.get("problem"), ac_data["problem"])
-        self.assertEqual(data.get("lang"), ac_data["lang"])
         self.assertEqual(data.get("id"), ac_data["id"])
     
     def testY_post_detail(self):

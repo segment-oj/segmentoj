@@ -257,41 +257,22 @@ class AccountPasswordViewTest(TestCase):
 
     def setUp(self):
         self.base_url = '/api/account/password'
-        self.client = APIClient()
-        self.client.force_authenticate(user=Account.objects.get(username='admin'))
+        self.factory = APIRequestFactory()
+        self.view = AccountPasswordView.as_view()
 
-    def testZ_verify_password_ok(self):
-        request_data = {
-            'password': '123456'
+    def testZ_change_user_password(self):
+        req_data = {
+            'current_password': '123456',
+            'password': '654321',
         }
 
-        response = self.client.post(self.base_url, request_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        user = Account.objects.get(username='admin')
+        request = self.factory.patch(self.base_url, req_data)
+        force_authenticate(request, user)
+        response = self.view(request)
 
-    def testY_verify_password_wrong(self):
-        request_data = {
-            'password': 'wrong password'
-        }
-
-        response = self.client.post(self.base_url, request_data, format='json')
-        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
-    
-    def testX_change_password(self):
-        request_data = {
-            'password': '123456'
-        }
-
-        self.client.post(self.base_url, request_data, format='json')
-
-        request_data = {
-            'password': 'new password'
-        }
-
-        response = self.client.patch(self.base_url, request_data, format='json')
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
-
-        target = Account.objects.get(username='admin')
-        self.assertTrue(target.check_password(request_data['password']))
+        self.assertTrue(user.check_password('654321'))
 
 class AccountUsernameAccessibilityViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
