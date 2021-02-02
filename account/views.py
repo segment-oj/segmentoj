@@ -5,11 +5,8 @@ from django.conf import settings
 
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
-from django.conf import settings
-from django.utils import timezone
 
-from datetime import timedelta
-from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
+from django.core.signing import TimestampSigner
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -20,7 +17,7 @@ from segmentoj.decorator import syllable_required, parameter_required, login_req
 from captcha.decorator import captcha_required
 from .models import Account
 from .serializers import AccountSerializer, AccountIntroductionSerializer
-from .decorator import password_verification_required
+from .decorator import email_verification_required, password_verification_required
 
 import os.path
 import base64
@@ -236,43 +233,22 @@ class AccountEmailView(APIView):
         return Response({'res': request.user.email})
 
     @method_decorator(login_required())
+    @method_decorator(captcha_required())
     def post(self, request, vid=None):
         signer = TimestampSigner()
         user = request.user
-        if vid == None:
-            # send mail
-            signature = signer.sign(user.username)
-            signature = base64.urlsafe_b64encode(signature.encode())
-            signature = signature.decode()
-            user.email_user(
-                settings.VERIFY_EMAIL_TEMPLATE_TITLE,
-                settings.VERIFY_EMAIL_TEMPLATE_CONTENT.format(username=user.username, signature=signature),
-                html_message=settings.VERIFY_EMAIL_TEMPLATE_CONTENT.format(username=user.username, signature=signature),
-            )
-            return Response({'detail': 'Email sent'}, status=status.HTTP_202_ACCEPTED)
-
-        try:
-            vid = base64.urlsafe_b64decode(vid.encode())
-        except:
-            return Response({'detail': 'Unable to decode base64'}, status=status.HTTP_400_BAD_REQUEST)
-
-        vid = vid.decode()
-        try:
-            value = signer.unsign(vid, max_age=timedelta(minutes=settings.VERIFY_EMAIL_MAX_AGE))
-        except SignatureExpired:
-            return Response({'detail': 'Signature Expired'}, status=status.HTTP_403_FORBIDDEN)
-        except BadSignature:
-            return Response({'detail': 'Bad Signature'}, status=status.HTTP_403_FORBIDDEN)
-
-        if value != user.username:
-            return Response({'detail': 'Mismatch Signature'}, status=status.HTTP_403_FORBIDDEN)
-
-        user.email_verified = True
-        user.save()
-        request.session['email_verified'] = True
-        return Response({'detail': 'Susccess'}, status=status.HTTP_204_NO_CONTENT)
+        signature = signer.sign(user.username)
+        signature = base64.urlsafe_b64encode(signature.encode())
+        signature = signature.decode()
+        user.email_user(
+            settings.VERIFY_EMAIL_TEMPLATE_TITLE,
+            settings.VERIFY_EMAIL_TEMPLATE_CONTENT.format(username=user.username, signature=signature),
+            html_message=settings.VERIFY_EMAIL_TEMPLATE_CONTENT.format(username=user.username, signature=signature),
+        )
+        return Response({'detail': 'Email sent'}, status=status.HTTP_202_ACCEPTED)
 
     @method_decorator(syllable_required('email', str))
+    @method_decorator(email_verification_required())
     @method_decorator(password_verification_required())
     def patch(self, request):
         # change email
