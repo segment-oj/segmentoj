@@ -12,7 +12,7 @@ JUDGE_LANG_SUBMIT_ANSWER = 10 # For submit answer problem
 DEFAULT_LANG_INFO = {
     JUDGE_LANG_C: '89,clang,O2', # standard, compiler, optimize level
     JUDGE_LANG_CPP: '17,clang,O2', # standard, compiler, optimize level
-    JUDGE_LANG_PYTHON: 'python,36', # runner, version
+    JUDGE_LANG_PYTHON: 'cpython,36', # runner, version
     JUDGE_LANG_JAVA: 'java', # frontend
     JUDGE_LANG_PASCAL: 'O2', # optimize level
     JUDGE_LANG_SUBMIT_ANSWER: 'sha256', # hash algorithm
