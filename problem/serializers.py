@@ -3,7 +3,6 @@
 from rest_framework import serializers
 
 from problem.models import Problem, Tag
-from segmentoj import tools
 
 class ProblemSerializer(serializers.ModelSerializer):
 
@@ -12,6 +11,7 @@ class ProblemSerializer(serializers.ModelSerializer):
         fields = [
             "pid",
             "date_added",
+            "last_edit",
             "title",
             "description",
             "allow_html",
@@ -22,7 +22,7 @@ class ProblemSerializer(serializers.ModelSerializer):
         ]
 
         depth = 0
-        read_only_fields = ["id", "date_added"]
+        read_only_fields = ["id", "date_added", "last_edit"]
         extra_kwargs = {
             "description": {"write_only": True},
         }
