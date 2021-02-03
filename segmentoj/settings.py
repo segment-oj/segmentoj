@@ -175,3 +175,14 @@ SIMPLE_JWT = {
 
 # CORS
 CORS_ORIGIN_ALLOW_ALL = True
+
+# Judger Port Connection
+JUDGER_PORT = {
+    # This base url for server to connect judger port.
+    'base_url': 'http://127.0.0.1:3000',
+    
+    # Uncomment this if you wants to use password auth too.
+    # This is suggested in production environment.
+    # Note: you need to config the judger ports too.
+    # 'password': 'your password',
+}

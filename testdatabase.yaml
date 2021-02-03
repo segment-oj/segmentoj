@@ -863,7 +863,7 @@
     state: 10
     time: 100
     memory: 100
-    lang: 0
+    lang: 1
     owner: 2
     problem: 1
     code: '# Code'
@@ -875,7 +875,7 @@
     state: 11
     time: 10
     memory: 10
-    lang: 0
+    lang: 1
     owner: 2
     problem: 2
     code: '# Code 2'
@@ -887,7 +887,7 @@
     state: 0
     time: 0
     memory: 0
-    lang: 0
+    lang: 1
     owner: 2
     problem: 1
     code: "#include <cstdio>\r\nusing namespace std;\r\n\r\nint main() {\r\n    int\
@@ -901,7 +901,7 @@
     state: 1
     time: 0
     memory: 0
-    lang: 0
+    lang: 1
     owner: 3
     problem: 1
     code: "#include <cstdio>\r\nusing namespace std;\r\n\r\nint main() {\r\n    int\
@@ -915,62 +915,10 @@
     state: 0
     time: 0
     memory: 0
-    lang: 0
+    lang: 1
     owner: 2
     problem: 6
     code: "#include <iostream>\r\nusing namespace std;\r\n\r\nint main() {\r\n   \
       \ int a, b;\r\n    cin >> a >> b;\r\n    cout << a + b << endl;\r\n    return\
       \ 0;\r\n}"
     add_time: 2020-07-24 11:26:02.822994+00:00
-- model: status.statusdetail
-  pk: 1
-  fields:
-    state: 0
-    score: 0
-    time: 0
-    memory: 0
-    input_s: ''
-    output_s: ''
-    error_s: ''
-    answer_s: ''
-    caseid: 4
-    main_status: 1
-- model: status.statusdetail
-  pk: 2
-  fields:
-    state: 0
-    score: 0
-    time: 0
-    memory: 0
-    input_s: ''
-    output_s: ''
-    error_s: ''
-    answer_s: ''
-    caseid: 3
-    main_status: 1
-- model: status.statusdetail
-  pk: 3
-  fields:
-    state: 0
-    score: 0
-    time: 0
-    memory: 0
-    input_s: ''
-    output_s: ''
-    error_s: ''
-    answer_s: ''
-    caseid: 2
-    main_status: 1
-- model: status.statusdetail
-  pk: 4
-  fields:
-    state: 0
-    score: 0
-    time: 0
-    memory: 0
-    input_s: ''
-    output_s: ''
-    error_s: ''
-    answer_s: ''
-    caseid: 1
-    main_status: 1

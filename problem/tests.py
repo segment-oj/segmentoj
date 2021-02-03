@@ -9,7 +9,6 @@ from account.models import Account
 
 # Create your tests here.
 
-
 class ProblemViewTest(TestCase):
     fixtures = ["testdatabase.yaml"]
 

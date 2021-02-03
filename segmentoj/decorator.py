@@ -1,7 +1,6 @@
 from rest_framework.response import Response
 from rest_framework import status
 
-
 def syllable_required(syllable_id, syllable_type=None, is_get_request=False):
     def decorator(func):
         def _wrapped_view(request, *args, **kwargs):
