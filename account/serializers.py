@@ -9,30 +9,28 @@ class AccountSerializer(serializers.ModelSerializer):
         model = Account
         depth = 0
         fields = [
-            "id",
-            "username",
-            "lang",
-            "editor_theme",
-            "solved",
-            "submit_time",
-            "email",
-            "is_staff",
-            "is_superuser",
-            "date_joined",
-            "is_active",
-            "last_login",
-            "email_verified",
-            "list_column",
-            "nav_color"
+            'id',
+            'username',
+            'lang',
+            'solved',
+            'submit_time',
+            'email',
+            'is_staff',
+            'is_superuser',
+            'date_joined',
+            'is_active',
+            'last_login',
+            'email_verified',
+            'frontend_config',
         ]
         read_only_fields = [
-            "id",
-            "solved",
-            "submit_time",
-            "date_joined",
-            "last_login",
-            "email",
-            "email_verified"
+            'id',
+            'solved',
+            'submit_time',
+            'date_joined',
+            'last_login',
+            'email',
+            'email_verified'
         ]
 
 class AccountIntroductionSerializer(serializers.ModelSerializer):
@@ -40,7 +38,7 @@ class AccountIntroductionSerializer(serializers.ModelSerializer):
         model = Account
         depth = 0
         fields = [
-            "id",
-            "introduction"
+            'id',
+            'introduction'
         ]
-        read_only_fields = ["id"]
+        read_only_fields = ['id']

@@ -4,13 +4,11 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 class Account(AbstractUser):
     introduction = models.TextField(blank=True, null=True, default="# Hello World!")
-    lang = models.IntegerField(default=0)
+    lang = models.TextField(default='cxx;17,clang,O2')
     solved = models.IntegerField(default=0)
     submit_time = models.IntegerField(default=0)
 
-    list_column = models.IntegerField(default=20)
-    nav_color = models.TextField(blank=True, null=True)
-    editor_theme = models.IntegerField(default=0)
+    frontend_config = models.TextField(blank=True, null=True)
 
     first_name = None # delete unused field
     last_name = None # delete unused field

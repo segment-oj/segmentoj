@@ -19,17 +19,17 @@ class ProblemViewTest(TestCase):
 
     def testZ_get_problem(self):
         ac_data = {
-            "title": "Simple Problem",
-            "pid": 5,
+            "title": "Large PID",
+            "pid": 1001,
             "allow_html": False,
             "enabled": True,
-            "tags": [1, 2, 3],
+            "tags": [1, 2, 3, 5],
             "memory_limit": 128000,
             "time_limit": 1000
         }
 
         request = self.factory.get(self.base_url)
-        response = self.view(request, pid=5)
+        response = self.view(request, pid=ac_data['pid'])
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.data.get("res")
@@ -46,7 +46,7 @@ class ProblemViewTest(TestCase):
     def testX_post_new_problem(self):
         request_data = {
             "title": "Simple Problem (new)",
-            "description": "This is description",
+            "description": "This is the description.",
             "pid": 7,
             "allow_html": False,
             "enabled": True,
@@ -61,7 +61,7 @@ class ProblemViewTest(TestCase):
     def testW_change_problem(self):
         request_data = {
             "title": "Not Hard Problem",
-            "description": "This is description",
+            "description": "This is description.",
             "pid": 8,
             "allow_html": True,
             "tags": [4, 3, 1]
@@ -73,10 +73,10 @@ class ProblemViewTest(TestCase):
 
         request = self.factory.patch(self.base_url, data=request_data)
         force_authenticate(request, Account.objects.get(username="admin"))
-        response = self.view(request, pid=5)
+        response = self.view(request, pid=2)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
-        target = Problem.objects.get(pid=8)
+        target = Problem.objects.get(pid=request_data['pid'])
         self.assertEqual(target.pid, request_data["pid"])
         self.assertEqual(target.description, request_data["description"])
         self.assertEqual(target.title, request_data["title"])
@@ -94,11 +94,11 @@ class ProblemDescriptionViewTest(TestCase):
 
     def testZ_get_problem_description(self):
         ac_data = {
-            "description": "This is description."
+            "description": "Large PID Problem Test"
         }
 
-        request = self.factory.get(self.base_url.format(pid=5))
-        response = self.view(request, pid=5)
+        request = self.factory.get(self.base_url.format(pid=1001))
+        response = self.view(request, pid=1001)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.data.get("res")
@@ -117,8 +117,8 @@ class TagViewTest(TestCase):
     def testZ_get_tag(self):
         ac_data = {
             "id": 1,
-            "content": "System Test",
-            "color": "black",
+            "content": "hard",
+            "color": "blue",
         }
 
         request = self.factory.get(self.base_url)

@@ -24,8 +24,8 @@ class StatusViewTest(TestCase):
             'id': 1,
             'score': 100,
             'state': JState.JUDGE_STATUS_AC,
-            'time': 100,
-            'memory': 100,
+            'time': 4,
+            'memory': 1000,
             'lang': JLang.JUDGE_LANG_C,
         }
 
