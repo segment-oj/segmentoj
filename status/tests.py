@@ -30,7 +30,7 @@ class StatusViewTest(TestCase):
         }
 
         request = self.factory.get(self.base_url)
-        response = self.view(request, pid=5)
+        response = self.view(request, sid=1)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         data = response.data.get('res')
