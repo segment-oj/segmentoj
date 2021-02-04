@@ -30,6 +30,7 @@ class Problem(models.Model):
     class Meta:
         permissions = ( # (permission name, promission explanation)
             ('view_hidden', 'Can view hidden problem'),
+            ('download_testdata', 'Can download problem testdata'),
         )
 
         indexes = [

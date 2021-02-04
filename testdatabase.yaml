@@ -175,71 +175,77 @@
 - model: auth.permission
   pk: 30
   fields:
+    name: Can download problem testdata
+    content_type: 7
+    codename: download_testdata
+- model: auth.permission
+  pk: 31
+  fields:
     name: Can add tag
     content_type: 8
     codename: add_tag
 - model: auth.permission
-  pk: 31
+  pk: 32
   fields:
     name: Can change tag
     content_type: 8
     codename: change_tag
 - model: auth.permission
-  pk: 32
+  pk: 33
   fields:
     name: Can delete tag
     content_type: 8
     codename: delete_tag
 - model: auth.permission
-  pk: 33
+  pk: 34
   fields:
     name: Can view tag
     content_type: 8
     codename: view_tag
 - model: auth.permission
-  pk: 34
+  pk: 35
   fields:
     name: Can add status
     content_type: 9
     codename: add_status
 - model: auth.permission
-  pk: 35
+  pk: 36
   fields:
     name: Can change status
     content_type: 9
     codename: change_status
 - model: auth.permission
-  pk: 36
+  pk: 37
   fields:
     name: Can delete status
     content_type: 9
     codename: delete_status
 - model: auth.permission
-  pk: 37
+  pk: 38
   fields:
     name: Can view status
     content_type: 9
     codename: view_status
 - model: auth.permission
-  pk: 38
+  pk: 39
   fields:
     name: Can add captcha store
     content_type: 10
     codename: add_captchastore
 - model: auth.permission
-  pk: 39
+  pk: 40
   fields:
     name: Can change captcha store
     content_type: 10
     codename: change_captchastore
 - model: auth.permission
-  pk: 40
+  pk: 41
   fields:
     name: Can delete captcha store
     content_type: 10
     codename: delete_captchastore
 - model: auth.permission
-  pk: 41
+  pk: 42
   fields:
     name: Can view captcha store
     content_type: 10
@@ -258,6 +264,7 @@
     - 31
     - 32
     - 33
+    - 34
 - model: contenttypes.contenttype
   pk: 1
   fields:
@@ -426,10 +433,12 @@
     description: A+B
     pid: 1
     date_added: 2021-02-03 03:28:04.119655+00:00
+    last_edit: 2021-02-03 03:28:04.119655+00:00
     allow_html: false
     enabled: true
     time_limit: 1000
     memory_limit: 128000
+    testdata_url: 'http://tool.gzezfisher.top/file/testdata/38qLp7_pUGiOoonaUsJ_sySUSesfx3MreUPvRpvKuTQ.zip'
     tags:
     - 1
 - model: problem.problem
@@ -439,10 +448,12 @@
     description: "# Hello World!\r\noutput `Hello World!`"
     pid: 2
     date_added: 2021-02-03 03:28:42.254585+00:00
+    last_edit: 2021-02-03 03:28:42.254585+00:00
     allow_html: false
     enabled: true
     time_limit: 1000
     memory_limit: 128000
+    testdata_url: 'http://tool.gzezfisher.top/file/testdata/404_NOT_FOUND.zip'
     tags:
     - 1
 - model: problem.problem
@@ -452,10 +463,12 @@
     description: Large PID Problem Test
     pid: 1001
     date_added: 2021-02-03 03:29:18.930612+00:00
+    last_edit: 2021-02-03 03:29:18.930612+00:00
     allow_html: false
     enabled: true
     time_limit: 1000
     memory_limit: 128000
+    testdata_url: null
     tags:
     - 1
     - 2
@@ -468,10 +481,12 @@
     description: 中文测试
     pid: 1002
     date_added: 2021-02-03 03:30:29.193922+00:00
+    last_edit: 2021-02-03 03:30:29.193922+00:00
     allow_html: false
     enabled: true
     time_limit: 1000000
     memory_limit: 128000
+    testdata_url: null
     tags:
     - 1
     - 6
