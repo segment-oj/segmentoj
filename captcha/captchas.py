@@ -10,11 +10,7 @@ from captcha.models import CaptchaStore
 
 def set_captcha(key):
     g = GenCaptcha()
-    path_prefix = os.path.join(settings.BASE_DIR, "uploads", "captcha")
-    path = os.path.join(path_prefix, "{name}.png".format(name=key))
-
-    ans = g.createImg(path)
-
+    ans, buffer = g.create_img()
     try:
         # try to get if already there
         s = CaptchaStore.objects.get(key=key)
@@ -25,7 +21,7 @@ def set_captcha(key):
         s = CaptchaStore(key=key, answer=ans)
         s.save()
 
-    return ans
+    return buffer.read()
 
 
 def check(key, ans):

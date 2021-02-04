@@ -186,3 +186,32 @@ JUDGER_PORT = {
     # Note: you need to config the judger ports too.
     # 'password': 'your password',
 }
+
+# Captcha Configuration
+CAPTCHA = {
+    # The height of each captcha pic
+    'picture_height': 26,
+
+    # The width of each captcha pic
+    'picture_width': 78,
+
+    # The number of chars in each captcha pic
+    'length': 4,
+
+    # font size on captcha
+    # you may change this if modified height/width
+    # try it until you find the best value
+    'font_size': 16,
+
+    # the font file of font
+    'font_family': os.path.join(BASE_DIR, 'captcha', 'FiraCode-Regular.ttf'),
+
+    # The number of dots on the pic to interfare
+    'dot_number': 100,
+
+    # The number of lines on the pic to interfare
+    'line_number': 2,
+
+    # how long a captcha expire (minutes)
+    'age': 5,
+}
