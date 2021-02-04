@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import judger
 from django.contrib import admin
 from django.urls import path, include
 from . import views
@@ -25,6 +26,7 @@ from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
 )
+
 from account.views import (
     AccountView,
     AccountIntroductionView,
@@ -33,6 +35,9 @@ from account.views import (
     AccountPasswordView,
     AccountEmailView,
 )
+
+from judger.views import JudgerProblemView, JudgerTaskView
+
 from status.views import StatusView, StatusListView
 from captcha.views import get_captcha
 
@@ -65,6 +70,8 @@ urlpatterns = [
     path('api/status/<int:sid>', StatusView.as_view()),
     path('api/status/list', StatusListView.as_view()),
     # Judger
+    path('api/judger/task/<int:tid>', JudgerTaskView.as_view()),
+    path('api/judger/problem/<int:pid>', JudgerProblemView.as_view()),
     # Captcha
     path('api/captcha/<int:key>', get_captcha),
 ]

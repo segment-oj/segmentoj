@@ -1,27 +1,50 @@
 # Serializers
 
+from django.db import models
+from django.db.models import fields
 from rest_framework import serializers
 
-from status.models import Status, StatusDetail
-
+from status.models import Status
+from problem.models import Problem
 
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
         depth = 0
-        fields = ['code', 'lang', 'problem', 'id']
-        read_only_fields = ['id']
+        fields = [
+            'id'
+            'code',
+            'lang',
+            'lang_info',
+            'problem',
+            'add_time',
+        ]
 
 class StatusEditSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
         depth = 0
-        fields = ['state', 'score', 'time', 'memory', 'id']
+        fields = [
+            'id',
+            'state',
+            'score',
+            'time',
+            'memory',
+            'detail',
+            'additional_info',
+            'judge_by',
+        ]
         read_only_fields = ['id']
 
-class StatusDetailSerializer(serializers.ModelSerializer):
+class ProblemSerializer(serializers.ModelSerializer):
     class Meta:
-        model = StatusDetail
+        model = Problem
         depth = 0
-        fields = '__all__'
-        read_only_fields = ['id']
+        fields = [
+            'pid',
+            'title',
+            'time_limit',
+            'memory_limit',
+            'testdata_url',
+        ]
+
