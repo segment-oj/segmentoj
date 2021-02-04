@@ -17,11 +17,13 @@ class AccountSerializer(serializers.ModelSerializer):
             'email',
             'is_staff',
             'is_superuser',
-            'date_joined',
             'is_active',
+            'is_judger',
+            'date_joined',
             'last_login',
             'email_verified',
             'frontend_config',
+            'avatar_url',
         ]
         read_only_fields = [
             'id',

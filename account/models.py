@@ -8,6 +8,8 @@ class Account(AbstractUser):
     solved = models.IntegerField(default=0)
     submit_time = models.IntegerField(default=0)
 
+    avatar_url = models.TextField(blank=True, null=True)
+
     frontend_config = models.TextField(blank=True, null=True)
 
     first_name = None # delete unused field

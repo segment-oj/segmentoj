@@ -185,48 +185,6 @@ class AccountUsernameAccessibilityView(APIView):
 
         return Response(status=status.HTTP_409_CONFLICT)
 
-
-class AccountAvatarView(APIView):
-    def get(self, request, uid):
-        avatar_path = os.path.join(settings.MEDIA_ROOT, 'avatar', '{uid}.png'.format(uid=uid))
-
-        if not os.path.isfile(avatar_path):
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        avatar_uri = os.path.join(settings.MEDIA_URL, 'avatar', '{uid}.png'.format(uid=uid))
-        return Response({'res': avatar_uri}, status=status.HTTP_200_OK)
-
-    @method_decorator(login_required())
-    @method_decorator(captcha_required())
-    def put(self, request):
-        uid = request.user.id
-        avatar_file = request.FILES.get('avatar')
-
-        if not avatar_file:
-            return Response({'detail': 'avatar img file missing'}, status=status.HTTP_400_BAD_REQUEST)
-
-        if avatar_file.size > 5120:  # 5M
-            return Response({'detail': 'avatar img too large'})
-
-        filepath = os.path.join(settings.MEDIA_ROOT, 'avatar', '{uid}.png'.format(uid=uid))
-        try:
-            with open(filepath, 'wb+') as f:
-                for chunk in avatar_file.chunks():
-                    f.write(chunk)
-        except Exception as e:
-            return Response({'detail': 'Failed to save img'}, status=status.HTTP_201_CREATED)
-
-    @method_decorator(parameter_required('uid'))
-    @method_decorator(permission_required('account.edit_user', raise_exception=True))
-    def delete(self, request, uid):
-        avatar_path = os.path.join(settings.MEDIA_ROOT, 'avatar', '{uid}.png'.format(uid=uid))
-
-        if not os.path.isfile(avatar_path):
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        os.remove(avatar_path)
-        return Response(status=status.HTTP_200_OK)
-
 class AccountEmailView(APIView):
     @method_decorator(login_required())
     def get(self, request):
