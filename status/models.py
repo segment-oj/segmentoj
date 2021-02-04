@@ -33,7 +33,7 @@ class Status(models.Model):
     additional_info = models.TextField(blank=True, null=True)
     
     def __str__(self):
-        return '[{id}] {title}'.format(id=self.id, title=self.problem.title)
+        return '[{id}] {owner}'.format(id=self.id, title=self.owner.username)
 
     class Meta:
         indexes = [
