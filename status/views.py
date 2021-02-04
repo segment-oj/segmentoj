@@ -36,9 +36,16 @@ class StatusView(APIView):
 
         data = request.data
 
+        if 1 <= data['lang'] <= 10:
+            return Response({
+                'code': 4001,
+                'detail': 'Unknow language',
+            })
+
         builder = {}
         builder['owner'] = request.user.id
         builder['lang'] = data['lang']
+        builder['code'] = data['code']
 
         if data.get('lang_info') is None:
             builder['lang_info'] = JLang.DEFAULT_LANG_INFO[data['lang']]
@@ -49,19 +56,19 @@ class StatusView(APIView):
 
         ss = StatusSerializer(data=builder)
         ss.is_valid(raise_exception=True)
-        status = ss.save()
+        status_element = ss.save()
 
         request.user.submit_time += 1
         request.user.save()
 
         def cannot_judge(reason, state=JState.JUDGE_STATUS_CFGE):
-            status.state = state
-            status.additional_info = reason
-            status.save()
+            status_element.state = state
+            status_element.additional_info = reason
+            status_element.save()
 
         try:
             res = requests.post('{base_url}/api/task'.format(base_url=settings.JUDGER_PORT['base_url']), json={
-                'task_id': status.id,
+                'task_id': status_element.id,
                 'password': settings.JUDGER_PORT.get('password'),
             })
             res_json = res.json()
@@ -78,7 +85,7 @@ class StatusView(APIView):
                 cannot_judge('No judger connected to Judger Port.', JState.JUDGE_STATUS_SE)
 
         return Response({
-            'id': status.id
+            'id': status_element.id
         }, status=status.HTTP_201_CREATED)
 
 
@@ -94,7 +101,7 @@ class StatusListView(APIView):
         status_filter = {}
         data = request.GET
 
-        if data.get('problem') is not None:
+        if type(data.get('problem')) == int:
             status_filter['problem'] = get_object_or_404(Problem, pid=data['problem']).id
 
         if data.get('lang') is not None:

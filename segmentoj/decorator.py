@@ -25,7 +25,6 @@ def syllable_required(syllable_id, syllable_type=None, is_get_request=False):
 
     return decorator
 
-
 def parameter_required(parameter_id):
     def decorator(func):
         def _wrapped_view(request, *args, **kwargs):
