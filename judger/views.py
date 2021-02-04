@@ -17,12 +17,12 @@ class JudgerTaskView(APIView):
     @method_decorator(judger_account_required())
     @method_decorator(parameter_required('tid'))
     def get(self, request, tid):
-        status = get_object_or_404(Status, id=tid)
-        ss = StatusSerializer(status)
-        return Response({
-            'code': 1000,
-            'res': ss.data,
-        }, status=status.HTTP_200_OK)
+        status_element = get_object_or_404(Status, id=tid)
+        ss = StatusSerializer(status_element)
+        ss_data = ss.data
+        ss_data['problem'] = status_element.problem.pid
+
+        return Response({'res': ss_data}, status=status.HTTP_200_OK)
 
     @method_decorator(judger_account_required())
     @method_decorator(parameter_required('tid'))

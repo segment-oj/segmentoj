@@ -12,7 +12,7 @@ class StatusSerializer(serializers.ModelSerializer):
         model = Status
         depth = 0
         fields = [
-            'id'
+            'id',
             'code',
             'lang',
             'lang_info',
