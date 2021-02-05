@@ -1,1 +1,0 @@
-# Here is this place Segmentoj save things uploaded

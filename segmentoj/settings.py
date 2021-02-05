@@ -129,17 +129,11 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = '/static/'  # DON'T CHANGE THIS
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATIC_URL = '/static/'
 
 # Session ID
 # SESSION_SAVE_EVERY_REQUEST = False
 # SESSION_COOKIE_AGE = 1209600
-
-# User uploads file placses
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads').replace('\\', '/')
-MEDIA_URL = '/media/'  # DON'T CHANGE THIS
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -183,24 +177,25 @@ JUDGER_PORT = {
     
     # Uncomment this if you wants to use password auth too.
     # This is suggested in production environment.
-    # Note: you need to config the judger ports too.
+    # NOTE: you need to config the judger ports too.
     # 'password': 'your password',
 }
 
 # Captcha Configuration
 CAPTCHA = {
     # The height of each captcha pic
+    # NOTE: According to our experience, 'font_size + 10' works well.
     'picture_height': 26,
 
     # The width of each captcha pic
+    # NOTE: According to our experience, 'font_size * length + 14' works well
     'picture_width': 78,
 
     # The number of chars in each captcha pic
     'length': 4,
 
     # font size on captcha
-    # you may change this if modified height/width
-    # try it until you find the best value
+    # NOTE: If you change this, you have to change 'picture_height' and 'picture_width'
     'font_size': 16,
 
     # the font file of font
@@ -210,6 +205,7 @@ CAPTCHA = {
     'dot_number': 100,
 
     # The number of lines on the pic to interfare
+    # NOTE: If you made the picture larger, you'd better increase this.
     'line_number': 2,
 
     # how long a captcha expire (minutes)
