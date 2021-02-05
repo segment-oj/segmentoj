@@ -101,17 +101,17 @@ class StatusListView(APIView):
         status_filter = {}
         data = request.GET
 
-        if type(data.get('problem')) == int:
-            status_filter['problem'] = get_object_or_404(Problem, pid=data['problem']).id
+        if data.get('problem') is not None:
+            if data['problem'].isdecimal():
+                status_filter['problem'] = get_object_or_404(Problem, pid=int(data['problem'])).id
 
         if data.get('lang') is not None:
-            status_filter['lang'] = data['lang']
+            if data['lang'].isdecimal():
+                status_filter['lang'] = int(data['lang'])
 
         if data.get('owner') is not None:
-            status_filter['owner'] = data['owner']
-
-        if data.get('score') is not None:
-            status_filter['score'] = data['score']
+            if data['owner'].isdecimal():
+                status_filter['owner'] = int(data['owner'])
 
         queryset = Status.objects.filter(**status_filter).order_by('-add_time')
 
