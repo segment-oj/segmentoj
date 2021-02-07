@@ -144,7 +144,7 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.ScopedRateThrottle',  # use throttle_scope = 'xxx'
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
-    'PAGE_SIZE': 1,
+    'PAGE_SIZE': 5,
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'

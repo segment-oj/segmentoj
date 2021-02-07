@@ -10,7 +10,7 @@ from rest_framework.pagination import LimitOffsetPagination
 from .models import Status
 from .serializers import StatusSerializer, StatusListSerializer
 from problem.models import Problem
-from segmentoj.decorator import login_required, syllable_required, parameter_required
+from segmentoj.decorator import login_required, syllable_required, parameter_required, parse_as_integer
 from . import JudgeLang as JLang
 from . import JudgeState as JState
 
@@ -90,6 +90,10 @@ class StatusView(APIView):
 
 
 class StatusListView(APIView):
+
+    @method_decorator(parse_as_integer('problem'))
+    @method_decorator(parse_as_integer('lang'))
+    @method_decorator(parse_as_integer('owner'))
     def get(self, request):
         # Status List
 
@@ -102,18 +106,15 @@ class StatusListView(APIView):
         data = request.GET
 
         if data.get('problem') is not None:
-            if data['problem'].isdecimal():
-                status_filter['problem'] = get_object_or_404(Problem, pid=int(data['problem'])).id
+            status_filter['problem'] = get_object_or_404(Problem, pid=data['problem']).id
 
         if data.get('lang') is not None:
-            if data['lang'].isdecimal():
-                status_filter['lang'] = int(data['lang'])
+            status_filter['lang'] = data['lang']
 
         if data.get('owner') is not None:
-            if data['owner'].isdecimal():
-                status_filter['owner'] = int(data['owner'])
+            status_filter['owner'] = data['owner']
 
-        queryset = Status.objects.filter(**status_filter).order_by('-add_time')
+        queryset = Status.objects.filter(**status_filter).order_by('-id')
 
         pg = LimitOffsetPagination()
         statuses = pg.paginate_queryset(queryset=queryset, request=request, view=self)

@@ -9,13 +9,13 @@ def syllable_required(syllable_id, syllable_type=None, is_get_request=False):
             r = data.get(syllable_id)
             if r == None:
                 return Response(
-                    {"detail": "syllable {sid} is required".format(sid=syllable_id)},
+                    {'detail': 'syllable {sid} is required'.format(sid=syllable_id)},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
             if syllable_type != None and type(r) != syllable_type:
                 return Response(
-                    {"detail": "syllable {sid} has wrong type".format(sid=syllable_id)},
+                    {'detail': 'syllable {sid} has wrong type'.format(sid=syllable_id)},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
@@ -31,7 +31,7 @@ def parameter_required(parameter_id):
             target = kwargs.get(parameter_id)
             if target == None:
                 return Response(
-                    {"detail": "{pid} in URI is required".format(pid=parameter_id)},
+                    {'detail': '{pid} in URI is required'.format(pid=parameter_id)},
                     status=status.HTTP_404_NOT_FOUND,
                 )
 
@@ -47,11 +47,29 @@ def login_required():
         def _wrapped_view(request, *args, **kwargs):
             if not request.user.is_authenticated:
                 return Response(
-                    {"detail": "Login Required"}, status=status.HTTP_401_UNAUTHORIZED
+                    {'detail': 'Login Required'}, status=status.HTTP_401_UNAUTHORIZED
                 )
 
             return func(request, *args, **kwargs)
 
         return _wrapped_view
 
+    return decorator
+
+def parse_as_integer(sid):
+    def decorator(func):
+        def _wrapped_view(request, *args, **kwargs):
+            data = request.GET.copy()
+            if data.get(sid) is not None:
+                if data[sid].isdecimal():
+                    data[sid] = int(data[sid])
+                else:
+                    del data[sid]
+
+            request.GET = data
+
+            return func(request, *args, **kwargs)
+        
+        return _wrapped_view
+    
     return decorator
