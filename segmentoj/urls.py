@@ -27,12 +27,11 @@ from account.views import (
     AccountView,
     AccountIntroductionView,
     AccountUsernameAccessibilityView,
-    # AccountAvatarView,
     AccountPasswordView,
     AccountEmailView,
 )
 
-from judger.views import JudgerProblemView, JudgerTaskView
+from judger.views import JudgerProblemView, JudgerTaskView, JudgerTokenView
 
 from status.views import StatusView, StatusListView
 from captcha.views import get_captcha
@@ -68,6 +67,7 @@ urlpatterns = [
     # Judger
     path('api/judger/task/<int:tid>', JudgerTaskView.as_view()),
     path('api/judger/problem/<int:pid>', JudgerProblemView.as_view()),
+    path('api/judger/token', JudgerTokenView.as_view()),
     # Captcha
     path('api/captcha/<int:key>', get_captcha),
 ]

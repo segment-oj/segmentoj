@@ -1,9 +1,13 @@
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
+from django.conf import settings
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+
+import requests
+import secrets
 
 from segmentoj.decorator import parameter_required, syllable_required
 from status.models import Status
@@ -43,4 +47,37 @@ class JudgerProblemView(APIView):
 
         ps = ProblemSerializer(problem)
         return Response({'res': ps.data}, status=status.HTTP_200_OK)
+
+class JudgerTokenView(APIView):
+    @method_decorator(judger_account_required())
+    def get(self, request):
+        token = secrets.token_urlsafe(64)
+
+        try:
+            res = requests.post('{base_url}/api/token'.format(base_url=settings.JUDGER_PORT['base_url']), json={
+                'token': token,
+                'password': settings.JUDGER_PORT.get('password'),
+            })
+            res_json = res.json()
+        except:
+            return Response({
+                'detail': 'Cannot connect to judger port.',
+            }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+        else:
+            code = res_json.get('code')
+
+            if code is None:
+                return Response({
+                    'detail': 'Judger Port response format incorrect.'
+                }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+            elif code == 4004:
+                return Response({
+                    'detail': 'Judger Port don\'t understand our format.\n'
+                    'Maybe an upgrade is required.'
+                }, status=status.HTTP_503_SERVICE_UNAVAILABLE)
+
+        return Response({
+            'code': 1000,
+            'res': token,
+        }, status=status.HTTP_200_OK)
 
