@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+
+
 class Account(AbstractUser):
     introduction = models.TextField(blank=True, null=True, default="# Hello World!")
     lang = models.TextField(default='cxx;17,clang,O2')
@@ -12,8 +14,8 @@ class Account(AbstractUser):
 
     frontend_config = models.TextField(blank=True, null=True)
 
-    first_name = None # delete unused field
-    last_name = None # delete unused field
+    first_name = None  # delete unused field
+    last_name = None  # delete unused field
 
     is_judger = models.BooleanField(default=False)
 

@@ -3,6 +3,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from problem.models import Problem
 
+
 def view_hidden_problem_permission_check():
     def decorator(func):
         def _wrapped_view(request, pid, *args, **kwargs):

@@ -1,6 +1,7 @@
 # tools
 import re
 
+
 def isEmail(str):
     p = re.compile(r"^(\w-*\.*)+@(\w-?)+(\.\w{2,})+$")
 

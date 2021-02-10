@@ -7,6 +7,7 @@ from rest_framework import serializers
 from status.models import Status
 from problem.models import Problem
 
+
 class StatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Status
@@ -19,6 +20,7 @@ class StatusSerializer(serializers.ModelSerializer):
             'problem',
             'add_time',
         ]
+
 
 class StatusEditSerializer(serializers.ModelSerializer):
     class Meta:
@@ -36,6 +38,7 @@ class StatusEditSerializer(serializers.ModelSerializer):
         ]
         read_only_fields = ['id']
 
+
 class ProblemSerializer(serializers.ModelSerializer):
     class Meta:
         model = Problem
@@ -48,4 +51,3 @@ class ProblemSerializer(serializers.ModelSerializer):
             'testdata_url',
             'testdata_last_update',
         ]
-

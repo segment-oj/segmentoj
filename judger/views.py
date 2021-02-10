@@ -17,6 +17,7 @@ from .serializers import StatusSerializer, StatusEditSerializer, ProblemSerializ
 
 # Create your views here.
 
+
 class JudgerTaskView(APIView):
     @method_decorator(judger_account_required())
     @method_decorator(parameter_required('tid'))
@@ -38,6 +39,7 @@ class JudgerTaskView(APIView):
         ps.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class JudgerProblemView(APIView):
     @method_decorator(parameter_required('pid'))
     @method_decorator(judger_account_required())
@@ -47,6 +49,7 @@ class JudgerProblemView(APIView):
 
         ps = ProblemSerializer(problem)
         return Response({'res': ps.data}, status=status.HTTP_200_OK)
+
 
 class JudgerTokenView(APIView):
     @method_decorator(judger_account_required())
@@ -80,4 +83,3 @@ class JudgerTokenView(APIView):
             'code': 1000,
             'res': token,
         }, status=status.HTTP_200_OK)
-

@@ -9,6 +9,7 @@ from account.models import Account
 
 # Create your tests here.
 
+
 class ProblemViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
 
@@ -105,6 +106,7 @@ class ProblemDescriptionViewTest(TestCase):
         self.assertIsNotNone(data)
         self.assertEqual(data.get('description'), ac_data['description'])
 
+
 class ProblemTestdataViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
 
@@ -141,6 +143,7 @@ class ProblemTestdataViewTest(TestCase):
         target = Problem.objects.get(pid=1001)
         self.assertEqual(target.testdata_url, request_data['testdata_url'])
 
+
 class TagViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
 
@@ -167,6 +170,7 @@ class TagViewTest(TestCase):
         self.assertEqual(data.get('content'), ac_data['content'])
         self.assertEqual(data.get('color'), ac_data['color'])
 
+
 class TagListViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
 
@@ -179,4 +183,3 @@ class TagListViewTest(TestCase):
         request = self.factory.get(self.base_url)
         response = self.view(request)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        

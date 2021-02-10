@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 
+
 def syllable_required(syllable_id, syllable_type=None, is_get_request=False):
     def decorator(func):
         def _wrapped_view(request, *args, **kwargs):
@@ -24,6 +25,7 @@ def syllable_required(syllable_id, syllable_type=None, is_get_request=False):
         return _wrapped_view
 
     return decorator
+
 
 def parameter_required(parameter_id):
     def decorator(func):
@@ -56,6 +58,7 @@ def login_required():
 
     return decorator
 
+
 def parse_as_integer(sid):
     def decorator(func):
         def _wrapped_view(request, *args, **kwargs):
@@ -69,7 +72,7 @@ def parse_as_integer(sid):
             request.GET = data
 
             return func(request, *args, **kwargs)
-        
+
         return _wrapped_view
-    
+
     return decorator

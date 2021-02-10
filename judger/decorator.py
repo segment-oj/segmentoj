@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 
+
 def judger_account_required():
     def decorator(func):
         def _wrapped_view(request, *args, **kwargs):

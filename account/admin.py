@@ -20,6 +20,8 @@ from django.views.decorators.debug import sensitive_post_parameters
 from .models import Account
 
 # Register your models here.
+
+
 @admin.register(Account)
 class AccountAdmin(admin.ModelAdmin):
     add_form_template = 'admin/auth/user/add_form.html'

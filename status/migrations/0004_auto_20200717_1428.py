@@ -21,7 +21,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='statusdetail',
             name='main_state',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, related_name='judge_detail', to='status.Status'),
+            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='judge_detail', to='status.Status'),
             preserve_default=False,
         ),
         migrations.AlterField(

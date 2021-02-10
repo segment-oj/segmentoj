@@ -16,7 +16,7 @@ def captcha_required():
                 return Response({
                     "detail": "Captcha is required"
                 }, status=status.HTTP_400_BAD_REQUEST)
-            
+
             if not check(captcha_key, captcha_answer):
                 return Response({
                     "detail": "Captcha wrong"

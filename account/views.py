@@ -23,6 +23,8 @@ import os.path
 import base64
 
 # Create your views here.
+
+
 class AccountSessionView(APIView):
 
     # Create user session(Login)
@@ -184,6 +186,7 @@ class AccountUsernameAccessibilityView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(status=status.HTTP_409_CONFLICT)
+
 
 class AccountEmailView(APIView):
     @method_decorator(login_required())

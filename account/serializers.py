@@ -35,6 +35,7 @@ class AccountSerializer(serializers.ModelSerializer):
             'email_verified'
         ]
 
+
 class AccountIntroductionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account

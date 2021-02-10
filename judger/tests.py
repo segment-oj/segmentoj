@@ -9,6 +9,7 @@ from .views import JudgerProblemView, JudgerTaskView
 
 # Create your tests here.
 
+
 class JudgerProblemViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
 
@@ -44,6 +45,7 @@ class JudgerProblemViewTest(TestCase):
         self.assertIsNone(data.get('enabled'))
         self.assertIsNone(data.get('tags'))
         self.assertIsNone(data.get('description'))
+
 
 class JudgerTaskViewTest(TestCase):
     fixtures = ['testdatabase.yaml']

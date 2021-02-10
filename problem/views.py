@@ -73,6 +73,7 @@ class ProblemDescriptionView(APIView):
         pds = ProblemDescriptionSerializer(problem)
         return Response({'res': pds.data}, status=status.HTTP_200_OK)
 
+
 class ProblemTestdataView(APIView):
     @method_decorator(parameter_required('pid'))
     @method_decorator(view_hidden_problem_permission_check())
@@ -108,6 +109,7 @@ class ProblemTestdataView(APIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class TagView(APIView):
     @method_decorator(parameter_required('tid'))
     def get(self, request, tid):
@@ -136,6 +138,7 @@ class TagView(APIView):
         tag = get_object_or_404(Tag, id=tid)
         tag.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class ProblemListView(APIView):
     def get(self, request):

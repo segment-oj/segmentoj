@@ -2,6 +2,8 @@ from django.test import TestCase
 from captcha.tools import GenCaptcha
 
 # Create your tests here.
+
+
 class GenCaptchaTest(TestCase):
     # set up test
     def setUp(self):
@@ -10,7 +12,7 @@ class GenCaptchaTest(TestCase):
     def testZ_get_random_color(self):
         for i in range(1, 1000):
             color = self.captcha.get_random_color()
-            
+
             r = color[0]
             g = color[1]
             b = color[2]
@@ -33,7 +35,7 @@ class GenCaptchaTest(TestCase):
 
             is_char = is_number or is_lower or is_upper
             is_o = random_char == 'o' or random_char == 'O'
-            resault =  is_char and not is_o
+            resault = is_char and not is_o
 
             self.assertTrue(resault)
 

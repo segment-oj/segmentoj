@@ -30,7 +30,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='status',
             name='judge_by',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING, related_name='judged_status', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.DO_NOTHING,
+                                    related_name='judged_status', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AddField(
             model_name='status',
@@ -50,7 +51,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='status',
             name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='status', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='status', to=settings.AUTH_USER_MODEL),
         ),
         migrations.AlterIndexTogether(
             name='status',

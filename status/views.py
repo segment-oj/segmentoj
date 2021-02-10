@@ -17,6 +17,8 @@ from . import JudgeState as JState
 import requests
 
 # Create your views here.
+
+
 class StatusView(APIView):
     @method_decorator(parameter_required('sid'))
     def get(self, request, sid):

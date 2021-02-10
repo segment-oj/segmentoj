@@ -105,9 +105,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
-    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',},
-    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
 AUTH_USER_MODEL = 'account.Account'
@@ -174,7 +174,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 JUDGER_PORT = {
     # This base url for server to connect judger port.
     'base_url': 'http://127.0.0.1:3000',
-    
+
     # Uncomment this if you wants to use password auth too.
     # This is suggested in production environment.
     # NOTE: you need to config the judger ports too.

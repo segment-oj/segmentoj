@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='problem',
-            options={'permissions': (('view_hidden', 'Can view hidden problem'), ('download_testdata', 'Can download problem testdata'))},
+            options={'permissions': (('view_hidden', 'Can view hidden problem'),
+                                     ('download_testdata', 'Can download problem testdata'))},
         ),
     ]

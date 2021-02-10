@@ -12,6 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='problem',
-            options={'permissions': (('add', 'Can add problems'), ('remove', 'Can delete problems'), ('view_hidden', 'Can view hidden problems'))},
+            options={'permissions': (('add', 'Can add problems'), ('remove', 'Can delete problems'),
+                                     ('view_hidden', 'Can view hidden problems'))},
         ),
     ]

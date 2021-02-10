@@ -13,6 +13,8 @@ from .models import Account
 from captcha.models import CaptchaStore
 
 # Create your tests here.
+
+
 class AccountViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
 
@@ -107,7 +109,7 @@ class AccountViewTest(TestCase):
         request = self.factory.get(self.base_url, format='json')
         res = self.view(request)
         self.assertEqual(res.status_code, status.HTTP_404_NOT_FOUND)
-    
+
     def testH_change_user_admin(self):
         request_data = {
             'username': 'testusernewname',
@@ -140,7 +142,7 @@ class AccountViewTest(TestCase):
         target = Account.objects.get(id=target.id)
         self.assertEqual(target.username, request_data['username'])
         self.assertEqual(target.lang, request_data['lang'])
-    
+
     def testJ_change_user_admin(self):
         request_data = {
             'is_active': False
@@ -182,6 +184,7 @@ class AccountViewTest(TestCase):
 
         target = Account.objects.get(id=1)
         self.assertEqual(target.is_active, ac_data['is_active'])
+
 
 class AccountIntroductionViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
@@ -226,7 +229,7 @@ class AccountIntroductionViewTest(TestCase):
         request = self.factory.patch(self.base_url.format(uid=target.id), data=request_data, format='json')
         force_authenticate(request, Account.objects.get(username='admin'))
         response = self.view(request, uid=target.id)
-        
+
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         target = Account.objects.get(username='szdytom')
@@ -256,6 +259,7 @@ class AccountIntroductionViewTest(TestCase):
         response = self.view(request, uid=1)
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+
 class AccountPasswordViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
 
@@ -277,6 +281,7 @@ class AccountPasswordViewTest(TestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertTrue(user.check_password('654321'))
+
 
 class AccountUsernameAccessibilityViewTest(TestCase):
     fixtures = ['testdatabase.yaml']

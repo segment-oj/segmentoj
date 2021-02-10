@@ -4,6 +4,7 @@ from rest_framework import serializers
 
 from problem.models import Problem, Tag
 
+
 class ProblemSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -27,6 +28,7 @@ class ProblemSerializer(serializers.ModelSerializer):
             "description": {"write_only": True},
         }
 
+
 class ProblemDescriptionSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -37,12 +39,14 @@ class ProblemDescriptionSerializer(serializers.ModelSerializer):
 
         depth = 0
 
+
 class TagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tag
         fields = "__all__"
         read_only_fields = ["id"]
+
 
 class ProblemListSerializer(serializers.ModelSerializer):
 

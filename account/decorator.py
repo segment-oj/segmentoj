@@ -6,6 +6,7 @@ from rest_framework import status
 from datetime import timedelta
 from django.core.signing import TimestampSigner, BadSignature, SignatureExpired
 
+
 def password_verification_required():
     def decorator(func):
         def _wrapped_view(request, *args, **kwargs):
@@ -20,12 +21,13 @@ def password_verification_required():
                 return Response({
                     'detail': 'Invalid password.'
                 }, status=status.HTTP_403_FORBIDDEN)
-            
+
             return func(request, *args, **kwargs)
 
         return _wrapped_view
 
     return decorator
+
 
 def email_verification_required():
     def decorator(func):

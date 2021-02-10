@@ -8,7 +8,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 class GenCaptcha:
-    
+
     def __init__(self):
         CAPTCHA_CONFIG = settings.CAPTCHA
         self.height = CAPTCHA_CONFIG['picture_height']
@@ -54,8 +54,8 @@ class GenCaptcha:
             x2 = random.randint(0, self.width)
             y1 = random.randint(0, self.height)
             y2 = random.randint(0, self.height)
-            draw.line((x1, y1, x2, y2), fill = self.get_random_color())
-    
+            draw.line((x1, y1, x2, y2), fill=self.get_random_color())
+
     # draw random dots to interfere
     # @param -> draw: PIL ImageDraw Object
     # @return -> None
@@ -63,7 +63,7 @@ class GenCaptcha:
         for i in range(self.dot_number):
             x = random.randint(0, self.width)
             y = random.randint(0, self.height)
-            draw.point((x,y), fill = self.get_random_color())
+            draw.point((x, y), fill=self.get_random_color())
 
     def check_similarity(self, color1, color2):
         r1 = color1[0]
@@ -99,13 +99,13 @@ class GenCaptcha:
 
         # create new pic with random background
         img = Image.new(mode='RGB', size=(self.width, self.height), color=bg_color)
-        
+
         # get ImageDraw object
         draw = ImageDraw.Draw(img)
-        
+
         # set font with .ttf file
         font = ImageFont.truetype(font=self.fonttype, size=self.fontsize)
-        
+
         for i in range(self.length):
             # draw text
             random_txt = self.get_random_char()
@@ -113,18 +113,18 @@ class GenCaptcha:
             # avoid the text color is same to background color
             while self.check_similarity(bg_color, txt_color):
                 txt_color = self.get_random_color()
-            
+
             # draw text
             # I don't quite sure what the numbers is all about under.
             # TODO: fix number under
             draw.text((10 + self.fontsize * i, 3), text=random_txt, fill=txt_color, font=font)
-            
+
             ans += random_txt
 
         # draw interfere elements
         self.draw_line(draw)
         self.draw_point(draw)
-        
+
         buffer = BytesIO()
         img.save(buffer, format='png')
         buffer.seek(0)

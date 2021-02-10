@@ -11,6 +11,7 @@ from . import JudgeLang as JLang
 
 # Create your tests here.
 
+
 class StatusViewTest(TestCase):
     fixtures = ['testdatabase.yaml']
 
