@@ -26,6 +26,7 @@ class Problem(models.Model):
     memory_limit = models.IntegerField(default=128000)
 
     testdata_url = models.TextField(blank=True, null=True)
+    testdata_last_update = models.DateTimeField(blank=True, null=True)
 
     class Meta:
         permissions = ( # (permission name, promission explanation)

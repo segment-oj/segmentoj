@@ -46,5 +46,6 @@ class ProblemSerializer(serializers.ModelSerializer):
             'time_limit',
             'memory_limit',
             'testdata_url',
+            'testdata_last_update',
         ]
 

@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import permission_required
 from django.db.models import Max
+from django.utils import timezone
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -92,6 +93,7 @@ class ProblemTestdataView(APIView):
         new_value = request.data['testdata_url']
         problem = get_object_or_404(Problem, pid=pid)
         problem.testdata_url = new_value
+        problem.testdata_last_update = timezone.now()
         problem.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
@@ -101,6 +103,7 @@ class ProblemTestdataView(APIView):
     def delete(self, request, pid):
         problem = get_object_or_404(Problem, pid=pid)
         problem.testdata_url = None
+        problem.testdata_last_update = timezone.now()
         problem.save()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
