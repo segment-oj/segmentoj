@@ -38,7 +38,7 @@ class StatusView(APIView):
 
         data = request.data
 
-        if 1 <= data['lang'] <= 10:
+        if not 1 <= data['lang'] <= 10:
             return Response({
                 'code': 4001,
                 'detail': 'Unknow language',
