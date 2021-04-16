@@ -330,7 +330,7 @@
     lang: cxx;17,clang,O2
     solved: 0
     submit_time: 0
-    frontend_config: null
+    extra_data: '{a, b, c}'
     is_judger: false
     email_verified: false
     groups: []
@@ -350,7 +350,7 @@
     lang: cxx;17,clang,O2
     solved: 0
     submit_time: 0
-    frontend_config: null
+    extra_data: null
     is_judger: false
     email_verified: true
     groups:
@@ -371,7 +371,7 @@
     lang: cxx;17,clang,O2
     solved: 0
     submit_time: 0
-    frontend_config: null
+    extra_data: null
     is_judger: false
     email_verified: false
     groups: []
@@ -391,7 +391,7 @@
     lang: cxx;17,clang,O2
     solved: 0
     submit_time: 0
-    frontend_config: null
+    extra_data: null
     is_judger: true
     email_verified: false
     groups: []

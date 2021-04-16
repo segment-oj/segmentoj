@@ -22,7 +22,7 @@ class AccountSerializer(serializers.ModelSerializer):
             'date_joined',
             'last_login',
             'email_verified',
-            'frontend_config',
+            'extra_data',
             'avatar_url',
         ]
         read_only_fields = [

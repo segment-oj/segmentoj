@@ -12,7 +12,7 @@ class Account(AbstractUser):
 
     avatar_url = models.TextField(blank=True, null=True)
 
-    frontend_config = models.TextField(blank=True, null=True)
+    extra_data = models.TextField(blank=True, null=True)
 
     first_name = None  # delete unused field
     last_name = None  # delete unused field
