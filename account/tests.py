@@ -6,6 +6,7 @@ from rest_framework.test import APIRequestFactory, APIClient, force_authenticate
 from .views import (
     AccountView,
     AccountIntroductionView,
+    AccountExtraDataView,
     AccountUsernameAccessibilityView,
     AccountPasswordView,
 )
@@ -255,6 +256,80 @@ class AccountIntroductionViewTest(TestCase):
     def testV_user_patch_other_introduction_failed(self):
         request_data = {
             'introduction': 'Modified!',
+        }
+
+        request = self.factory.patch(self.base_url.format(uid=1), data=request_data, format='json')
+        force_authenticate(request, Account.objects.get(username='fat'))
+        response = self.view(request, uid=1)
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
+
+
+class AccountExtraDataViewTest(TestCase):
+    fixtures = ['testdatabase.yaml']
+
+    def setUp(self):
+        self.base_url = '/api/account/{uid}/extradata'
+        self.factory = APIRequestFactory()
+        self.view = AccountExtraDataView.as_view()
+
+    def testZ_get_user_extra_data(self):
+        target = Account.objects.get(username='szdytom')
+        ac_data = {
+            'extra_data': '{"szdytom": 1}',
+        }
+
+        request = self.factory.get(self.base_url.format(uid=target.id))
+        response = self.view(request, uid=target.id)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        data = response.data.get('res')
+        self.assertIsNotNone(data)
+
+        self.assertEqual(data.get('extra_data'), ac_data['extra_data'])
+
+    def testY_admin_patch_own_extra_data(self):
+        request_data = {
+            'extra_data': '{m, m, m}',
+        }
+
+        target = Account.objects.get(username='admin')
+        request = self.factory.patch(self.base_url.format(uid=target.id), data=request_data, format='json')
+        force_authenticate(request, target)
+        response = self.view(request, uid=target.id)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def testX_admin_patch_other_introduction(self):
+        request_data = {
+            'extra_data': '{a, b, c}',
+        }
+
+        target = Account.objects.get(username='szdytom')
+        request = self.factory.patch(self.base_url.format(uid=target.id), data=request_data, format='json')
+        force_authenticate(request, Account.objects.get(username='admin'))
+        response = self.view(request, uid=target.id)
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        target = Account.objects.get(username='szdytom')
+        self.assertEqual(target.extra_data, request_data['extra_data'])
+
+    def testW_user_patch_own_extra_data(self):
+        request_data = {
+            'extra_data': '{a, b, c}',
+        }
+
+        target = Account.objects.get(username='fat')
+        request = self.factory.patch(self.base_url.format(uid=target.id), data=request_data, format='json')
+        force_authenticate(request, target)
+        response = self.view(request, uid=target.id)
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+        target = Account.objects.get(username='fat')
+        self.assertEqual(target.extra_data, request_data['extra_data'])
+
+    def testV_user_patch_other_extra_data_failed(self):
+        request_data = {
+            'extra_data': '{a, b, c}',
         }
 
         request = self.factory.patch(self.base_url.format(uid=1), data=request_data, format='json')

@@ -26,6 +26,7 @@ from rest_framework_simplejwt.views import (
 from account.views import (
     AccountView,
     AccountIntroductionView,
+    AccountExtraDataView,
     AccountUsernameAccessibilityView,
     AccountPasswordView,
     AccountEmailView,
@@ -44,6 +45,7 @@ urlpatterns = [
     path('api/account', AccountView.as_view()),
     path('api/account/<int:uid>', AccountView.as_view()),
     path('api/account/<int:uid>/introduction', AccountIntroductionView.as_view()),
+    path('api/account/<int:uid>/extradata', AccountExtraDataView.as_view()),
     path('api/account/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/account/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/account/username/accessibility/<str:username>', AccountUsernameAccessibilityView.as_view()),
