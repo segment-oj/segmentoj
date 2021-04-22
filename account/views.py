@@ -16,7 +16,7 @@ from segmentoj import tools
 from segmentoj.decorator import syllable_required, parameter_required, login_required
 from captcha.decorator import captcha_required
 from .models import Account
-from .serializers import AccountSerializer, AccountIntroductionSerializer
+from .serializers import AccountSerializer, AccountIntroductionSerializer, AccountExtraDataSerializer
 from .decorator import email_verification_required, password_verification_required
 
 import os.path
@@ -79,6 +79,32 @@ class AccountIntroductionView(APIView):
         data = request.data
         user = get_object_or_404(Account, id=uid)
         us = AccountIntroductionSerializer(user, data=data, partial=True)
+        us.is_valid(raise_exception=True)
+        us.save()
+
+        return Response({'detail': 'Success'}, status=status.HTTP_204_NO_CONTENT)
+
+
+class AccountExtraDataView(APIView):
+
+    # Get User Extra Data
+    @method_decorator(parameter_required('uid'))
+    def get(self, request, uid):
+        user = get_object_or_404(Account, id=uid)
+        us = AccountExtraDataSerializer(user)
+        return Response({'res': us.data}, status=status.HTTP_200_OK)
+
+    @method_decorator(parameter_required('uid'))
+    def patch(self, request, uid):
+        if not request.user.has_perm('account.change_user'):
+            if request.user.id != uid:
+                return Response(
+                    {'detail': 'You have no permission to change this user'}, status=status.HTTP_403_FORBIDDEN
+                )
+
+        data = request.data
+        user = get_object_or_404(Account, id=uid)
+        us = AccountExtraDataSerializer(user, data=data, partial=True)
         us.is_valid(raise_exception=True)
         us.save()
 

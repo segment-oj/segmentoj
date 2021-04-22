@@ -371,7 +371,7 @@
     lang: cxx;17,clang,O2
     solved: 0
     submit_time: 0
-    extra_data: null
+    extra_data: '{"szdytom": 1}'
     is_judger: false
     email_verified: false
     groups: []

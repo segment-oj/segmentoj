@@ -22,7 +22,6 @@ class AccountSerializer(serializers.ModelSerializer):
             'date_joined',
             'last_login',
             'email_verified',
-            'extra_data',
             'avatar_url',
         ]
         read_only_fields = [
@@ -43,5 +42,16 @@ class AccountIntroductionSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'introduction'
+        ]
+        read_only_fields = ['id']
+
+
+class AccountExtraDataSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        depth = 0
+        fields = [
+            'id',
+            'extra_data'
         ]
         read_only_fields = ['id']
