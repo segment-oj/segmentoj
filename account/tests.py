@@ -53,8 +53,7 @@ class AccountViewTest(TestCase):
             'lang': 'cxx;17,clang,O2',
             'is_staff': True,
             'is_active': True,
-            'is_superuser': True,
-            'extra_data': '{a, b, c}'
+            'is_superuser': True
         }
 
         request = self.factory.get(self.base_url)
@@ -70,7 +69,6 @@ class AccountViewTest(TestCase):
         self.assertEqual(res_data.get('is_staff'), user_data['is_staff'])
         self.assertEqual(res_data.get('is_active'), user_data['is_active'])
         self.assertEqual(res_data.get('is_superuser'), user_data['is_superuser'])
-        self.assertEqual(res_data.get('extra_data'), user_data['extra_data'])
 
     def testC_get_404_user(self):
         request = self.factory.get(self.base_url)
