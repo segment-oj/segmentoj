@@ -1,3 +1,7 @@
+import json
+from re import sub
+import time
+
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.conf import settings
@@ -61,6 +65,17 @@ class StatusView(APIView):
         status_element = ss.save()
 
         request.user.submit_time += 1
+
+        submit_list = json.loads(request.user.submit_list)
+        if submit_list.count(data['problem']) == 0:
+            submit_list.append(data['problem'])
+        request.user.submit_list = json.dumps(submit_list)
+
+        submit_heatmap = json.loads(request.user.submit_heatmap)
+        localtime = time.localtime(time.time())
+        submit_heatmap[localtime.tm_mon - 1]["data"][localtime.tm_mday - 1] += 1
+        request.user.submit_heatmap = json.dumps(submit_heatmap)
+
         request.user.save()
 
         def cannot_judge(reason, state=JState.JUDGE_STATUS_CFGE):

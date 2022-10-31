@@ -21,7 +21,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = (
-    'sx!y=avrq(g1o+-7o2ef_4e*slekh5vtd-+6rs&c-nbfzw0*b^'  # CHANGE HERE ON PRODUCTION
+    # CHANGE HERE ON PRODUCTION
+    'sx!y=avrq(g1o+-7o2ef_4e*slekh5vtd-+6rs&c-nbfzw0*b^'
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -68,6 +69,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'segmentoj.urls'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 TEMPLATES = [
     {
@@ -150,7 +153,8 @@ REST_FRAMEWORK = {
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
 EMAIL_HOST = os.environ.get('BACKEND_EMAIL_HOST')
-EMAIL_PORT = int(os.environ.get('BACKEND_EMAIL_PORT')) if os.environ.get('BACKEND_EMAIL_PORT') else 25
+EMAIL_PORT = int(os.environ.get('BACKEND_EMAIL_PORT')
+                 ) if os.environ.get('BACKEND_EMAIL_PORT') else 25
 EMAIL_HOST_USER = os.environ.get('BACKEND_EMAIL_USERNAME')
 EMAIL_HOST_PASSWORD = os.environ.get('BACKEND_EMAIL_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER

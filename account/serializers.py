@@ -1,5 +1,6 @@
 # Serializers
 
+from dataclasses import field
 from rest_framework import serializers
 from account.models import Account
 
@@ -53,5 +54,18 @@ class AccountExtraDataSerializer(serializers.ModelSerializer):
         fields = [
             'id',
             'extra_data'
+        ]
+        read_only_fields = ['id']
+
+class AccountStatisticSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Account
+        depth = 0
+        fields = [
+            'id',
+            'ac_list',
+            'submit_list',
+            'ac_heatmap',
+            'submit_heatmap'
         ]
         read_only_fields = ['id']

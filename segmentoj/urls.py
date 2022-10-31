@@ -30,6 +30,7 @@ from account.views import (
     AccountUsernameAccessibilityView,
     AccountPasswordView,
     AccountEmailView,
+    AccountStatisticView
 )
 
 from judger.views import JudgerProblemView, JudgerTaskView, JudgerTokenView
@@ -46,6 +47,7 @@ urlpatterns = [
     path('api/account/<int:uid>', AccountView.as_view()),
     path('api/account/<int:uid>/introduction', AccountIntroductionView.as_view()),
     path('api/account/<int:uid>/extradata', AccountExtraDataView.as_view()),
+    path('api/account/<int:uid>/statistic', AccountStatisticView.as_view()),
     path('api/account/token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/account/token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/account/username/accessibility/<str:username>', AccountUsernameAccessibilityView.as_view()),

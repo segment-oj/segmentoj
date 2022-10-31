@@ -16,7 +16,7 @@ from segmentoj import tools
 from segmentoj.decorator import syllable_required, parameter_required, login_required
 from captcha.decorator import captcha_required
 from .models import Account
-from .serializers import AccountSerializer, AccountIntroductionSerializer, AccountExtraDataSerializer
+from .serializers import AccountSerializer, AccountIntroductionSerializer, AccountExtraDataSerializer, AccountStatisticSerializer
 from .decorator import email_verification_required, password_verification_required
 
 import os.path
@@ -109,6 +109,15 @@ class AccountExtraDataView(APIView):
         us.save()
 
         return Response({'detail': 'Success'}, status=status.HTTP_204_NO_CONTENT)
+
+
+class AccountStatisticView(APIView):
+    
+    @method_decorator(parameter_required('uid'))
+    def get(self, request, uid):
+        user = get_object_or_404(Account, id=uid)
+        us = AccountStatisticSerializer(user)
+        return Response({'res': us.data}, status=status.HTTP_200_OK)
 
 
 class AccountView(APIView):
