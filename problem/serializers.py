@@ -1,7 +1,6 @@
 # Serializers
 
 from rest_framework import serializers
-
 from problem.models import Problem, Tag
 
 
@@ -37,6 +36,19 @@ class ProblemDescriptionSerializer(serializers.ModelSerializer):
             "description",
         ]
 
+        depth = 0
+
+
+class ProblemStatisticSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Problem
+        fields = [
+            "submit_cnt",
+            "status_cnt"
+        ]
+
+        read_only_fields = ["submit_cnt", "status_cnt"]
         depth = 0
 
 

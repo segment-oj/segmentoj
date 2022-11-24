@@ -31,6 +31,9 @@ class Problem(models.Model):
     testdata_url = models.TextField(blank=True, null=True)
     testdata_last_update = models.DateTimeField(blank=True, null=True)
 
+    submit_cnt = models.IntegerField(default=0)
+    status_cnt = models.TextField(blank=True, null=True)
+
     class Meta:
         permissions = (  # (permission name, promission explanation)
             ('view_hidden', 'Can view hidden problem'),

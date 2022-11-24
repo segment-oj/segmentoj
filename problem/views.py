@@ -13,6 +13,7 @@ from problem.models import Problem, Tag
 from .serializers import (
     ProblemSerializer,
     ProblemDescriptionSerializer,
+    ProblemStatisticSerializer,
     ProblemListSerializer,
     TagSerializer,
 )
@@ -72,6 +73,16 @@ class ProblemDescriptionView(APIView):
 
         pds = ProblemDescriptionSerializer(problem)
         return Response({'res': pds.data}, status=status.HTTP_200_OK)
+
+
+class ProblemStatisticView(APIView):
+    @method_decorator(parameter_required('pid'))
+    @method_decorator(view_hidden_problem_permission_check())
+    def get(self, request, pid):
+        problem = get_object_or_404(Problem, pid=pid)
+
+        pss = ProblemStatisticSerializer(problem)
+        return Response({'res': pss.data}, status=status.HTTP_200_OK)
 
 
 class ProblemTestdataView(APIView):
@@ -168,7 +179,8 @@ class ProblemListView(APIView):
         queryset = Problem.objects.filter(**problem_filter).order_by('pid')
 
         pg = LimitOffsetPagination()
-        problems = pg.paginate_queryset(queryset=queryset, request=request, view=self)
+        problems = pg.paginate_queryset(
+            queryset=queryset, request=request, view=self)
 
         ps = ProblemListSerializer(problems, many=True)
         return Response(
